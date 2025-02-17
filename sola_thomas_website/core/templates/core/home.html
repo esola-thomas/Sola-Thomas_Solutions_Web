@@ -5,78 +5,161 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Welcome to Sola-Thomas LLC - Professional IT Solutions{% endblock %}
+{% block title %}Melbourne's Trusted IT Solutions Provider | Sola-Thomas LLC{% endblock %}
 
-{% block meta_description %}Discover professional IT solutions for home and business. Expert technology consulting, support, and services by Sola-Thomas LLC.{% endblock %}
+{% block meta_description %}Expert IT solutions for homes and businesses in Melbourne, FL. Specializing in computer repairs, network setup, security systems, and custom technology solutions.{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
 <section class="hero-section text-center py-5">
     <div class="container">
-        <h1 class="display-4">Professional IT Solutions</h1>
-        <p class="lead">Empowering homes and businesses with reliable technology solutions</p>
+        <h1 class="display-4">Your Local IT Solutions Partner</h1>
+        <p class="lead mb-4">Family-owned, customer-focused technology solutions in Melbourne, FL. We make technology work for you.</p>
+        <div class="row justify-content-center mb-4">
+            <div class="col-md-8">
+                <div class="d-flex justify-content-center gap-3">
+                    <div class="text-center px-3">
+                        <i class="fas fa-clock fa-2x mb-2"></i>
+                        <p class="mb-0"><strong>24hr Response</strong></p>
+                    </div>
+                    <div class="text-center px-3">
+                        <i class="fas fa-shield-alt fa-2x mb-2"></i>
+                        <p class="mb-0"><strong>Trusted Experts</strong></p>
+                    </div>
+                    <div class="text-center px-3">
+                        <i class="fas fa-hand-holding-usd fa-2x mb-2"></i>
+                        <p class="mb-0"><strong>Affordable Solutions</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="mt-4">
-            <a href="{% url 'services:home_services' %}" class="btn btn-primary me-2">Home Services</a>
-            <a href="{% url 'services:business_services' %}" class="btn btn-secondary">Business Services</a>
+            <a href="{% url 'services:home_services' %}" class="btn btn-primary btn-lg me-2">Home Services</a>
+            <a href="{% url 'services:business_services' %}" class="btn btn-secondary btn-lg">Business Solutions</a>
         </div>
     </div>
 </section>
 
-<!-- Featured Services -->
+<!-- Services Overview -->
 <section class="services-section py-5 bg-light">
     <div class="container">
-        <h2 class="text-center mb-4">Our Services</h2>
+        <h2 class="text-center mb-5">Our Services</h2>
         <div class="row">
-            {% for service in services %}
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
-                    {% if service.image %}
-                    <img src="{{ service.image.url }}" class="card-img-top" alt="{{ service.name }}">
-                    {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title">{{ service.name }}</h5>
-                        <p class="card-text">{{ service.description|truncatewords:30 }}</p>
-                        {% if service.id %}
-                        <a href="{% url 'services:book_service' service_id=service.id %}" class="btn btn-primary">Learn More</a>
-                        {% endif %}
+            <!-- Home Services Carousel -->
+            <div class="col-md-6 mb-4">
+                <div class="card service-card">
+                    <h3 class="card-header text-center bg-primary text-white py-3">Home Services</h3>
+                    <div id="homeServicesCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="card-body text-center py-4">
+                                    <i class="fas fa-laptop fa-3x mb-3 text-primary"></i>
+                                    <h4>Computer Repairs</h4>
+                                    <p>Expert diagnostics and repairs for all computer issues</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="card-body text-center py-4">
+                                    <i class="fas fa-network-wired fa-3x mb-3 text-primary"></i>
+                                    <h4>Network Setup</h4>
+                                    <p>Secure and reliable home network installation</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="card-body text-center py-4">
+                                    <i class="fas fa-video fa-3x mb-3 text-primary"></i>
+                                    <h4>Security Cameras</h4>
+                                    <p>Professional security camera installation</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-indicators position-relative mt-3">
+                            <button type="button" data-bs-target="#homeServicesCarousel" data-bs-slide-to="0" class="active bg-primary" aria-current="true"></button>
+                            <button type="button" data-bs-target="#homeServicesCarousel" data-bs-slide-to="1" class="bg-primary"></button>
+                            <button type="button" data-bs-target="#homeServicesCarousel" data-bs-slide-to="2" class="bg-primary"></button>
+                        </div>
+                        <a href="{% url 'services:home_services' %}" class="btn btn-primary mt-3 w-75 mx-auto d-block">View All Home Services</a>
                     </div>
                 </div>
             </div>
-            {% endfor %}
+
+            <!-- Business Services Carousel -->
+            <div class="col-md-6 mb-4">
+                <div class="card service-card">
+                    <h3 class="card-header text-center bg-secondary text-white py-3">Business Solutions</h3>
+                    <div id="businessServicesCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="card-body text-center py-4">
+                                    <i class="fas fa-cash-register fa-3x mb-3 text-secondary"></i>
+                                    <h4>POS Systems</h4>
+                                    <p>Complete point-of-sale support and maintenance</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="card-body text-center py-4">
+                                    <i class="fas fa-server fa-3x mb-3 text-secondary"></i>
+                                    <h4>Network Infrastructure</h4>
+                                    <p>Robust business network solutions</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="card-body text-center py-4">
+                                    <i class="fas fa-tools fa-3x mb-3 text-secondary"></i>
+                                    <h4>Custom Solutions</h4>
+                                    <p>Tailored IT solutions for your business needs</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-indicators position-relative mt-3">
+                            <button type="button" data-bs-target="#businessServicesCarousel" data-bs-slide-to="0" class="active bg-secondary" aria-current="true"></button>
+                            <button type="button" data-bs-target="#businessServicesCarousel" data-bs-slide-to="1" class="bg-secondary"></button>
+                            <button type="button" data-bs-target="#businessServicesCarousel" data-bs-slide-to="2" class="bg-secondary"></button>
+                        </div>
+                        <a href="{% url 'services:business_services' %}" class="btn btn-secondary mt-3 w-75 mx-auto d-block">View All Business Solutions</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- Testimonials -->
-<section class="testimonials-section py-5">
+<!-- Why Choose Us -->
+<section class="features-section py-5">
     <div class="container">
-        <h2 class="text-center mb-4">What Our Clients Say</h2>
-        <div class="row">
-            {% for testimonial in testimonials %}
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <p class="card-text">"{{ testimonial.content }}"</p>
-                        <footer class="blockquote-footer mt-2">
-                            {{ testimonial.client_name }}
-                            {% if testimonial.client_company %}
-                            <cite title="{{ testimonial.client_company }}">{{ testimonial.client_company }}</cite>
-                            {% endif %}
-                        </footer>
-                    </div>
+        <h2 class="text-center mb-4">Why Choose Sola-Thomas LLC?</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="text-center">
+                    <i class="fas fa-users fa-3x mb-3 text-primary"></i>
+                    <h3 class="h5">Family-Owned Business</h3>
+                    <p>Personal attention and care from a local team you can trust</p>
                 </div>
             </div>
-            {% endfor %}
+            <div class="col-md-4">
+                <div class="text-center">
+                    <i class="fas fa-tools fa-3x mb-3 text-primary"></i>
+                    <h3 class="h5">Expert Solutions</h3>
+                    <p>Professional service from certified technicians</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <i class="fas fa-dollar-sign fa-3x mb-3 text-primary"></i>
+                    <h3 class="h5">Affordable Rates</h3>
+                    <p>Cost-effective solutions that fit your budget</p>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
 <!-- Call to Action -->
-<section class="cta-section py-5 bg-primary text-white text-center">
-    <div class="container">
-        <h2 class="mb-4">Ready to Get Started?</h2>
-        <p class="lead mb-4">Contact us today for a free consultation</p>
-        <a href="{% url 'core:contact' %}" class="btn btn-light btn-lg">Contact Us</a>
+<section class="cta-section py-5 bg-primary text-white">
+    <div class="container text-center">
+        <h2 class="mb-3">Ready to Solve Your IT Challenges?</h2>
+        <p class="lead mb-4">Get in touch for a free consultation and let us show you how we can help.</p>
+        <a href="{% url 'core:contact' %}" class="btn btn-light btn-lg">Contact Us Today</a>
     </div>
 </section>
 {% endblock %}
