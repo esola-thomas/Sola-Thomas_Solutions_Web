@@ -131,6 +131,11 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
+# Stripe Settings
+STRIPE_PUBLISHABLE_KEY = 'your_stripe_publishable_key'
+STRIPE_SECRET_KEY = 'your_stripe_secret_key'
+STRIPE_WEBHOOK_SECRET = 'your_stripe_webhook_secret'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
