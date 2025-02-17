@@ -36,7 +36,9 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ service.name }}</h5>
                         <p class="card-text">{{ service.description|truncatewords:30 }}</p>
-                        <a href="{% url 'services:book_service' service.id %}" class="btn btn-primary">Learn More</a>
+                        {% if service.id %}
+                        <a href="{% url 'services:book_service' service_id=service.id %}" class="btn btn-primary">Learn More</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
