@@ -136,6 +136,13 @@ STRIPE_PUBLISHABLE_KEY = 'your_stripe_publishable_key'
 STRIPE_SECRET_KEY = 'your_stripe_secret_key'
 STRIPE_WEBHOOK_SECRET = 'your_stripe_webhook_secret'
 
+# Email Settings
+SENDGRID_API_KEY = 'YOUR_SENDGRID_API_KEY'
+EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+DEFAULT_FROM_EMAIL = 'no-reply@solathomas.com'
+SENDGRID_SANDBOX_MODE_IN_DEBUG = True  # Set to False in production
+CONTACT_EMAIL = 'contact@solathomas.com'  # Email to receive contact form submissions
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
