@@ -19,3 +19,65 @@ body {
 .navbar {
     background-color: var(--navbar-bg) !important;
 }
+
+/* Floating Contact Button */
+.floating-contact {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.floating-contact .btn {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, background-color 0.3s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    padding: 12px;
+}
+
+.floating-contact .btn:hover {
+    transform: scale(1.1);
+}
+
+.floating-contact .btn i {
+    font-size: 1.25rem;
+}
+
+/* Dark theme specific styles */
+:root[data-theme="dark"] .floating-contact .btn {
+    background-color: #0d6efd;
+    border-color: #0a58ca;
+}
+
+:root[data-theme="dark"] .floating-contact .btn:hover {
+    background-color: #0b5ed7;
+}
+
+/* Contact Logo Styles */
+.contact-logo {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+/* Make logo bigger on larger screens */
+@media (min-width: 768px) {
+    .contact-logo {
+        width: 48px;
+        height: 48px;
+    }
+    
+    .floating-contact .btn {
+        width: 60px;
+        height: 60px;
+        padding: 16px;
+    }
+    
+    .floating-contact .btn i {
+        font-size: 1.5rem;
+    }
+}
