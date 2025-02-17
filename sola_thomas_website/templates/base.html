@@ -48,7 +48,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <a class="navbar-brand" href="{% url 'core:home' %}">Sola-Thomas LLC</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -66,7 +66,7 @@
                     {% else %}
                         <a class="nav-link" href="{% url 'login' %}">Login</a>
                     {% endif %}
-                    <button class="btn btn-outline-primary ms-2" id="theme-toggle">
+                    <button class="btn btn-outline-primary ms-2" id="theme-toggle" aria-label="Toggle theme"></button>
                         <i class="fas fa-moon"></i>
                     </button>
                 </div>
@@ -75,8 +75,8 @@
     </nav>
 
     <div class="floating-contact">
-        <a href="{% url 'core:contact' %}" class="btn btn-primary rounded-circle">
-            <i class="fas fa-envelope"></i>
+        <a href="{% url 'core:contact' %}" class="btn btn-primary rounded-circle" title="Contact Us">
+            <img src="{% static 'images/contact-us-icon.png' %}" alt="Contact Us" class="contact-logo">
         </a>
     </div>
 
