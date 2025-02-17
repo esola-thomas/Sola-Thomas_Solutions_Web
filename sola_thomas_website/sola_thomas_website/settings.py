@@ -37,13 +37,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'about',
-    'auth',
+    'custom_auth',
     'contact',
     'home',
     'payments',
     'services',
 ]
+
+# Add after INSTALLED_APPS
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
