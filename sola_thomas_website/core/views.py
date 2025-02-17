@@ -4,9 +4,19 @@ from django.contrib import messages
 from .forms import ContactForm
 
 def home(request):
+    services = [
+        {'name': 'Service 1', 'description': 'Description for service 1'},
+        {'name': 'Service 2', 'description': 'Description for service 2'},
+        {'name': 'Service 3', 'description': 'Description for service 3'}
+    ]
+    testimonials = [
+        {'author': 'John Doe', 'content': 'This is a great service!', 'is_featured': True},
+        {'author': 'Jane Smith', 'content': 'Highly recommend this company.', 'is_featured': True},
+        {'author': 'Alice Johnson', 'content': 'Fantastic experience!', 'is_featured': True}
+    ]
     return render(request, 'core/home.html', {
-        'services': Service.objects.all()[:3],
-        'testimonials': Testimonial.objects.filter(is_featured=True)[:3]
+        'services': services,
+        'testimonials': testimonials
     })
 
 def about(request):

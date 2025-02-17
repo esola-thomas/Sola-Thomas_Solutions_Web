@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'home',
     'payments',
     'services',
+    'core.apps.CoreConfig',  # Add this line
 ]
 
 # Add after INSTALLED_APPS
@@ -141,7 +142,7 @@ SENDGRID_API_KEY = 'YOUR_SENDGRID_API_KEY'
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 DEFAULT_FROM_EMAIL = 'no-reply@solathomas.com'
 SENDGRID_SANDBOX_MODE_IN_DEBUG = True  # Set to False in production
-CONTACT_EMAIL = 'contact@solathomas.com'  # Email to receive contact form submissions
+CONTACT_EMAIL = 'info@solathomas.com'  # Email to receive contact form submissions
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
