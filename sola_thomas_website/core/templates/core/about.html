@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Sola-Thomas LLC - Our Story & Mission{% endblock %}
+
+{% block meta_description %}Learn about Sola-Thomas LLC's mission, values, and dedicated team of IT professionals providing exceptional technology solutions.{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Company Introduction -->
+    <section class="mb-5">
+        <h1 class="display-4 mb-4">About Sola-Thomas LLC</h1>
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <p class="lead">Founded in 2023, Sola-Thomas LLC has been at the forefront of providing innovative IT solutions for homes and businesses.</p>
+                <p>Our mission is to deliver reliable, efficient, and cutting-edge technology services that empower our clients to achieve their goals.</p>
+            </div>
+            <div class="col-lg-6">
+                <img src="{% static 'images/about-hero.jpg' %}" alt="Sola-Thomas Office" class="img-fluid rounded shadow">
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="mb-5">
+        <h2 class="mb-4">Our Values</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h3 class="h5 card-title">Excellence</h3>
+                        <p class="card-text">We strive for excellence in every service we provide, ensuring the highest quality solutions for our clients.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h3 class="h5 card-title">Innovation</h3>
+                        <p class="card-text">Staying ahead of technological advances to provide cutting-edge solutions for modern challenges.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h3 class="h5 card-title">Integrity</h3>
+                        <p class="card-text">Building trust through honest communication and transparent business practices.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="text-center py-5 bg-light rounded">
+        <h2 class="mb-3">Ready to Work Together?</h2>
+        <p class="lead mb-4">Let's discuss how we can help with your technology needs.</p>
+        <a href="{% url 'core:contact' %}" class="btn btn-primary btn-lg">Contact Us</a>
+    </section>
+</div>
+{% endblock %}

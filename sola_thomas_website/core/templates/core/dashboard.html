@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dashboard - Sola-Thomas LLC{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="mb-4">Welcome, {{ user.get_full_name|default:user.username }}</h1>
+
+    <!-- Bookings Section -->
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2 class="h5 mb-0">Your Bookings</h2>
+            <a href="{% url 'services:home_services' %}" class="btn btn-primary btn-sm">Book New Service</a>
+        </div>
+        <div class="card-body">
+            {% if bookings %}
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for booking in bookings %}
+                            <tr>
+                                <td>{{ booking.service.name }}</td>
+                                <td>{{ booking.scheduled_date|date:"M d, Y" }}</td>
+                                <td><span class="badge bg-{{ booking.get_status_color }}">{{ booking.get_status_display }}</span></td>
+                                <td>
+                                    {% if booking.status == 'pending_payment' %}
+                                        <a href="{% url 'services:payment' booking.id %}" class="btn btn-sm btn-primary">Pay Now</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p class="text-muted mb-0">No bookings found.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Invoices Section -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="h5 mb-0">Recent Invoices</h2>
+        </div>
+        <div class="card-body">
+            {% if invoices %}
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Invoice #</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for invoice in invoices %}
+                            <tr>
+                                <td>{{ invoice.number }}</td>
+                                <td>{{ invoice.date|date:"M d, Y" }}</td>
+                                <td>${{ invoice.amount }}</td>
+                                <td><span class="badge bg-{{ invoice.get_status_color }}">{{ invoice.get_status_display }}</span></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p class="text-muted mb-0">No invoices found.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

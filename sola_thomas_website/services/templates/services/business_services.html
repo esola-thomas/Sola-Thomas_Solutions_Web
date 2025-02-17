@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Business IT Services - Sola-Thomas LLC{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <header class="text-center mb-5">
+        <h1 class="display-4">Business IT Services</h1>
+        <p class="lead">Enterprise-grade technology solutions for your business</p>
+    </header>
+
+    <!-- Service Categories -->
+    <div class="row g-4 mb-5">
+        {% for category in categories %}
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h2 class="h4 card-title">{{ category.name }}</h2>
+                    <p class="card-text">{{ category.description }}</p>
+                    <a href="#category-{{ category.id }}" class="btn btn-outline-primary">Learn More</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Detailed Services -->
+    {% for category in categories %}
+    <section id="category-{{ category.id }}" class="mb-5">
+        <h2 class="h3 mb-4">{{ category.name }}</h2>
+        <div class="row g-4">
+            {% for service in category.services.all %}
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h3 class="h5 card-title">{{ service.name }}</h3>
+                        <p class="card-text">{{ service.description }}</p>
+                        <ul class="list-unstyled mb-3">
+                            {% for feature in service.features.all %}
+                            <li><i class="fas fa-check text-success me-2"></i>{{ feature.name }}</li>
+                            {% endfor %}
+                        </ul>
+                        <div class="d-flex justify-content-between align-items-center">
+                            {% if service.price %}
+                            <span class="h6 mb-0">${{ service.price }}/{{ service.price_period }}</span>
+                            {% else %}
+                            <span class="h6 mb-0">Contact for pricing</span>
+                            {% endif %}
+                            <a href="{% url 'services:book_service' service.id %}" class="btn btn-primary">Get Started</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endfor %}
+
+    <!-- Call to Action -->
+    <section class="text-center py-5 bg-light rounded">
+        <h2 class="mb-3">Need a Custom Solution?</h2>
+        <p class="lead mb-4">Contact us for a personalized consultation tailored to your business needs.</p>
+        <a href="{% url 'core:contact' %}" class="btn btn-primary btn-lg">Contact Us</a>
+    </section>
+</div>
+{% endblock %}

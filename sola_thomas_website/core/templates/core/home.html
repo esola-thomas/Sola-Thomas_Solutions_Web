@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Welcome to Sola-Thomas LLC - Professional IT Solutions{% endblock %}
+
+{% block meta_description %}Discover professional IT solutions for home and business. Expert technology consulting, support, and services by Sola-Thomas LLC.{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section text-center py-5">
+    <div class="container">
+        <h1 class="display-4">Professional IT Solutions</h1>
+        <p class="lead">Empowering homes and businesses with reliable technology solutions</p>
+        <div class="mt-4">
+            <a href="{% url 'services:home_services' %}" class="btn btn-primary me-2">Home Services</a>
+            <a href="{% url 'services:business_services' %}" class="btn btn-secondary">Business Services</a>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Services -->
+<section class="services-section py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-4">Our Services</h2>
+        <div class="row">
+            {% for service in services %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    {% if service.image %}
+                    <img src="{{ service.image.url }}" class="card-img-top" alt="{{ service.name }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ service.name }}</h5>
+                        <p class="card-text">{{ service.description|truncatewords:30 }}</p>
+                        <a href="{% url 'services:book_service' service.id %}" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials-section py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">What Our Clients Say</h2>
+        <div class="row">
+            {% for testimonial in testimonials %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <p class="card-text">"{{ testimonial.content }}"</p>
+                        <footer class="blockquote-footer mt-2">
+                            {{ testimonial.client_name }}
+                            {% if testimonial.client_company %}
+                            <cite title="{{ testimonial.client_company }}">{{ testimonial.client_company }}</cite>
+                            {% endif %}
+                        </footer>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="cta-section py-5 bg-primary text-white text-center">
+    <div class="container">
+        <h2 class="mb-4">Ready to Get Started?</h2>
+        <p class="lead mb-4">Contact us today for a free consultation</p>
+        <a href="{% url 'core:contact' %}" class="btn btn-light btn-lg">Contact Us</a>
+    </div>
+</section>
+{% endblock %}
