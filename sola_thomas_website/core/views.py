@@ -2,13 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import ContactForm
+from services.models import Service
 
 def home(request):
-    services = [
-        {'name': 'Service 1', 'description': 'Description for service 1'},
-        {'name': 'Service 2', 'description': 'Description for service 2'},
-        {'name': 'Service 3', 'description': 'Description for service 3'}
-    ]
+    services = Service.objects.all()
     testimonials = [
         {'author': 'John Doe', 'content': 'This is a great service!', 'is_featured': True},
         {'author': 'Jane Smith', 'content': 'Highly recommend this company.', 'is_featured': True},
