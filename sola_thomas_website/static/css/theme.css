@@ -38,6 +38,60 @@ main {
 
 .navbar {
     background-color: var(--navbar-bg) !important;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 1rem;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.navbar.shrink {
+    padding: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+:root[data-theme="light"] .navbar.shrink {
+    background-color: rgba(248, 249, 250, 0.95) !important;
+}
+
+:root[data-theme="dark"] .navbar.shrink {
+    background-color: rgba(52, 58, 64, 0.95) !important;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 600;
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover {
+    transform: scale(1.05);
+}
+
+.nav-link {
+    position: relative;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-link:hover {
+    transform: scale(1.05);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background-color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+    left: 0;
 }
 
 /* Floating Contact Button */
@@ -264,7 +318,7 @@ footer small {
 }
 
 :root[data-theme="dark"] .features-section .text-dark {
-    color: var(--text-color) !important;
+    color: var (--text-color) !important;
 }
 
 :root[data-theme="dark"] .features-section .text-muted {
