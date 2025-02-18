@@ -1,5 +1,5 @@
 # Google Analytics Settings
-GA_TRACKING_ID = 'G-XXXXXXXXXX'  # Replace with your actual tracking ID
+GA_TRACKING_ID = 'G-24QFBN3WGN'  # Replace with your actual tracking ID
 
 # Add GA_TRACKING_ID to the template context
 TEMPLATES = [
