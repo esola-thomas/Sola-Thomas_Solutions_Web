@@ -1,12 +1,10 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const themeToggle = document.getElementById('theme-toggle');
-    const savedTheme = localStorage.getItem('theme') || 'light';
+document.addEventListener('DOMContentLoaded', () => {
+    const theme = localStorage.getItem('theme') || 'dark'; // Changed default to dark
+    document.documentElement.setAttribute('data-theme', theme);
     
-    document.documentElement.setAttribute('data-theme', savedTheme);
-    
-    themeToggle.addEventListener('click', function() {
+    document.getElementById('theme-toggle').addEventListener('click', () => {
         const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
         
         document.documentElement.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
