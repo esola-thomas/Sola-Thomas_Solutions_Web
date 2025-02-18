@@ -2,7 +2,7 @@
 .animate-on-scroll {
     opacity: 0;
     transform: translateY(15px);
-    transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
     will-change: transform, opacity;
 }
 
