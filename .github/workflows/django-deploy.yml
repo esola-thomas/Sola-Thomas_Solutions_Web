@@ -1,0 +1,72 @@
+name: Django Deployment
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  deploy:
+    runs-on: Deployment
+    steps:
+      - name: Check Django Process
+        id: check_process
+        run: |
+          if pgrep -f "gunicorn"; then
+            echo "::set-output name=django_running::true"
+          else
+            echo "::set-output name=django_running::false"
+          fi
+
+      - name: Navigate to workspace and pull changes
+        run: |
+          cd ~/ws
+          git fetch --all
+          git reset --hard origin/main
+
+      - name: Set DEBUG to False
+        run: |
+          cd ~/ws
+          sed -i 's/DEBUG = True/DEBUG = False/' /home/esolathomas/ws/sola_thomas_website/settings.py
+
+      - name: Setup python3 Environment
+        run: |
+          cd ~/ws
+          python3 -m pip install -r requirements.txt
+
+      - name: Run Django Commands
+        run: |
+          cd ~/ws
+          python3 manage.py migrate
+          python3 manage.py collectstatic --noinput
+          python3 manage.py check --deploy
+
+      - name: Restart Django (if running)
+        if: steps.check_process.outputs.django_running == 'true'
+        run: |
+          pkill -f gunicorn
+          cd ~/ws
+          gunicorn your_project.wsgi:application --bind 0.0.0.0:8000 --daemon --log-file /home/ws/esolathomas/out/django.log
+
+      - name: Start Django (if not running)
+        if: steps.check_process.outputs.django_running == 'false'
+        run: |
+          cd ~/ws
+          gunicorn your_project.wsgi:application --bind 0.0.0.0:8000 --daemon --log-file /home/ws/esolathomas/out/django.log
+
+      - name: Health Check
+        run: |
+          sleep 5
+          if curl -s http://localhost:8000/health/ > /dev/null; then
+            echo "Application is running successfully"
+          else
+            echo "Application failed to start"
+            exit 1
+          fi
+          sleep 5
+          if curl -s http://new.solathomas.com/health/ > /dev/null; then
+            echo "Application is running successfully"
+          else
+            echo "Application failed to start"
+            exit 1
+          fi
