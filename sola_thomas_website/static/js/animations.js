@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }, {
-        threshold: 0.15,  // Trigger when 15% of element is visible
-        rootMargin: '-50px 0px'  // Slightly delayed trigger point
+        threshold: 0.25,  // Trigger when 25% of element is visible
+        rootMargin: '-100px 0px'  // Slightly delayed trigger point
     });
 
     elements.forEach(element => {

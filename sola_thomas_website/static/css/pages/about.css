@@ -171,8 +171,115 @@
 .name-background:hover {
     transform: translateY(-5px) scale(1.05);
     text-decoration: none;
-}:root[data-theme="light"] .name-background:hover {    background-color: rgba(255, 255, 255, 0.95);    color: #212529;    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);}.name-background:hover {    transform: translateY(-5px) scale(1.05);    text-decoration: none;}
+}
 
 #hero .container {
     max-width: 900px;
+}
+
+/* Theme-specific styles for about sections */
+#about-combined {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#about-combined .card {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+:root[data-theme="dark"] #about-combined .card {
+    background-color: var(--navbar-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+}
+
+:root[data-theme="light"] #about-combined .card {
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#about-combined .card:hover {
+    transform: translateY(-5px);
+}
+
+.cta-section {
+    background: var(--navbar-bg) !important;
+    color: var(--text-color);
+}
+
+:root[data-theme="dark"] .cta-section {
+    background-color: #0d6efd !important;
+}
+
+:root[data-theme="light"] .cta-section {
+    background-color: #0d6efd !important;
+}
+
+/* Update heading colors */
+#about-combined h2,
+#about-combined .h5 {
+    color: var(--text-color);
+}
+
+#about-combined .lead {
+    color: var(--text-color);
+    opacity: 0.9;
+}
+
+/* Improve text visibility in light mode */
+:root[data-theme="light"] {
+    --text-bg-overlay: rgba(255, 255, 255, 0.9);
+    --text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+:root[data-theme="light"] .card-text,
+:root[data-theme="light"] .lead,
+:root[data-theme="light"] p {
+    background-color: var(--text-bg-overlay);
+    text-shadow: var(--text-shadow);
+}
+
+/* Fix slider background in dark mode */
+:root[data-theme="dark"] input[type="range"] {
+    background-color: var(--navbar-bg) !important;
+}
+
+:root[data-theme="dark"] input[type="range"]::-webkit-slider-runnable-track {
+    background-color: #444 !important;
+}
+
+:root[data-theme="dark"] input[type="range"]::-webkit-slider-thumb {
+    background-color: #0d6efd !important;
+}
+
+/* Add any missing text color contrast fixes */
+:root[data-theme="light"] .lead,
+:root[data-theme="light"] .card-text {
+    color: #212529;
+}
+
+/* Common spacing and padding for both themes */
+.card-text,
+.lead,
+p {
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+}
+
+/* Light theme specific styles */
+:root[data-theme="light"] .hero-section .card-text,
+:root[data-theme="light"] .hero-section .lead,
+:root[data-theme="light"] .hero-section p {
+    background-color: var(--text-bg-overlay);
+    text-shadow: var(--text-shadow);
+}
+
+/* Ensure consistent card spacing */
+#about-combined .card-body {
+    padding: 1.5rem;
 }
