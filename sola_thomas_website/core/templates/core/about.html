@@ -1,62 +1,113 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}About Sola-Thomas LLC - Our Story & Mission{% endblock %}
+{% block title %}About Us - Sola-Thomas LLC{% endblock %}
 
-{% block meta_description %}Learn about Sola-Thomas LLC's mission, values, and dedicated team of IT professionals providing exceptional technology solutions.{% endblock %}
+{% block meta_description %}Learn about Sola-Thomas LLC's mission, values, and our dedicated team providing exceptional IT solutions in Melbourne, FL and surrounding areas.{% endblock %}
 
 {% block content %}
-<div class="container py-5">
-    <!-- Company Introduction -->
-    <section class="mb-5">
-        <h1 class="display-4 mb-4">About Sola-Thomas LLC</h1>
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <p class="lead">Founded in 2023, Sola-Thomas LLC has been at the forefront of providing innovative IT solutions for homes and businesses.</p>
-                <p>Our mission is to deliver reliable, efficient, and cutting-edge technology services that empower our clients to achieve their goals.</p>
-            </div>
-            <div class="col-lg-6">
-                <img src="{% static 'images/about-hero.jpg' %}" alt="Sola-Thomas Office" class="img-fluid rounded shadow">
-            </div>
+    <!-- Hero Section -->
+    <section id="hero" class="animate-on-scroll">
+        <div class="hero-content text-center">
+            <h1 class="display-4">Empowering Your Tech Journey</h1>
+            <p class="lead">Affordable, Reliable, Customer-Focused IT Solutions</p>
+            <a href="#about" class="btn btn-primary btn-lg">Learn More</a>
         </div>
     </section>
 
-    <!-- Values Section -->
-    <section class="mb-5">
-        <h2 class="mb-4">Our Values</h2>
-        <div class="row">
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h3 class="h5 card-title">Excellence</h3>
-                        <p class="card-text">We strive for excellence in every service we provide, ensuring the highest quality solutions for our clients.</p>
-                    </div>
+    <!-- Who We Are -->
+    <section id="about" class="py-5 animate-on-scroll">
+        <div class="container">
+            <h2 class="text-center mb-4">Who We Are</h2>
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <p class="lead">We are a family-owned IT consulting firm based in Melbourne, Florida, dedicated to providing affordable, reliable, and customer-focused technology solutions.</p>
                 </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h3 class="h5 card-title">Innovation</h3>
-                        <p class="card-text">Staying ahead of technological advances to provide cutting-edge solutions for modern challenges.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h3 class="h5 card-title">Integrity</h3>
-                        <p class="card-text">Building trust through honest communication and transparent business practices.</p>
-                    </div>
+                <div class="col-lg-6">
+                    <img src="{% static 'images/about-hero.jpg' %}" alt="About Sola-Thomas" class="img-fluid rounded shadow">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact CTA -->
-    <section class="text-center py-5 bg-light rounded">
-        <h2 class="mb-3">Ready to Work Together?</h2>
-        <p class="lead mb-4">Let's discuss how we can help with your technology needs.</p>
-        <a href="{% url 'core:contact' %}" class="btn btn-primary btn-lg">Contact Us</a>
+    <!-- Mission, Vision, and Values -->
+    <section id="mission-vision" class="py-5 bg-light animate-on-scroll">
+        <div class="container">
+            <h2 class="text-center mb-4">Our Mission & Values</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 hover-effect">
+                        <div class="card-body text-center">
+                            <h3 class="h5">Mission</h3>
+                            <p>To provide accessible and reliable IT solutions that empower our clients to achieve their technological goals.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 hover-effect">
+                        <div class="card-body text-center">
+                            <h3 class="h5">Vision</h3>
+                            <p>To be the most trusted IT solutions provider in Brevard County, known for our expertise and customer service.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 hover-effect">
+                        <div class="card-body text-center">
+                            <h3 class="h5">Values</h3>
+                            <p>Excellence, Integrity, Innovation, and Customer Focus guide everything we do.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
-</div>
+
+    <!-- Meet Our Team -->
+    <section id="team" class="py-5 animate-on-scroll">
+        <div class="container">
+            <h2 class="text-center mb-4">Meet Our Team</h2>
+            <div class="row g-4">
+                <!-- Team member cards will be dynamically populated -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Area -->
+    <section id="service-area" class="py-5 bg-light animate-on-scroll">
+        <div class="container">
+            <h2 class="text-center mb-4">Our Service Area</h2>
+            <div id="map-container" class="rounded shadow mb-4"></div>
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+                    <ul class="list-unstyled text-center">
+                        <li>Melbourne</li>
+                        <li>Palm Bay</li>
+                        <li>Viera</li>
+                        <!-- Additional service areas -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-5 text-center animate-on-scroll">
+        <div class="container">
+            <h2 class="mb-4">Ready to Get Started?</h2>
+            <p class="lead mb-4">Let us help you with your technology needs today.</p>
+            <a href="{% url 'core:contact' %}" class="btn btn-primary btn-lg">Contact Us</a>
+        </div>
+    </section>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script>
+    // Map initialization will go here
+</script>
 {% endblock %}
