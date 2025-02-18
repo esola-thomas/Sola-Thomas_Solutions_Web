@@ -24,3 +24,137 @@
 .btn:hover {
     transform: scale(1.05);
 }
+
+.text-center .hover-description {
+    display: none;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+.text-center:hover .hover-description {
+    display: block;
+    opacity: 1;
+}
+
+.parallax-bg {
+    background-attachment: fixed;
+}
+
+.hero-section {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+.hero-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-image: url('../images/electronic.jpg');
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}
+
+.hero-content {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+/* Additional Animation Styles moved from theme.css */
+.feature-container {
+    transition: transform 0.3s ease;
+}
+
+.feature-text {
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.feature-icon {
+    transition: all 0.3s ease;
+}
+
+.feature-container:hover {
+    transform: translateY(-5px);
+}
+
+.feature-container:hover .feature-icon {
+    transform: scale(1.2);
+    color: #ffd700;
+}
+
+.feature-container:hover .feature-text::before {
+    transform: scaleX(1);
+}
+
+.feature-container:hover .feature-text strong {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    color: #fff;
+}
+
+.feature-text::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    right: -5px;
+    top: -2px;
+    bottom: -2px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.floating-contact .btn {
+    transition: transform 0.3s ease, background-color 0.3s;
+}
+
+.floating-contact .btn:hover {
+    transform: scale(1.1);
+}
+
+.service-card {
+    transition: transform 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+}
+
+.service-card i {
+    transition: transform 0.3s ease;
+}
+
+.service-card:hover i {
+    transform: scale(1.1);
+}
+
+.theme-icon {
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.features-section .feature-column {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.features-section .feature-column:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+:root[data-theme="dark"] .features-section .feature-column:hover {
+    box-shadow: 0 8px 16px rgba(255, 255, 255, 0.1);
+}

@@ -10,10 +10,30 @@
     --navbar-bg: #343a40;
 }
 
+html {
+    height: 100%;
+    overflow: hidden;
+}
+
 body {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    scroll-behavior: smooth;
+    overscroll-behavior-y: none;
+    -webkit-overflow-scrolling: touch;
+    margin: 0;
+    padding: 0;
     background-color: var(--bg-color);
     color: var(--text-color);
-    transition: background-color 0.3s, color 0.3s;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
 }
 
 .navbar {
@@ -34,13 +54,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.3s ease, background-color 0.3s;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     padding: 12px;
-}
-
-.floating-contact .btn:hover {
-    transform: scale(1.1);
 }
 
 .floating-contact .btn i {
@@ -51,10 +66,6 @@ body {
 :root[data-theme="dark"] .floating-contact .btn {
     background-color: #0d6efd;
     border-color: #0a58ca;
-}
-
-:root[data-theme="dark"] .floating-contact .btn:hover {
-    background-color: #0b5ed7;
 }
 
 /* Contact Logo Styles */
@@ -86,12 +97,7 @@ body {
 .service-card {
     border: none;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
     height: 100%;
-}
-
-.service-card:hover {
-    transform: translateY(-5px);
 }
 
 .carousel-item {
@@ -114,9 +120,259 @@ body {
 }
 
 .service-card i {
-    transition: transform 0.3s ease;
 }
 
-.service-card:hover i {
-    transform: scale(1.1);
+/* Theme Toggle Button Styles */
+.theme-toggle {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-icon {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+}
+
+.sun-icon {
+    opacity: 1;  /* Changed: visible by default in dark mode */
+}
+
+.moon-icon {
+    opacity: 0;  /* Changed: hidden by default in dark mode */
+}
+
+/* Dark theme icon states - Now reversed */
+:root[data-theme="light"] .sun-icon {
+    opacity: 0;
+}
+
+:root[data-theme="light"] .moon-icon {
+    opacity: 1;
+}
+
+/* Clickable Feature Styles */
+.feature-container {
+    position: relative;
+    padding: 15px;
+}
+
+.feature-text {
+    cursor: pointer;
+    position: relative;
+}
+
+.feature-text::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 50%;
+    background-color: #fff;
+}
+
+.feature-icon {
+}
+
+/* Remove all previous feature-check related styles */
+
+/* Dark theme navigation and footer styles */
+:root[data-theme="dark"] .navbar {
+    background-color: var(--navbar-bg) !important;
+}
+
+:root[data-theme="dark"] .navbar-light .navbar-brand,
+:root[data-theme="dark"] .navbar-light .navbar-nav .nav-link {
+    color: #fff;
+}
+
+:root[data-theme="dark"] .navbar-light .navbar-nav .nav-link:hover {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+:root[data-theme="dark"] .navbar-light .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+:root[data-theme="dark"] .navbar-light .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+:root[data-theme="dark"] footer {
+    background-color: var(--navbar-bg) !important;
+    color: #fff;
+}
+
+:root[data-theme="dark"] footer small {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Footer Styles */
+footer {
+    background-color: var(--navbar-bg);
+    color: var(--text-color);
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: auto;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+}
+
+footer small {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+:root[data-theme="light"] footer {
+    background-color: #f8f9fa;
+    color: #212529;
+}
+
+/* Dark theme home page styles */
+:root[data-theme="dark"] .service-card {
+    background-color: var(--navbar-bg);
+    color: var(--text-color);
+}
+
+:root[data-theme="dark"] .card-body {
+    background-color: var(--bg-color);
+}
+
+:root[data-theme="dark"] .card-body h4 {
+    color: var(--text-color);
+}
+
+:root[data-theme="dark"] .card-body p {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+:root[data-theme="dark"] .features-section {
+    background-color: var(--bg-color) !important;
+}
+
+:root[data-theme="dark"] .features-section .text-primary {
+    color: #0d6efd !important;
+}
+
+:root[data-theme="dark"] .features-section .bg-light {
+    background-color: var(--navbar-bg) !important;
+}
+
+:root[data-theme="dark"] .features-section .text-dark {
+    color: var(--text-color) !important;
+}
+
+:root[data-theme="dark"] .features-section .text-muted {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+:root[data-theme="dark"] .services-section h2 {
+    background-color: var(--navbar-bg) !important;
+    color: var(--text-color);
+}
+
+:root[data-theme="dark"] .modal-content {
+    background-color: var(--bg-color);
+    color: var (--text-color);
+}
+
+:root[data-theme="dark"] .modal-header {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+:root[data-theme="dark"] .modal-footer {
+    border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+:root[data-theme="dark"] .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+/* Services Section Heading Styles */
+.services-section h2 {
+    background-color: var(--navbar-bg);
+    color: var(--text-color);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+:root[data-theme="light"] .services-section h2 {
+    background-color: #ffffff;
+    color: #212529;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+:root[data-theme="dark"] .services-section h2 {
+    background-color: var(--navbar-bg);
+    color: var(--text-color);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Contact Page Dark Theme Styles */
+:root[data-theme="dark"] .card {
+    background-color: var(--navbar-bg);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+:root[data-theme="dark"] .card-title {
+    color: var(--text-color);
+}
+
+:root[data-theme="dark"] .form-label {
+    color: var(--text-color);
+}
+
+:root[data-theme="dark"] .form-control {
+    background-color: var(--bg-color);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+}
+
+:root[data-theme="dark"] .form-control:focus {
+    background-color: var(--bg-color);
+    border-color: #0d6efd;
+    color: var(--text-color);
+}
+
+:root[data-theme="dark"] .form-text {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+:root[data-theme="dark"] .list-unstyled {
+    color: var(--text-color);
+}
+
+:root[data-theme="dark"] .list-unstyled a {
+    color: #0d6efd;
+}
+
+:root[data-theme="dark"] .list-unstyled a:hover {
+    color: #0a58ca;
+}
+
+:root[data-theme="dark"] .display-4 {
+    color: var(--text-color);
+}
+
+/* Contact Page Card Styles */
+.contact-page .card {
+    border-width: 2px;
+    border-style: solid;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+:root[data-theme="light"] .contact-page .card {
+    border-color: rgba(0, 0, 0, 0.2);
+}
+
+:root[data-theme="dark"] .contact-page .card {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Feature Column Hover Effects */
+.features-section .feature-column {
 }
