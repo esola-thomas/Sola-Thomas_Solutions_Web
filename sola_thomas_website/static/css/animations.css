@@ -1,11 +1,72 @@
+/* Reset and update base animation styles */
 .animate-on-scroll {
     opacity: 0;
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    transform: translateY(15px);
+    transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+    will-change: transform, opacity;
 }
 
 .animate-on-scroll.visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* Custom animations for each section */
+#about.animate-on-scroll {
+    transform: translateY(10px);
+    opacity: 0;
+}
+
+#about.animate-on-scroll.visible {
+    transform: translateY(0);
+    filter: blur(0);
+}
+
+#mission-vision.animate-on-scroll {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    transform: translateY(10px);
+    opacity: 0;
+}
+
+#mission-vision.animate-on-scroll.visible {
+    transform: rotateX(0);
+}
+
+#mission-vision .card {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 1s ease-out var(--delay, 0s);
+}
+
+#mission-vision.visible .card {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#mission-vision.visible .card:nth-child(1) { --delay: 0.2s; }
+#mission-vision.visible .card:nth-child(2) { --delay: 0.4s; }
+#mission-vision.visible .card:nth-child(3) { --delay: 0.6s; }
+
+#service-area.animate-on-scroll {
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+    transform: translateY(10px);
+    opacity: 0;
+}
+
+#service-area.animate-on-scroll.visible {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.cta-section.animate-on-scroll {
+    transform: translateY(10px);
+    opacity: 0;
+    filter: brightness(0.8);
+}
+
+.cta-section.animate-on-scroll.visible {
+    transform: scale(1);
+    filter: brightness(1);
 }
 
 .hover-effect {
@@ -157,4 +218,62 @@
 
 :root[data-theme="dark"] .features-section .feature-column:hover {
     box-shadow: 0 8px 16px rgba(255, 255, 255, 0.1);
+}
+
+/* Add different animations for different sections */
+#hero.animate-on-scroll {
+    transform: translateY(-30px);
+}
+
+#about.animate-on-scroll {
+    transform: translateX(-30px);
+}
+
+#mission-vision.animate-on-scroll {
+    transform: scale(0.95);
+}
+
+#service-area.animate-on-scroll {
+    transform: translateX(30px);
+}
+
+.cta-section.animate-on-scroll {
+    transform: translateY(30px);
+}
+
+/* Card animations */
+#mission-vision .card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease-out;
+}
+
+#mission-vision.visible .card {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger card animations */
+#mission-vision.visible .card:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+#mission-vision.visible .card:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+#mission-vision.visible .card:nth-child(3) {
+    transition-delay: 0.3s;
+}
+
+/* Apply the same transition as cta-section */
+.py-5.bg-primary.text-white.animate-on-scroll {
+    transform: translateY(30px);
+    opacity: 0;
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.py-5.bg-primary.text-white.animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
