@@ -1,0 +1,17 @@
+{
+    "django_tests": [
+        "Test that the home page view returns a 200 status code.",
+        "Test that the about page view returns a 200 status code.",
+        "Test that the contact page view returns a 200 status code on GET requests.",
+        "Test that a proper POST request to the contact page submits the form, triggers send_contact_notification, and redirects with a success message.",
+        "Test that the dashboard view redirects an unauthenticated user (login required).",
+        "Test that the home services page (services:home_services) returns a 200 status code.",
+        "Test that the business services page (services:business_services) returns a 200 status code.",
+        "Test that the book service view requires login and returns a 200 status code when accessed by an authenticated user.",
+        "Test that the payment view renders correctly and handles valid booking IDs.",
+        "Test that the Stripe API endpoint (create_payment_intent) returns a valid client secret in its JSON response.",
+        "Test that the send_contact_notification utility function constructs and sends an email with the correct subject and body.",
+        "Test that the template context includes the Google Analytics tracking ID."
+    ]
+}
+// Review: File content is complete and appropriate.
