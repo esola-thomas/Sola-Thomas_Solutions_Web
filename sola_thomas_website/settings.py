@@ -1,5 +1,5 @@
 # Google Analytics Settings
-GA_TRACKING_ID = 'G-24QFBN3WGN'  # Replace with your actual tracking ID
+GA_TRACKING_ID = 'G-24QFBN3WGN'
 
 # Add GA_TRACKING_ID to the template context
 TEMPLATES = [
@@ -9,7 +9,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'sola_thomas_website.context_processors.analytics',  # Add this line
+                'sola_thomas_website.context_processors.analytics',
             ],
         },
     },
