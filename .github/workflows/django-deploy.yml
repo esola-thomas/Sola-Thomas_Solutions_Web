@@ -59,22 +59,4 @@ jobs:
       
       - name: Health Check
         run: |
-          sleep 5
-          if command -v curl &> /dev/null; then
-            if curl -s http://localhost:8000/health/ > /dev/null; then
-              echo "Application is running successfully (Local)"
-            else
-              echo "Application failed to start (Local)"
-              exit 1
-            fi
-            sleep 5
-            if curl -s http://new.solathomas.com/health/ > /dev/null; then
-              echo "Application is running successfully (Production)"
-            else
-              echo "Application failed to start (Production)"
-              exit 1
-            fi
-          else
-            echo "curl command not found, cannot perform health check."
-            exit 1
-          fi
+          bash /home/esolathomas/ws/scripts/liveness-test.sh
