@@ -102,10 +102,7 @@
 }
 
 .hero-section {
-    position: relative;
-    height: 100vh;
-    width: 100%;
-    overflow: hidden;
+    @extend .hero;
 }
 
 .hero-background {
@@ -118,16 +115,6 @@
     background-size: cover;
     background-position: center;
     z-index: -1;
-}
-
-.hero-content {
-    position: relative;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 /* Additional Animation Styles moved from theme.css */
@@ -220,10 +207,6 @@
     box-shadow: 0 8px 16px rgba(255, 255, 255, 0.1);
 }
 
-/* Add different animations for different sections */
-#hero.animate-on-scroll {
-    transform: translateY(-30px);
-}
 
 #about.animate-on-scroll {
     transform: translateX(-30px);
