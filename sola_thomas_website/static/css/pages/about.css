@@ -1,5 +1,5 @@
 #hero {
-        position: relative;
+    position: relative;
     min-height: 80vh; 
     width: 100%;
     display: flex;
@@ -21,7 +21,6 @@
     width: 100%;  
     margin-top: 2rem;  
     margin-bottom: -2rem;  
-    background: rgba(255, 255, 255, 0.9);
     padding: 2rem 0;
     border-radius: 10px;
 }
@@ -35,234 +34,29 @@
 #about {
     position: relative;
     z-index: 4; 
-    background: var(--bs-body-bg);
     border-radius: 20px 20px 0 0;
     margin-top: 2rem;
-    box-shadow: 0 -10px 20px rgba(0,0,0,0.1);
-    background: var(--bg-color);
-    color: var(--text-color);
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-#about .lead {
-    color: var(--text-color);
-}
-
-:root[data-theme="dark"] #about {
-    background: var(--bg-color);
-    box-shadow: 0 -10px 20px rgba(255, 255, 255, 0.05);
-}
-
-:root[data-theme="light"] #about {
-    background: var(--bg-color);
-    box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.1);
 }
 
 #mission-vision {
     position: relative;
     z-index: 4;
-    background: var(--bg-color);
-    color: var(--text-color);
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-#mission-vision .card {
-    background: var(--bg-color);
-    border: 1px solid rgba(var(--text-color-rgb), 0.1);
-    transition: all 0.3s ease;
 }
 
 #mission-vision .card-body {
-    color: var(--text-color);
-}
-
-#mission-vision .h5 {
-    color: var(--text-color);
-}
-
-:root[data-theme="dark"] #mission-vision .card {
-    background: var(--navbar-bg);
-    border-color: rgba(255, 255, 255, 0.1);
-}
-
-:root[data-theme="light"] #mission-vision .card {
-    background: #ffffff;
-    border-color: rgba(0, 0, 0, 0.1);
-}
-
-#mission-vision .hover-effect:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--card-shadow);
-}
-
-:root[data-theme="dark"] #mission-vision .hover-effect:hover {
-    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
-}
-
-:root[data-theme="light"] #mission-vision .hover-effect:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
 }
 
 #service-area {
     position: relative;
     z-index: 4;
-    background: var(--bg-color);
-    color: var(--text-color);
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-#service-area .list-unstyled {
-    color: var(--text-color);
-}
-
-#service-area #map-container {
-    border: 1px solid rgba(var(--text-color-rgb), 0.1);
-    transition: border-color 0.3s ease;
-}
-
-:root[data-theme="dark"] #service-area {
-    background: var(--bg-color);
-}
-
-:root[data-theme="light"] #service-area {
-    background: var(--bg-color);
-}
-
-:root[data-theme="dark"] #service-area #map-container {
-    border-color: rgba(255, 255, 255, 0.1);
-    filter: brightness(0.8) contrast(1.2);
-}
-
-.name-background {
-    display: inline-block;
-    padding: 0.4rem 0.8rem;
-    border-radius: 5px;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    transform: translateY(0);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    font-size: 0.9rem;
-}
-
-:root[data-theme="dark"] .name-background {
-    background-color: rgba(33, 37, 41, 0.85);
-    color: white;
-    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
-}
-
-:root[data-theme="dark"] .name-background:hover {
-    background-color: rgba(33, 37, 41, 0.95);
-    color: white;
-    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
-}
-
-:root[data-theme="light"] .name-background {
-    background-color: rgba(255, 255, 255, 0.85);
-    color: #212529;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-:root[data-theme="light"] .name-background:hover {
-    background-color: rgba(255, 255, 255, 0.95);
-    color: #212529;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.name-background:hover {
-    transform: translateY(-5px) scale(1.05);
-    text-decoration: none;
 }
 
 #hero .container {
     max-width: 900px;
 }
 
-/* Theme-specific styles for about sections */
-#about-combined {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-#about-combined .card {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    transition: all 0.3s ease;
-}
-
-:root[data-theme="dark"] #about-combined .card {
-    background-color: var(--navbar-bg);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
-}
-
-:root[data-theme="light"] #about-combined .card {
-    background-color: #ffffff;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-#about-combined .card:hover {
-    transform: translateY(-5px);
-}
-
-.cta-section {
-    background: var(--navbar-bg) !important;
-    color: var(--text-color);
-}
-
-:root[data-theme="dark"] .cta-section {
-    background-color: #0d6efd !important;
-}
-
-:root[data-theme="light"] .cta-section {
-    background-color: #0d6efd !important;
-}
-
-/* Update heading colors */
-#about-combined h2,
-#about-combined .h5 {
-    color: var(--text-color);
-}
-
-#about-combined .lead {
-    color: var(--text-color);
-    opacity: 0.9;
-}
-
-/* Improve text visibility in light mode */
-:root[data-theme="light"] {
-    --text-bg-overlay: rgba(255, 255, 255, 0.9);
-    --text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-:root[data-theme="light"] .card-text,
-:root[data-theme="light"] .lead,
-:root[data-theme="light"] p {
-    background-color: var(--text-bg-overlay);
-    text-shadow: var(--text-shadow);
-}
-
-/* Fix slider background in dark mode */
-:root[data-theme="dark"] input[type="range"] {
-    background-color: var(--navbar-bg) !important;
-}
-
-:root[data-theme="dark"] input[type="range"]::-webkit-slider-runnable-track {
-    background-color: #444 !important;
-}
-
-:root[data-theme="dark"] input[type="range"]::-webkit-slider-thumb {
-    background-color: #0d6efd !important;
-}
-
-/* Add any missing text color contrast fixes */
-:root[data-theme="light"] .lead,
-:root[data-theme="light"] .card-text {
-    color: #212529;
-}
-
-/* Common spacing and padding for both themes */
+/* Common spacing and padding */
 .card-text,
 .lead,
 p {
@@ -271,15 +65,7 @@ p {
     border-radius: 4px;
 }
 
-/* Light theme specific styles */
-:root[data-theme="light"] .hero-section .card-text,
-:root[data-theme="light"] .hero-section .lead,
-:root[data-theme="light"] .hero-section p {
-    background-color: var(--text-bg-overlay);
-    text-shadow: var(--text-shadow);
-}
-
-/* Ensure consistent card spacing */
+/* Card body consistent spacing */
 #about-combined .card-body {
     padding: 1.5rem;
 }
