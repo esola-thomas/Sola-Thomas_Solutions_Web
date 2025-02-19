@@ -4,7 +4,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
     text-align: center;
     overflow: hidden;
 }
@@ -24,7 +23,7 @@
     position: relative;
     z-index: 1;
     width: 100%;
-    max-width: 1200px;  /* Increased from 800px */
+    max-width: 1200px;
 }
 
 .contact-page {
@@ -33,43 +32,12 @@
     background: transparent;
     padding: 2rem;
     width: 100%;
-    max-width: 1200px;  /* Increased from 800px */
+    max-width: 1200px;
     margin: 0 auto;
 }
 
 .contact-form-card {
-    background: rgba(0, 0, 0, 0.8);
-    border: none;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     padding: 2.5rem;
-    color: white;
-}
-
-.contact-form-card .form-label,
-.contact-form-card .card-title {
-    color: white;
-}
-
-.contact-form-card .form-text {
-    color: #ccc;
-}
-
-.contact-form-card .quick-contact a,
-.contact-form-card .availability p {
-    color: rgba(255, 255, 255, 0.9);
-}
-
-.contact-form-card .quick-contact a:hover {
-    color: white;
-    text-decoration: none;
-}
-
-.contact-page .card {
-    background: rgba(0, 0, 0, 0.8);
-    border: none;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    color: white;
-    height: auto;
 }
 
 .contact-page .card-title {
@@ -82,31 +50,21 @@
     font-weight: bold;
 }
 
-.contact-page .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-}
-
-.contact-page .btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
-}
-
 .contact-info-wrapper {
     padding: 1rem 0;
 }
 
+/* Mobile Responsive Styles */
 @media (max-width: 768px) {
     .contact-page {
         padding: 1rem;
-        padding-bottom: 120px; /* Add extra padding at bottom for mobile */
+        padding-bottom: 120px;
     }
 
     .contact-form-card {
         padding: 1.5rem;
     }
 
-    /* Ensure cards have proper spacing on mobile */
     .contact-page .col-lg-4 .card:last-child {
         margin-bottom: 2rem;
     }
@@ -118,7 +76,6 @@
     .col-md-4 {
         margin-top: 2rem;
         padding-top: 2rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .contact-info-wrapper {
@@ -126,6 +83,7 @@
     }
 }
 
+/* Large Screen Styles */
 @media (min-width: 1400px) {
     .contact-form-card {
         padding: 3rem;
@@ -138,6 +96,7 @@
     }
 }
 
+/* Layout Styles */
 .contact-page .row {
     display: flex;
     flex-wrap: wrap;
@@ -170,7 +129,7 @@
     height: auto;
 }
 
-/* Adjust the spacing for the stacked cards in the right column */
+/* Right Column Card Spacing */
 .contact-page .col-lg-5 .card {
     margin-bottom: 1rem;
 }
@@ -179,7 +138,6 @@
     margin-bottom: 0;
 }
 
-/* Make the content more compact in the info cards */
 .contact-page .col-lg-5 .card-title {
     margin-bottom: 1rem;
 }

@@ -24,9 +24,6 @@
     padding: 2rem 1rem;
 }
 
-.service-card i {
-}
-
 /* Clickable Feature Styles */
 .feature-container {
     position: relative;
@@ -50,127 +47,7 @@
 
 /* Services Section Heading Styles */
 .services-section h2 {
-    background-color: var(--navbar-bg);
-    color: var(--text-color);
     border: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-:root[data-theme="light"] .services-section h2 {
-    background-color: #ffffff;
-    color: #212529;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-:root[data-theme="dark"] .services-section h2 {
-    background-color: var(--navbar-bg);
-    color: var(--text-color);
-    border-color: rgba(255, 255, 255, 0.1);
-}
-
-/* Dark theme home page styles */
-:root[data-theme="dark"] .service-card {
-    background-color: var(--navbar-bg);
-    color: var(--text-color);
-}
-
-:root[data-theme="dark"] .card-body {
-    background-color: var(--bg-color);
-}
-
-:root[data-theme="dark"] .card-body h4 {
-    color: var(--text-color);
-}
-
-:root[data-theme="dark"] .card-body p {
-    color: rgba(255, 255, 255, 0.8);
-}
-
-:root[data-theme="dark"] .features-section {
-    background-color: var(--bg-color) !important;
-}
-
-:root[data-theme="dark"] .features-section .text-primary {
-    color: #0d6efd !important;
-}
-
-:root[data-theme="dark"] .features-section .bg-light {
-    background-color: var(--navbar-bg) !important;
-}
-
-:root[data-theme="dark"] .features-section .text-dark {
-    color: rgba(255, 255, 255, 0.8) !important;
-}
-
-:root[data-theme="dark"] .features-section .text-muted {
-    color: rgba(255, 255, 255, 0.6) !important;
-}
-
-:root[data-theme="dark"] .services-section h2 {
-    background-color: var(--navbar-bg) !important;
-    color: var(--text-color);
-}
-
-:root[data-theme="dark"] .modal-content {
-    background-color: var(--bg-color);
-    color: var (--text-color);
-}
-
-:root[data-theme="dark"] .modal-header {
-    border-bottom-color: rgba(255, 255, 255, 0.1);
-}
-
-:root[data-theme="dark"] .modal-footer {
-    border-top-color: rgba(255, 255, 255, 0.1);
-}
-
-:root[data-theme="dark"] .btn-close {
-    filter: invert(1) grayscale(100%) brightness(200%);
-}
-
-/* Contact Page Dark Theme Styles */
-:root[data-theme="dark"] .card {
-    background-color: var(--navbar-bg);
-    border-color: rgba(255, 255, 255, 0.1);
-}
-
-:root[data-theme="dark"] .card-title {
-    color: var(--text-color);
-}
-
-:root[data-theme="dark"] .form-label {
-    color: var(--text-color);
-}
-
-:root[data-theme="dark"] .form-control {
-    background-color: var(--bg-color);
-    border-color: rgba(255, 255, 255, 0.1);
-    color: var(--text-color);
-}
-
-:root[data-theme="dark"] .form-control:focus {
-    background-color: var(--bg-color);
-    border-color: #0d6efd;
-    color: var(--text-color);
-}
-
-:root[data-theme="dark"] .form-text {
-    color: rgba(255, 255, 255, 0.6);
-}
-
-:root[data-theme="dark"] .list-unstyled {
-    color: var(--text-color);
-}
-
-:root[data-theme="dark"] .list-unstyled a {
-    color: #0d6efd;
-}
-
-:root[data-theme="dark"] .list-unstyled a:hover {
-    color: #0a58ca;
-}
-
-:root[data-theme="dark"] .display-4 {
-    color: var(--text-color);
 }
 
 /* Contact Page Card Styles */
@@ -178,16 +55,4 @@
     border-width: 2px;
     border-style: solid;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-:root[data-theme="light"] .contact-page .card {
-    border-color: rgba(0, 0, 0, 0.2);
-}
-
-:root[data-theme="dark"] .contact-page .card {
-    border-color: rgba(255, 255, 255, 0.2);
-}
-
-/* Feature Column Hover Effects */
-.features-section .feature-column {
 }
