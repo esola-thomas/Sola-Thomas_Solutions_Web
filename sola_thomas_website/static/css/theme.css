@@ -1,18 +1,44 @@
+/* Theme Variables: Defines the color scheme for light and dark modes */
 :root[data-theme="light"] {
-    --bg-color: #ffffff;
-    --text-color: #212529;
-    --navbar-bg: #f8f9fa;
+    --bg-color: #ffffff; /* Background color for the entire page */
+    --text-color: #212529; /* Default text color */
+    --navbar-bg: #f8f9fa; /* Background color for the navbar */
+    --card-bg: #ffffff; /* Background color for cards */
+    --card-border: rgba(0, 0, 0, 0.2); /* Border color for cards */
+    --text-bg-overlay: rgba(255, 255, 255, 0.9); /* Background for text overlays */
+    --text-shadow: none; /* Text shadow for improved readability */
+    --shadow-color: rgba(0, 0, 0, 0.1); /* Shadow color for various elements */
+    --border-color: rgba(0, 0, 0, 0.1); /* Default border color */
+    --navbar-shrink-bg: rgba(248, 249, 250, 0.95); /* Navbar background when shrink is active */
+    --contact-card-bg: rgba(255, 255, 255, 0.9); /* Background for contact cards */
+    --contact-text: #212529; /* Text color for contact sections */
+    --contact-link: #007bff; /* Link color for contact sections */
+    --contact-link-hover: #0056b3; /* Hover color for contact links */
+    --contact-border: rgba(0, 0, 0, 0.1); /* Border color for contact sections */
 }
 
 :root[data-theme="dark"] {
-    --bg-color: #212529;
-    --text-color: #f8f9fa;
-    --navbar-bg: #343a40;
+    --bg-color: #212529; /* Background color for the entire page */
+    --text-color: #f8f9fa; /* Default text color */
+    --navbar-bg: #343a40; /* Background color for the navbar */
+    --card-bg: #343a40; /* Background color for cards */
+    --card-border: rgba(255, 255, 255, 0.2); /* Border color for cards */
+    --text-bg-overlay: rgba(33, 37, 41, 0.85); /* Background for text overlays */
+    --text-shadow: none; /* Text shadow for improved readability */
+    --shadow-color: rgba(255, 255, 255, 0.1); /* Shadow color for various elements */
+    --border-color: rgba(255, 255, 255, 0.1); /* Default border color */
+    --navbar-shrink-bg: rgba(52, 58, 64, 0.95); /* Navbar background when shrink is active */
+    --contact-card-bg: rgba(0, 0, 0, 0.8); /* Background for contact cards */
+    --contact-text: white; /* Text color for contact sections */
+    --contact-link: rgba(255, 255, 255, 0.9); /* Link color for contact sections */
+    --contact-link-hover: white; /* Hover color for contact links */
+    --contact-border: rgba(255, 255, 255, 0.2); /* Border color for contact sections */
 }
 
+/* Base Styles: Basic styles for the entire page */
 html {
-    height: 100%;
-    overflow: hidden;
+    height: 100%; /* Ensure the html element takes up the full height of the viewport */
+    overflow: hidden; /* Hide any overflow content */
 }
 
 body {
@@ -27,7 +53,7 @@ body {
     padding: 0;
     background-color: var(--bg-color);
     color: var(--text-color);
-    min-height: 100vh;
+    min-height: 100vh; /* Changed from 150vh */
     display: flex;
     flex-direction: column;
 }
@@ -36,11 +62,61 @@ main {
     flex: 1 0 auto;
 }
 
+/* Component Base Styles with Themes: Styles for common components with theme integration */
 .navbar {
     background-color: var(--navbar-bg) !important;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 1rem;
+    transition: all 0.3s ease;
+    z-index: 1000;
 }
 
-/* Floating Contact Button */
+.navbar.shrink {
+    padding: 0.5rem;
+    box-shadow: 0 2px 4px var(--shadow-color);
+    background-color: var(--navbar-shrink-bg) !important;
+}
+
+/* Remove redundant theme-specific navbar shrink styles */
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 600;
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover {
+    transform: scale(1.05);
+}
+
+.nav-link {
+    position: relative;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-link:hover {
+    transform: scale(1.05);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background-color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+/* Floating Contact Button: Styles for the floating contact button */
 .floating-contact {
     position: fixed;
     bottom: 20px;
@@ -68,7 +144,7 @@ main {
     border-color: #0a58ca;
 }
 
-/* Contact Logo Styles */
+/* Contact Logo Styles: Styles for the contact logo */
 .contact-logo {
     width: 32px;
     height: 32px;
@@ -93,36 +169,7 @@ main {
     }
 }
 
-/* Services Carousel Styles */
-.service-card {
-    border: none;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    height: 100%;
-}
-
-.carousel-item {
-    min-height: 250px;
-}
-
-.carousel-indicators {
-    bottom: -10px;
-}
-
-.carousel-indicators button {
-    width: 10px !important;
-    height: 10px !important;
-    border-radius: 50%;
-    margin: 0 5px;
-}
-
-.service-card .card-body {
-    padding: 2rem 1rem;
-}
-
-.service-card i {
-}
-
-/* Theme Toggle Button Styles */
+/* Theme Toggle Button Styles: Styles for the theme toggle button */
 .theme-toggle {
     position: relative;
     width: 40px;
@@ -156,32 +203,6 @@ main {
     opacity: 1;
 }
 
-/* Clickable Feature Styles */
-.feature-container {
-    position: relative;
-    padding: 15px;
-}
-
-.feature-text {
-    cursor: pointer;
-    position: relative;
-}
-
-.feature-text::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -4px;
-    left: 50%;
-    background-color: #fff;
-}
-
-.feature-icon {
-}
-
-/* Remove all previous feature-check related styles */
-
 /* Dark theme navigation and footer styles */
 :root[data-theme="dark"] .navbar {
     background-color: var(--navbar-bg) !important;
@@ -201,7 +222,7 @@ main {
 }
 
 :root[data-theme="dark"] .navbar-light .navbar-toggler {
-    border-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--border-color);
 }
 
 :root[data-theme="dark"] footer {
@@ -213,7 +234,7 @@ main {
     color: rgba(255, 255, 255, 0.9);
 }
 
-/* Footer Styles */
+/* Footer Styles: Styles for the footer section */
 footer {
     background-color: var(--navbar-bg);
     color: var(--text-color);
@@ -233,146 +254,226 @@ footer small {
     color: #212529;
 }
 
-/* Dark theme home page styles */
-:root[data-theme="dark"] .service-card {
-    background-color: var(--navbar-bg);
+/* Card Theme Styles: Styles for cards with theme integration */
+.card, .themed-section .card {
+    background-color: var(--card-bg);
+    border-color: var(--card-border);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+.card-title, .card-body h4, .card-body p {
     color: var(--text-color);
 }
 
-:root[data-theme="dark"] .card-body {
+.card-body p {
+    opacity: 0.8;
+}
+
+/* Modal Theme Styles: Styles for modals with theme integration */
+.modal-content {
     background-color: var(--bg-color);
-}
-
-:root[data-theme="dark"] .card-body h4 {
+    border-color: var(--border-color);
     color: var(--text-color);
 }
 
-:root[data-theme="dark"] .card-body p {
-    color: rgba(255, 255, 255, 0.8);
+.modal-header {
+    border-bottom-color: var(--border-color);
 }
 
-:root[data-theme="dark"] .features-section {
-    background-color: var(--bg-color) !important;
+.modal-footer {
+    border-top-color: var(--border-color);
 }
 
-:root[data-theme="dark"] .features-section .text-primary {
-    color: #0d6efd !important;
-}
-
-:root[data-theme="dark"] .features-section .bg-light {
-    background-color: var(--navbar-bg) !important;
-}
-
-:root[data-theme="dark"] .features-section .text-dark {
-    color: var(--text-color) !important;
-}
-
-:root[data-theme="dark"] .features-section .text-muted {
-    color: rgba(255, 255, 255, 0.6) !important;
-}
-
-:root[data-theme="dark"] .services-section h2 {
-    background-color: var(--navbar-bg) !important;
+/* Form Theme Styles: Styles for forms with theme integration */
+.form-label, .form-text {
     color: var(--text-color);
 }
 
-:root[data-theme="dark"] .modal-content {
+.form-control {
     background-color: var(--bg-color);
-    color: var (--text-color);
-}
-
-:root[data-theme="dark"] .modal-header {
-    border-bottom-color: rgba(255, 255, 255, 0.1);
-}
-
-:root[data-theme="dark"] .modal-footer {
-    border-top-color: rgba(255, 255, 255, 0.1);
-}
-
-:root[data-theme="dark"] .btn-close {
-    filter: invert(1) grayscale(100%) brightness(200%);
-}
-
-/* Services Section Heading Styles */
-.services-section h2 {
-    background-color: var(--navbar-bg);
-    color: var(--text-color);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-:root[data-theme="light"] .services-section h2 {
-    background-color: #ffffff;
-    color: #212529;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-:root[data-theme="dark"] .services-section h2 {
-    background-color: var(--navbar-bg);
-    color: var(--text-color);
-    border-color: rgba(255, 255, 255, 0.1);
-}
-
-/* Contact Page Dark Theme Styles */
-:root[data-theme="dark"] .card {
-    background-color: var(--navbar-bg);
-    border-color: rgba(255, 255, 255, 0.1);
-}
-
-:root[data-theme="dark"] .card-title {
+    border-color: var(--border-color);
     color: var(--text-color);
 }
 
-:root[data-theme="dark"] .form-label {
-    color: var(--text-color);
-}
-
-:root[data-theme="dark"] .form-control {
-    background-color: var(--bg-color);
-    border-color: rgba(255, 255, 255, 0.1);
-    color: var(--text-color);
-}
-
-:root[data-theme="dark"] .form-control:focus {
+.form-control:focus {
     background-color: var(--bg-color);
     border-color: #0d6efd;
     color: var(--text-color);
 }
 
-:root[data-theme="dark"] .form-text {
-    color: rgba(255, 255, 255, 0.6);
+.form-text {
+    opacity: 0.6;
 }
 
-:root[data-theme="dark"] .list-unstyled {
+/* Section Theme Styles: Styles for sections with theme integration */
+.features-section {
+    background-color: var(--bg-color) !important;
+}
+
+.features-section .bg-light {
+    background-color: var(--navbar-bg) !important;
+}
+
+.features-section .text-dark {
+    color: var(--text-color) !important;
+}
+
+.themed-section {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.themed-section .hover-effect:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+/* Name Tag Styles: Styles for name tags with theme integration */
+.name-background {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    transform: translateY(0);
+    box-shadow: var(--shadow-color);
+    font-size: 0.9rem;
+    background-color: var(--text-bg-overlay);
     color: var(--text-color);
 }
 
-:root[data-theme="dark"] .list-unstyled a {
-    color: #0d6efd;
+.name-background:hover {
+    transform: translateY(-5px) scale(1.05);
+    text-decoration: none;
+    background-color: var(--card-bg);
+    box-shadow: var(--shadow-color);
 }
 
-:root[data-theme="dark"] .list-unstyled a:hover {
-    color: #0a58ca;
+/* Map Container Theme: Styles for the map container with theme integration */
+.map-container {
+    border: 1px solid var(--border-color);
+    transition: border-color 0.3s ease;
 }
 
-:root[data-theme="dark"] .display-4 {
-    color: var(--text-color);
+:root[data-theme="dark"] .map-container {
+    filter: brightness(0.8) contrast(1.2);
 }
 
-/* Contact Page Card Styles */
+/* Button Theme Styles: Styles for buttons with theme integration */
+.btn-close {
+    filter: invert(var(--theme-invert, 0)) grayscale(100%) brightness(200%);
+}
+
+/* Contact Page Theme Styles: Styles for the contact page with theme integration */
+.contact-form-card {
+    background: var(--contact-card-bg);
+    border: none;
+    color: var(--contact-text);
+}
+
 .contact-page .card {
-    border-width: 2px;
-    border-style: solid;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: var(--contact-card-bg);
+    border: none;
+    color: var(--contact-text);
 }
 
-:root[data-theme="light"] .contact-page .card {
-    border-color: rgba(0, 0, 0, 0.2);
+.contact-form-card .form-label,
+.contact-form-card .card-title {
+    color: var(--contact-text);
 }
 
-:root[data-theme="dark"] .contact-page .card {
-    border-color: rgba(255, 255, 255, 0.2);
+.contact-form-card .form-text {
+    color: var(--text-color);
+    opacity: 0.7;
 }
 
-/* Feature Column Hover Effects */
-.features-section .feature-column {
+.contact-form-card .quick-contact a {
+    color: var(--contact-link);
+}
+
+.contact-form-card .quick-contact a:hover {
+    color: var(--contact-link-hover);
+    text-decoration: none;
+}
+
+.contact-page .card {
+    background: var(--contact-card-bg);
+    border: none;
+    color: var(--contact-text);
+}
+
+@media (max-width: 768px) {
+    .contact-page .col-md-4 {
+        border-top: 1px solid var(--contact-border);
+    }
+}
+
+/* Hero Section Styles: Styles for the hero section */
+.hero {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Add responsive adjustments for mobile */
+@media (max-width: 768px) {
+    .hero {
+        height: auto;
+        min-height: 100vh;
+    }
+
+    body {
+        height: auto;
+        overflow-y: visible;
+    }
+}
+
+/* Dark mode override for .text-muted */
+:root[data-theme="dark"] .text-muted {
+    --bs-text-opacity: 1;
+    color: rgba(255, 255, 255, 0.75) !important;
+}
+
+/* Semi-transparent content box styles */
+.content-box {
+    background-color: var(--text-bg-overlay);
+    padding: 2rem;
+    border-radius: 0.5rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 6px var(--shadow-color);
+}
+
+:root[data-theme="light"] .content-box {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: var(--text-color);
+}
+
+:root[data-theme="dark"] .content-box {
+    background-color: rgba(33, 37, 41, 0.85);
+    color: var(--text-color);
+}
+
+/* Text visibility wrapper styles */
+.text-wrapper {
+    background-color: var(--text-bg-overlay);
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+    backdrop-filter: blur(5px);
+    display: inline-block;
+    border: 1px solid var(--border-color);
+    margin-bottom: 2rem; /* Add margin to create space */
+}
+
+:root[data-theme="light"] .text-wrapper {
+    background-color: rgba(255, 255, 255, 0.85);
+    color: var(--text-color);
+}
+
+:root[data-theme="dark"] .text-wrapper {
+    background-color: rgba(33, 37, 41, 0.75);
+    color: var(--text-color);
 }
