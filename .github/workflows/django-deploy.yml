@@ -4,27 +4,17 @@ on:
     branches:
       - 'main'
 env:
+  PROJECT_PATH: "/home/esolathomas/ws"
   DJANGO_PROJECT_PATH: "/home/esolathomas/ws/sola_thomas_website"
   GUNICORN_LOG_FILE: "/home/esolathomas/out/django.log"
 
 jobs:
   deploy:
     runs-on: Deployment
-    strategy:
-      matrix:
-        condition: ['start', 'restart']
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup Python Environment
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'
-      
       - name: Install Dependencies
         run: |
-          cd ${{ github.workspace }}
+          cd $PROJECT_PATH
           pip install -r requirements.txt
       
       - name: Set Up Django Settings
@@ -48,15 +38,13 @@ jobs:
       
       - name: Manage Gunicorn Service
         run: |
-          if [[ "${{ matrix.condition }}" == 'restart' ]] || [[ "${{ env.django_running }}" == 'true' ]]; then
-            pkill -f gunicorn || true  # Ignore error if Gunicorn is not running.
-            echo "Restarting Gunicorn..."
-          fi
-          if [[ "${{ matrix.condition }}" == 'start' ]] && [[ "${{ env.django_running }}" == 'false' ]]; then
-            echo "Starting Gunicorn..."
-            gunicorn sola_thomas_website.wsgi:application --daemon --bind 0.0.0.0:8000 --log-file "${{ env.GUNICORN_LOG_FILE }}"
-          fi
+          cd $DJANGO_PROJECT_PATH
+          # Kill existing Gunicorn if running
+          pkill -f gunicorn || true
+          echo "Starting Gunicorn..."
+          gunicorn sola_thomas_website.wsgi:application --daemon --bind 0.0.0.0:8000 --log-file "${{ env.GUNICORN_LOG_FILE }}"
       
       - name: Health Check
+        timeout-minutes: 1
         run: |
-          bash /home/esolathomas/ws/scripts/liveness-test.sh
+          bash ${{ github.workspace }}/scripts/liveness-test.sh
