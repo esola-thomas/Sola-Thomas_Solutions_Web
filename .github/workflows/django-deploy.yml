@@ -3,11 +3,11 @@ on:
   push:
     branches:
       - 'main'
+  workflow_dispatch:
 env:
   PROJECT_PATH: "/home/esolathomas/ws"
   DJANGO_PROJECT_PATH: "/home/esolathomas/ws/sola_thomas_website"
   GUNICORN_LOG_FILE: "/home/esolathomas/out/django.log"
-
 jobs:
   deploy:
     runs-on: Deployment
