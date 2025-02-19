@@ -9,6 +9,10 @@
 
 {% block meta_description %}Expert IT solutions for homes and businesses in Melbourne, FL. Specializing in computer repairs, network setup, security systems, and custom technology solutions.{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/home.css' %}" type="text/css">
+{% endblock %}
+
 {% block content %}
 <!-- Hero Section -->
 <section class="hero-section">
@@ -115,8 +119,10 @@
 <!-- Services Overview -->
 <section class="services-section py-5 animate-on-scroll">
     <div class="container">
-        <h2 class="text-center mb-5 py-3 px-4 rounded-3">Our Services</h2>
-        <div class="row">
+        <div class="text-center">
+            <h2 class="text-wrapper d-inline-block">Our Services</h2>
+        </div>
+        <div class="row mt-4">
             <!-- Home Services Carousel -->
             <div class="col-md-6 mb-4">
                 <div class="card service-card hover-effect">

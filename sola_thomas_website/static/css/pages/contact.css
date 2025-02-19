@@ -1,0 +1,119 @@
+.contact-page {
+    position: relative;
+    z-index: 2;
+    background: transparent;
+    padding: 2rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.contact-form-card {
+    padding: 2.5rem;
+}
+
+.contact-page .card-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 0.75rem;
+}
+
+.contact-page .form-label {
+    font-weight: bold;
+}
+
+.contact-info-wrapper {
+    padding: 1rem 0;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    .contact-page {
+        padding: 1rem;
+        padding-bottom: 120px;
+    }
+
+    .contact-form-card {
+        padding: 1.5rem;
+    }
+
+    .contact-page .col-lg-4 .card:last-child {
+        margin-bottom: 2rem;
+    }
+
+    .border-end {
+        border: none !important;
+    }
+
+    .col-md-4 {
+        margin-top: 2rem;
+        padding-top: 2rem;
+    }
+
+    .contact-info-wrapper {
+        padding: 0;
+    }
+}
+
+/* Large Screen Styles */
+@media (min-width: 1400px) {
+    .contact-form-card {
+        padding: 3rem;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1399px) {
+    .contact-form-card {
+        padding: 2.5rem;
+    }
+}
+
+/* Layout Styles */
+.contact-page .row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.contact-page .col-lg-4 {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-page .col-lg-4 .card {
+    margin-bottom: 1rem;
+}
+
+.contact-page .col-lg-4 .card:last-child {
+    margin-bottom: 0;
+}
+
+.contact-page .card {
+    height: auto;
+    margin-bottom: 0;
+}
+
+.contact-page .contact-form-card {
+    height: auto;
+}
+
+.contact-page .card-body {
+    padding: 1.5rem;
+    height: auto;
+}
+
+/* Right Column Card Spacing */
+.contact-page .col-lg-5 .card {
+    margin-bottom: 1rem;
+}
+
+.contact-page .col-lg-5 .card:last-child {
+    margin-bottom: 0;
+}
+
+.contact-page .col-lg-5 .card-title {
+    margin-bottom: 1rem;
+}
+
+.contact-page .col-lg-5 .card p {
+    margin-bottom: 0.5rem;
+}

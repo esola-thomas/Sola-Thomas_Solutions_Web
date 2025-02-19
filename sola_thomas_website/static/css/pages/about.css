@@ -1,0 +1,50 @@
+#team {
+    position: relative;
+    z-index: 3;
+    width: 100%;  
+    margin-top: 2rem;  
+    margin-bottom: -2rem;  
+    padding: 2rem 0;
+    border-radius: 10px;
+}
+
+#team img {
+    max-width: 180px; 
+    height: auto;
+    margin: 0 auto;
+}
+
+#about {
+    position: relative;
+    z-index: 4; 
+    border-radius: 20px 20px 0 0;
+    margin-top: 2rem;
+}
+
+#mission-vision {
+    position: relative;
+    z-index: 4;
+}
+
+#mission-vision .card-body {
+    padding: 1.5rem;
+}
+
+#service-area {
+    position: relative;
+    z-index: 4;
+}
+
+/* Common spacing and padding */
+.card-text,
+.lead,
+p {
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+}
+
+/* Card body consistent spacing */
+#about-combined .card-body {
+    padding: 1.5rem;
+}
