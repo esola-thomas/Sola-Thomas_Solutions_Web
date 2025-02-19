@@ -13,15 +13,18 @@ jobs:
     runs-on: Deployment
     steps:
       - name: Install Dependencies
+        timeout-minutes: 3
         run: |
           cd $PROJECT_PATH
           pip install -r requirements.txt
       
       - name: Set Up Django Settings
+        timeout-minutes: 1
         run: |
           sed -i 's/DEBUG = True/DEBUG = False/' $DJANGO_PROJECT_PATH/sola_thomas_website/settings.py
       
       - name: Check Django Process Status
+        timeout-minutes: 1
         id: check_process
         run: |
           if pgrep -f "gunicorn"; then
@@ -31,12 +34,14 @@ jobs:
           fi
       
       - name: Run Django Commands
+        timeout-minutes: 1
         run: |
-          python3 $DJANGO_PROJECT_PATH/manage.py migrate || echo "Error: Migration failed."
-          python3 $DJANGO_PROJECT_PATH/manage.py collectstatic --noinput || echo "Error: Collectstatic failed."
-          python3 $DJANGO_PROJECT_PATH/manage.py check --deploy || echo "Error: Check deploy failed."
+          python3 $DJANGO_PROJECT_PATH/manage.py migrate
+          python3 $DJANGO_PROJECT_PATH/manage.py collectstatic --noinput
+          python3 $DJANGO_PROJECT_PATH/manage.py check --deploy
       
       - name: Manage Gunicorn Service
+        timeout-minutes: 1
         run: |
           cd $DJANGO_PROJECT_PATH
           # Kill existing Gunicorn if running
