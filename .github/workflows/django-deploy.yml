@@ -8,48 +8,53 @@ env:
   PROJECT_PATH: "/home/esolathomas/ws"
   DJANGO_PROJECT_PATH: "/home/esolathomas/ws/sola_thomas_website"
   GUNICORN_LOG_FILE: "/home/esolathomas/out/django.log"
+  MAINTENANCE_FILE: "/home/esolathomas/ws/maintenance.html"
 jobs:
   deploy:
     runs-on: Deployment
     steps:
+      - name: Enable Maintenance Mode
+        run: |
+          # Gracefully stop Gunicorn
+          pkill -TERM -f gunicorn || true
+          # Wait for processes to stop
+          sleep 5
+
       - name: Install Dependencies
-        timeout-minutes: 3
         run: |
           cd $PROJECT_PATH
           pip install -r requirements.txt
       
       - name: Set Up Django Settings
-        timeout-minutes: 1
         run: |
           sed -i 's/DEBUG = True/DEBUG = False/' $DJANGO_PROJECT_PATH/sola_thomas_website/settings.py
       
-      - name: Check Django Process Status
-        timeout-minutes: 1
-        id: check_process
-        run: |
-          if pgrep -f "gunicorn"; then
-            echo "django_running=true" >> $GITHUB_ENV
-          else
-            echo "django_running=false" >> $GITHUB_ENV
-          fi
-      
       - name: Run Django Commands
-        timeout-minutes: 1
-        run: |
-          python3 $DJANGO_PROJECT_PATH/manage.py migrate
-          python3 $DJANGO_PROJECT_PATH/manage.py collectstatic --noinput
-          python3 $DJANGO_PROJECT_PATH/manage.py check --deploy
-      
-      - name: Manage Gunicorn Service
-        timeout-minutes: 1
         run: |
           cd $DJANGO_PROJECT_PATH
-          # Kill existing Gunicorn if running
-          pkill -f gunicorn || true
-          echo "Starting Gunicorn..."
-          gunicorn sola_thomas_website.wsgi:application --daemon --bind 0.0.0.0:8000 --log-file "${{ env.GUNICORN_LOG_FILE }}"
+          python3 manage.py migrate
+          python3 manage.py collectstatic --noinput
+          python3 manage.py check --deploy
       
-      - name: Health Check
-        timeout-minutes: 1
+      - name: Start New Deployment
         run: |
+          cd $DJANGO_PROJECT_PATH
+          echo "Starting Gunicorn..."
+          gunicorn sola_thomas_website.wsgi:application --daemon --bind 0.0.0.0:8000 --log-file "${{ env.GUNICORN_LOG_FILE }}" --workers 3
+
+      - name: Health Check
+        run: |
+          # Wait for Gunicorn to fully start
+          sleep 5
           bash ${{ github.workspace }}/scripts/liveness-test.sh
+        
+      - name: Rollback on Failure
+        if: failure()
+        run: |
+          echo "Deployment failed, rolling back..."
+          pkill -TERM -f gunicorn || true
+          sleep 5
+          # Start with previous configuration
+          cd $DJANGO_PROJECT_PATH
+          git checkout HEAD^ sola_thomas_website/settings.py
+          gunicorn sola_thomas_website.wsgi:application --daemon --bind 0.0.0.0:8000 --log-file "${{ env.GUNICORN_LOG_FILE }}" --workers 3
