@@ -10,3 +10,4 @@ django-crispy-forms>=2.1
 crispy-bootstrap4>=2022.1
 psycopg2-binary>=2.9.9
 django-environ>=0.11.2
+sendgrid
