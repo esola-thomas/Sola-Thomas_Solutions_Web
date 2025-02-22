@@ -38,22 +38,15 @@
 /* Base Styles: Basic styles for the entire page */
 html {
     height: 100%; /* Ensure the html element takes up the full height of the viewport */
-    overflow: hidden; /* Hide any overflow content */
 }
 
 body {
-    height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
+    min-height: 100vh;
     position: relative;
-    scroll-behavior: smooth;
-    overscroll-behavior-y: none;
-    -webkit-overflow-scrolling: touch;
     margin: 0;
     padding: 0;
     background-color: var(--bg-color);
     color: var(--text-color);
-    min-height: 100vh; /* Changed from 150vh */
     display: flex;
     flex-direction: column;
 }
