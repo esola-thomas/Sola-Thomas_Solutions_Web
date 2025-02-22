@@ -11,35 +11,61 @@
 
 {% block content %}
 <!-- Hero Section -->
-<section class="hero-section text-center">
-    <div class="hero-background"></div>
-    <div class="container h-100 d-flex align-items-center justify-content-center">
-        <div class="content-box animate-on-scroll">
-            <h1 class="display-4 mb-4">Proactive IT Management for Small Businesses</h1>
-            <div class="text-wrapper">
-                <p class="lead">Local, affordable, and tailored managed services in Brevard County</p>
+<section class="hero-section">
+    <div class="hero-background" style="background-image: url({% static 'images/hero_blue_waves_background.jpg' %});"></div>
+    <div class="container position-relative">
+        <div class="row min-vh-100 align-items-center">
+            <div class="col-lg-8 mx-auto">
+                <div class="content-box text-center animate-on-scroll">
+                    <h1 class="display-4 fw-bold mb-4">Affordable Proactive Managed Services for Small Businesses in Brevard County, Florida</h1>
+                    <div class="text-wrapper mb-4">
+                        <p class="lead">Ensure your business runs at peak efficiency with our direct local support and proactive monitoring.</p>
+                    </div>
+                    <a href="#learn-more" class="btn btn-primary btn-lg hover-effect">
+                        Learn More
+                        <i class="fas fa-arrow-right ms-2"></i>
+                    </a>
+                </div>
             </div>
-            <a href="#services" class="btn btn-primary btn-lg">Explore Our Services</a>
         </div>
     </div>
 </section>
 
 <!-- Service Introduction -->
-<section id="intro" class="py-5 themed-section">
+<section id="learn-more" class="service-intro py-5">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6 animate-on-scroll">
-                <h2 class="mb-4">Why Choose Our Managed Services?</h2>
-                <p class="lead">Small businesses in Brevard County face unique IT challenges. We provide direct local support and proactive solutions to keep your business running smoothly.</p>
-                <ul class="list-unstyled">
-                    <li class="mb-3"><i class="fas fa-check-circle text-primary me-2"></i>24/7 Local IT Support</li>
-                    <li class="mb-3"><i class="fas fa-check-circle text-primary me-2"></i>Predictable Monthly Costs</li>
-                    <li class="mb-3"><i class="fas fa-check-circle text-primary me-2"></i>Proactive Maintenance</li>
-                    <li class="mb-3"><i class="fas fa-check-circle text-primary me-2"></i>Cybersecurity Protection</li>
-                </ul>
+                <div class="text-wrapper">
+                    <h2 class="h2 mb-4">Local IT Support for Modern Business Needs</h2>
+                    <p class="lead mb-4">In today's digital landscape, operational technology isn't just important—it's essential for survival.</p>
+                    
+                    <div class="challenge-box mb-4">
+                        <h3 class="h5 mb-3">The Small Business Challenge</h3>
+                        <ul class="feature-list mb-4">
+                            <li><i class="fas fa-exclamation-triangle text-warning me-2"></i>Limited access to full-time IT expertise</li>
+                            <li><i class="fas fa-clock text-warning me-2"></i>Long wait times for technical support</li>
+                            <li><i class="fas fa-dollar-sign text-warning me-2"></i>Unpredictable IT maintenance costs</li>
+                            <li><i class="fas fa-shield-alt text-warning me-2"></i>Increasing cybersecurity threats</li>
+                        </ul>
+                    </div>
+
+                    <div class="solution-box">
+                        <h3 class="h5 mb-3">Our Solution</h3>
+                        <p>We bridge the gap with a perfect balance of proactive monitoring and responsive local support:</p>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check-circle text-success me-2"></i>24/7 Network monitoring and alert system</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Rapid on-site support when needed</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Predictable monthly IT management costs</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Proactive maintenance to prevent downtime</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
             <div class="col-lg-6 animate-on-scroll">
-                <img src="{% static 'images/business-support.jpg' %}" alt="IT Support" class="img-fluid rounded shadow">
+                <img src="{% static 'images/business-monitoring.jpg' %}" 
+                     alt="Network monitoring and IT support" 
+                     class="img-fluid rounded shadow-lg">
             </div>
         </div>
     </div>
