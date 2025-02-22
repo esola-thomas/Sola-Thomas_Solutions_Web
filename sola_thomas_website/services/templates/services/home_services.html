@@ -5,60 +5,126 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Home IT Services - Sola-Thomas LLC{% endblock %}
+{% block title %}In-Home Computer Repair & IT Solutions | Sola-Thomas Solutions{% endblock %}
+
+{% block meta_description %}Professional in-home computer repair services in Brevard County, FL. Expert virus removal, hardware repairs, networking setup, and data recovery - all from the comfort of your home.{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/home-services.css' %}">
+{% endblock %}
 
 {% block content %}
-<div class="container py-5">
-    <header class="text-center mb-5">
-        <h1 class="display-4">Home IT Services</h1>
-        <p class="lead">Professional technology solutions for your home</p>
-    </header>
-
-    <!-- Services Grid -->
-    <div class="row g-4">
-        <!-- {% for service in services %}
-        <div class="col-md-6 col-lg-4">
-            <div class="card h-100">
-                {% if service.image %}
-                <img src="{{ service.image.url }}" class="card-img-top" alt="{{ service.name }}">
-                {% endif %}
-                <div class="card-body">
-                    <h2 class="h5 card-title">{{ service.name }}</h2>
-                    <p class="card-text">{{ service.description }}</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="h6 mb-0">${{ service.price }}</span>
-                        <a href="{% url 'services:book_service' service.id %}" class="btn btn-primary">Book Now</a>
-                    </div>
+<!-- Hero Section -->
+<section class="hero-section home-services-hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <div class="content-box animate-on-scroll">
+                    <h1 class="display-4 fw-bold mb-4">Professional In-Home Computer Services</h1>
+                    <p class="lead mb-4">Expert computer repair and IT solutions, right at your doorstep in Brevard County, Florida</p>
+                    <a href="{% url 'core:contact' %}" class="btn btn-primary btn-lg">Schedule Service</a>
                 </div>
             </div>
         </div>
-        {% empty %} -->
-        <div class="col-12 text-center">
-            <p>No services available at the moment.</p>
-        </div>
-        <!-- {% endfor %} -->
     </div>
+</section>
 
-    <!-- FAQ Section -->
-    <section class="mt-5">
-        <h2 class="h3 text-center mb-4">Frequently Asked Questions</h2>
-        <div class="accordion" id="faqAccordion">
-            {% for faq in faqs %}
-            <div class="accordion-item">
-                <h3 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq{{ forloop.counter }}">
-                        {{ faq.question }}
-                    </button>
-                </h3>
-                <div id="faq{{ forloop.counter }}" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                    <div class="accordion-body">{{ faq.answer }}</div>
+<!-- Service Introduction -->
+<section class="service-intro py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 animate-on-scroll">
+                <div class="text-wrapper">
+                    <h2 class="h1 mb-4">Convenient In-Home Computer Repair Services</h2>
+                    <p class="lead mb-4">No need to disconnect your setup or travel to a repair shop. We come to you!</p>
+                    <div class="location-highlight mb-3">Serving All of Brevard County, Florida</div>
+                    <ul class="feature-list">
+                        <li>Professional diagnostics and repairs at your location</li>
+                        <li>Flexible scheduling to fit your needs</li>
+                        <li>Experienced technicians with proven expertise</li>
+                        <li>Clear pricing with no hidden fees</li>
+                    </ul>
                 </div>
             </div>
-            {% endfor %}
+            <div class="col-lg-6 animate-on-scroll">
+                <img src="{% static 'images/in-home-service.jpg' %}" alt="In-home computer repair" class="img-fluid rounded shadow">
+            </div>
         </div>
-    </section>
-    <script>
-        alert("Home Services page is under development. Please check back soon!");
-    </script>
-</div>
+    </div>
+</section>
+
+<!-- Service Cards -->
+<section class="service-cards py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Our Services</h2>
+        <div class="service-grid">
+            <!-- Virus Removal -->
+            <div class="service-card animate-on-scroll">
+                <div class="card-body">
+                    <div class="card-icon">
+                        <i class="fas fa-shield-virus"></i>
+                    </div>
+                    <h3 class="card-title">Virus & Malware Removal</h3>
+                    <p>Complete removal of viruses, trojans, spyware, and adware. Protect your system and data with our thorough cleaning service.</p>
+                </div>
+            </div>
+
+            <!-- Maintenance -->
+            <div class="service-card animate-on-scroll">
+                <div class="card-body">
+                    <div class="card-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3 class="card-title">Hardware & Software Maintenance</h3>
+                    <p>Regular maintenance and updates to keep your computer running smoothly and efficiently.</p>
+                </div>
+            </div>
+
+            <!-- Setup & Networking -->
+            <div class="service-card animate-on-scroll">
+                <div class="card-body">
+                    <div class="card-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3 class="card-title">Computer Setup & Networking</h3>
+                    <p>Complete setup services including network configuration and file sharing solutions.</p>
+                </div>
+            </div>
+
+            <!-- Upgrades & Recovery -->
+            <div class="service-card animate-on-scroll">
+                <div class="card-body">
+                    <div class="card-icon">
+                        <i class="fas fa-hdd"></i>
+                    </div>
+                    <h3 class="card-title">Upgrades & Data Recovery</h3>
+                    <p>Hardware upgrades, hard drive replacement, and professional data recovery services.</p>
+                </div>
+            </div>
+
+            <!-- Laptop Repairs -->
+            <div class="service-card animate-on-scroll">
+                <div class="card-body">
+                    <div class="card-icon">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <h3 class="card-title">Laptop Repairs</h3>
+                    <p>Specialized laptop repair services including screen replacement, keyboard repair, and component upgrades.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section animate-on-scroll">
+    <div class="container text-center py-5">
+        <h2 class="mb-4">Ready to Get Your Computer Fixed?</h2>
+        <p class="lead mb-4">Schedule a convenient in-home service today!</p>
+        <a href="{% url 'core:contact' %}" class="btn btn-primary btn-lg hover-effect">
+            Contact Us Now
+            <i class="fas fa-arrow-right ms-2"></i>
+        </a>
+    </div>
+</section>
 {% endblock %}
