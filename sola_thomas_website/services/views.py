@@ -1,18 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Service
 
 def home_services(request):
-    services = Service.objects.filter(category='home')
-    return render(request, 'services/home_services.html', {
-        'services': services
-    })
+    """View function for the home services page."""
+    return render(request, 'services/home_services.html')
 
 def business_services(request):
-    services = Service.objects.filter(category='business')
-    return render(request, 'services/business_services.html', {
-        'services': services
-    })
+    return render(request, 'services/business_services.html')
 
 @login_required
 def book_service(request, service_id):
