@@ -6,6 +6,7 @@ def home_services(request):
     return render(request, 'services/home_services.html')
 
 def business_services(request):
+    """View function for the business services page."""
     return render(request, 'services/business_services.html')
 
 @login_required
