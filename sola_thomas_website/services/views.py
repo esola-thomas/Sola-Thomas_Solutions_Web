@@ -3,10 +3,14 @@ from django.contrib.auth.decorators import login_required
 from .models import Service
 
 def home_services(request):
-    services = Service.objects.filter(category='home')
-    return render(request, 'services/home_services.html', {
-        'services': services
-    })
+    """View function for the home services page."""
+    # Get all services marked as home services
+    services = Service.objects.filter(category='home').order_by('order')
+    context = {
+        'services': services,
+        'faqs': FAQ.objects.filter(category='home').order_by('order'),
+    }
+    return render(request, 'services/home_services.html', context)
 
 def business_services(request):
     services = Service.objects.filter(category='business')
