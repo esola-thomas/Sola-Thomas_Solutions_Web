@@ -15,39 +15,59 @@
 
 {% block content %}
 <!-- Hero Section -->
-<section class="hero-section home-services-hero">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto text-center">
-                <div class="content-box animate-on-scroll">
-                    <h1 class="display-4 fw-bold mb-4">Professional In-Home Computer Services</h1>
-                    <p class="lead mb-4">Expert computer repair and IT solutions, right at your doorstep in Brevard County, Florida</p>
-                    <a href="{% url 'core:contact' %}" class="btn btn-primary btn-lg">Schedule Service</a>
+<section class="hero-section">
+    <div class="hero-background" style="background-image: url({% static 'images/hero_blue_waves_background.jpg' %});"></div>
+    <div class="container position-relative">
+        <div class="row min-vh-100 align-items-center">
+            <div class="col-lg-8 mx-auto">
+                <div class="content-box text-center animate-on-scroll">
+                    <h1 class="display-4 fw-bold mb-4">Convenient In-Home Computer Repair Services in Brevard County, Florida</h1>
+                    <p class="lead mb-4">
+                        Tired of unplugging all your cords and hauling your computer to a repair shop? 
+                        We bring professional IT solutions directly to your doorstep, with parts stocked 
+                        in our vehicle and same-day reconnection service.
+                    </p>
+                    <a href="{% url 'core:contact' %}" class="btn btn-primary btn-lg hover-effect">
+                        Schedule In-Home Service
+                        <i class="fas fa-arrow-right ms-2"></i>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Service Introduction -->
+<!-- Introduction Section -->
 <section class="service-intro py-5">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6 animate-on-scroll">
                 <div class="text-wrapper">
-                    <h2 class="h1 mb-4">Convenient In-Home Computer Repair Services</h2>
-                    <p class="lead mb-4">No need to disconnect your setup or travel to a repair shop. We come to you!</p>
-                    <div class="location-highlight mb-3">Serving All of Brevard County, Florida</div>
-                    <ul class="feature-list">
-                        <li>Professional diagnostics and repairs at your location</li>
-                        <li>Flexible scheduling to fit your needs</li>
-                        <li>Experienced technicians with proven expertise</li>
-                        <li>Clear pricing with no hidden fees</li>
+                    <h2 class="h2 mb-4">Why Choose Our In-Home Service?</h2>
+                    <p class="lead mb-4">
+                        Skip the hassle of traditional repair shops. No more:
+                    </p>
+                    <ul class="feature-list mb-4">
+                        <li>Disconnecting countless cables and peripherals</li>
+                        <li>Risking damage during transport</li>
+                        <li>Waiting days or weeks without your computer</li>
+                        <li>Dealing with reconnection confusion</li>
                     </ul>
+                    <div class="location-highlight mb-4">
+                        <i class="fas fa-map-marker-alt me-2"></i>
+                        Serving All of Brevard County
+                    </div>
+                    <p>
+                        Our mobile tech service brings professional computer repair directly to your home 
+                        or office. We arrive with a fully-stocked service vehicle, ready to diagnose and 
+                        fix most issues on the spot.
+                    </p>
                 </div>
             </div>
             <div class="col-lg-6 animate-on-scroll">
-                <img src="{% static 'images/in-home-service.jpg' %}" alt="In-home computer repair" class="img-fluid rounded shadow">
+                <img src="{% static 'images/in-home-service.jpg' %}" 
+                     alt="In-home computer repair service" 
+                     class="img-fluid rounded shadow-lg">
             </div>
         </div>
     </div>
