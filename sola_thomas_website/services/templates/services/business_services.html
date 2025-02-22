@@ -1,74 +1,124 @@
-{# Business Services template - Displays enterprise IT services #}
-{# Extends: base.html #}
-{# Blocks used: title, content #}
-
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Business IT Services - Sola-Thomas LLC{% endblock %}
+{% block title %}Affordable Proactive Managed Services for Small Businesses | Sola-Thomas Solutions{% endblock %}
+
+{% block meta_description %}Ensure peak performance with proactive managed services designed for small businesses in Brevard County, Florida. Local, affordable, and tailored to your needs.{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/business-services.css' %}">
+{% endblock %}
 
 {% block content %}
-<div class="container py-5">
-    <header class="text-center mb-5">
-        <h1 class="display-4">Business IT Services</h1>
-        <p class="lead">Enterprise-grade technology solutions for your business</p>
-    </header>
+<!-- Hero Section -->
+<section class="hero-section text-center">
+    <div class="hero-background"></div>
+    <div class="container h-100 d-flex align-items-center justify-content-center">
+        <div class="content-box animate-on-scroll">
+            <h1 class="display-4 mb-4">Proactive IT Management for Small Businesses</h1>
+            <div class="text-wrapper">
+                <p class="lead">Local, affordable, and tailored managed services in Brevard County</p>
+            </div>
+            <a href="#services" class="btn btn-primary btn-lg">Explore Our Services</a>
+        </div>
+    </div>
+</section>
 
-    <!-- Service Categories -->
-    <div class="row g-4 mb-5">
-        {% for category in categories %}
-        <div class="col-md-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h2 class="h4 card-title">{{ category.name }}</h2>
-                    <p class="card-text">{{ category.description }}</p>
-                    <a href="#category-{{ category.id }}" class="btn btn-outline-primary">Learn More</a>
-                </div>
+<!-- Service Introduction -->
+<section id="intro" class="py-5 themed-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 animate-on-scroll">
+                <h2 class="mb-4">Why Choose Our Managed Services?</h2>
+                <p class="lead">Small businesses in Brevard County face unique IT challenges. We provide direct local support and proactive solutions to keep your business running smoothly.</p>
+                <ul class="list-unstyled">
+                    <li class="mb-3"><i class="fas fa-check-circle text-primary me-2"></i>24/7 Local IT Support</li>
+                    <li class="mb-3"><i class="fas fa-check-circle text-primary me-2"></i>Predictable Monthly Costs</li>
+                    <li class="mb-3"><i class="fas fa-check-circle text-primary me-2"></i>Proactive Maintenance</li>
+                    <li class="mb-3"><i class="fas fa-check-circle text-primary me-2"></i>Cybersecurity Protection</li>
+                </ul>
+            </div>
+            <div class="col-lg-6 animate-on-scroll">
+                <img src="{% static 'images/business-support.jpg' %}" alt="IT Support" class="img-fluid rounded shadow">
             </div>
         </div>
-        {% endfor %}
     </div>
+</section>
 
-    <!-- Detailed Services -->
-    {% for category in categories %}
-    <section id="category-{{ category.id }}" class="mb-5">
-        <h2 class="h3 mb-4">{{ category.name }}</h2>
+<!-- Detailed Features -->
+<section id="services" class="py-5 themed-section">
+    <div class="container">
+        <h2 class="text-center mb-5 animate-on-scroll">Our Comprehensive Services</h2>
         <div class="row g-4">
-            {% for service in category.services.all %}
-            <div class="col-md-6">
-                <div class="card h-100">
+            <!-- Direct Local Support -->
+            <div class="col-lg-6 animate-on-scroll">
+                <div class="card h-100 hover-effect">
                     <div class="card-body">
-                        <h3 class="h5 card-title">{{ service.name }}</h3>
-                        <p class="card-text">{{ service.description }}</p>
-                        <ul class="list-unstyled mb-3">
-                            {% for feature in service.features.all %}
-                            <li><i class="fas fa-check text-success me-2"></i>{{ feature.name }}</li>
-                            {% endfor %}
+                        <h3 class="card-title"><i class="fas fa-handshake me-2"></i>Direct Local Support</h3>
+                        <p class="card-text">Based in Brevard County, our team provides rapid response times and personalized service. We understand local business needs and challenges.</p>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Quick Response Times</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>On-Site Support</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>24/7 Help Desk</li>
                         </ul>
-                        <div class="d-flex justify-content-between align-items-center">
-                            {% if service.price %}
-                            <span class="h6 mb-0">${{ service.price }}/{{ service.price_period }}</span>
-                            {% else %}
-                            <span class="h6 mb-0">Contact for pricing</span>
-                            {% endif %}
-                            <a href="{% url 'services:book_service' service.id %}" class="btn btn-primary">Get Started</a>
-                        </div>
                     </div>
                 </div>
             </div>
-            {% endfor %}
-        </div>
-    </section>
-    {% endfor %}
 
-    <!-- Call to Action -->
-    <section class="text-center py-5 bg-light rounded">
-        <h2 class="mb-3">Need a Custom Solution?</h2>
-        <p class="lead mb-4">Contact us for a personalized consultation tailored to your business needs.</p>
-        <a href="{% url 'core:contact' %}" class="btn btn-primary btn-lg">Contact Us</a>
-    </section>
-</div>
-<script>
-    alert("Business Services page is under development. Please check back soon!");
-</script>
+            <!-- Comprehensive Inspections -->
+            <div class="col-lg-6 animate-on-scroll">
+                <div class="card h-100 hover-effect">
+                    <div class="card-body">
+                        <h3 class="card-title"><i class="fas fa-search me-2"></i>Comprehensive Inspections</h3>
+                        <p class="card-text">Regular system audits and security assessments to identify and address potential issues before they impact your business.</p>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Network Assessment</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Security Audits</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Performance Monitoring</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Proactive Maintenance -->
+            <div class="col-lg-6 animate-on-scroll">
+                <div class="card h-100 hover-effect">
+                    <div class="card-body">
+                        <h3 class="card-title"><i class="fas fa-tools me-2"></i>Proactive Maintenance</h3>
+                        <p class="card-text">Stay ahead of potential issues with our proactive maintenance approach, ensuring minimal downtime and optimal performance.</p>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Regular Updates</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Patch Management</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>System Optimization</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pricing and Consultation -->
+            <div class="col-lg-6 animate-on-scroll">
+                <div class="card h-100 hover-effect">
+                    <div class="card-body">
+                        <h3 class="card-title"><i class="fas fa-dollar-sign me-2"></i>Tailored Solutions</h3>
+                        <p class="card-text">Flexible, scalable solutions designed to fit your business needs and budget. Transparent pricing with no hidden fees.</p>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Custom Service Plans</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Predictable Monthly Costs</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Free Initial Consultation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5 bg-primary text-white animate-on-scroll">
+    <div class="container text-center">
+        <h2 class="mb-4">Ready to Optimize Your Business IT?</h2>
+        <p class="lead mb-4">Schedule a free consultation to discuss your business needs and learn how we can help.</p>
+        <a href="{% url 'core:contact' %}" class="btn btn-light btn-lg">Contact Us Today</a>
+    </div>
+</section>
 {% endblock %}

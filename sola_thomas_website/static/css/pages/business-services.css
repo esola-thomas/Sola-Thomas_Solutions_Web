@@ -1,0 +1,22 @@
+.hero-section {
+    min-height: 60vh;
+    position: relative;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/business-hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+    margin-top: -76px; /* Compensate for fixed navbar */
+    padding-top: 76px;
+}
+
+.hero-section .content-box {
+    max-width: 800px;
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        min-height: 50vh;
+        background-attachment: scroll;
+    }
+}
