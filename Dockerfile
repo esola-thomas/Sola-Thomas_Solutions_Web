@@ -1,0 +1,62 @@
+FROM ubuntu:latest
+
+# Add build arguments for GitHub credentials
+ARG GITHUB_USER
+ARG GITHUB_PAT
+
+# Prevent interactive prompts during package installation
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install required packages
+RUN apt-get update && apt-get install -y \
+    vim \
+    systemctl \
+    curl \
+    libicu-dev \
+    python3 \
+    python3-pip \
+    python3-venv \
+    git \
+    nginx \
+    python3-dev \
+    build-essential \
+    sudo \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create user and set up directories
+RUN useradd -m -s /bin/bash esolathomas && \
+    echo "esolathomas ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+USER esolathomas
+WORKDIR /home/esolathomas
+
+# Create Python virtual environment
+RUN python3 -m venv /home/esolathomas/stsol
+ENV PATH="/home/esolathomas/stsol/bin:$PATH"
+ENV VIRTUAL_ENV="/home/esolathomas/stsol"
+# Create required directories
+RUN mkdir ws out && \
+    chmod 755 out
+
+# Clone the repository using credentials
+COPY . ws
+
+RUN pip install --upgrade pip && \
+    pip install -r ws/requirements.txt && \
+    pip install gunicorn gevent
+    
+# Switch back to root for nginx setup
+USER root
+
+# Copy scripts
+RUN chmod +x ./scripts/start.sh && \
+    chmod +x ./scripts/shutdown.sh && \
+    chmod -R 777 /home/esolathomas/ws
+
+USER esolathomas
+
+# Expose ports
+EXPOSE 80 8000
+
+# Change CMD to use start.sh
+CMD ["./scripts/start.sh"]
