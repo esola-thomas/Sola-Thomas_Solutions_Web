@@ -158,7 +158,7 @@ AUTHENTICATION_BACKENDS = [
 
 LOGIN_REDIRECT_URL = '/portal/dashboard/'
 LOGOUT_REDIRECT_URL = '/'
-LOGIN_URL = '/accounts/login/'
+LOGIN_URL = '/portal/login/'  # Changed from '/accounts/login/' to use our custom view
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

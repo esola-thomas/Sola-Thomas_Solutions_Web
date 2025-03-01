@@ -9,10 +9,13 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 from django.conf import settings
 from django.db.models import Exists, OuterRef, Count, Q
+from django.core.mail import send_mail
 from .models import Service, Invoice, Review, ServiceNote, ServiceRequest
-from .forms import ReviewForm, InvoiceForm, UserCreationForm, ServiceForm, ServiceNoteForm, ServiceNoteResponseForm, ServiceRequestForm, ProcessRequestForm
+from .forms import ReviewForm, InvoiceForm, CustomUserForm, ServiceForm, ServiceNoteForm, ServiceNoteResponseForm, ServiceRequestForm, ProcessRequestForm
 from .tokens import account_activation_token
 from .utils import send_service_notification, send_invoice_notification, send_note_response_notification, send_request_status_notification
+from django.contrib.auth import authenticate, login, logout
+from .forms import CreateUserForm
 
 @login_required
 def dashboard(request):
@@ -66,11 +69,11 @@ def admin_dashboard(request):
             except Exception as e:
                 messages.warning(request, f"Invoice created but email notification failed: {str(e)}")
             return redirect('clientportal:admin_dashboard')
-        user_form = UserCreationForm()  # Initialize empty user form
+        user_form = CustomUserForm()  # Initialize empty user form
     
     # Handle user form submission
     elif request.method == 'POST' and 'submit-user' in request.POST:
-        user_form = UserCreationForm(request.POST)
+        user_form = CustomUserForm(request.POST)
         if user_form.is_valid():
             user = user_form.save(commit=False)
             # Generate a random password that won't be used (user will set via activation)
@@ -100,7 +103,7 @@ def admin_dashboard(request):
         invoice_form = InvoiceForm()  # Initialize empty invoice form
     else:
         invoice_form = InvoiceForm()
-        user_form = UserCreationForm()
+        user_form = CustomUserForm()
     
     services = Service.objects.all()
     invoices = Invoice.objects.all()
@@ -193,7 +196,7 @@ def activate_account(request):
     
     if not uidb64 or not token:
         messages.error(request, "Activation link is invalid.")
-        return redirect('login')
+        return redirect('clientportal:login')
     
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))
@@ -216,13 +219,13 @@ def activate_account(request):
                 user.is_active = True
                 user.save()
                 messages.success(request, "Your account has been activated. You can now log in.")
-                return redirect('login')
+                return redirect('clientportal:login')
             else:
                 messages.error(request, "Passwords don't match or weren't provided.")
                 return render(request, 'clientportal/set_password.html', {'uid': uidb64, 'token': token})
     else:
         messages.error(request, "Activation link is invalid or has expired.")
-        return redirect('login')
+        return redirect('clientportal:login')
 
 @login_required
 @user_passes_test(lambda u: u.is_staff)
@@ -473,3 +476,38 @@ def process_service_request(request, request_id):
         'form': form,
         'service_request': service_request
     })
+
+# Authentication views moved from authentication app
+def login_user(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('clientportal:dashboard') 
+        else:
+            messages.info(request, 'Username OR Password is incorrect')
+            
+    return render(request, 'clientportal/registration/login.html')
+
+def logout_user(request):
+    logout(request)
+    return redirect('clientportal:login')
+
+def register_user(request):
+    form = CreateUserForm()
+    
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            username = form.cleaned_data.get('username')
+            
+            messages.success(request, 'Account was created for ' + username)
+            
+            return redirect('clientportal:login')
+    
+    context = {'form': form}
+    return render(request, 'clientportal/registration/register.html', context)

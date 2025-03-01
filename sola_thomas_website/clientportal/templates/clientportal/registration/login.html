@@ -19,7 +19,7 @@
                         </div>
                     {% endif %}
                     
-                    <form method="post" action="{% url 'login' %}">
+                    <form method="post" action="{% url 'clientportal:login' %}">
                         {% csrf_token %}
                         
                         <div class="mb-3">
@@ -42,11 +42,10 @@
                     </form>
                     
                     <div class="text-center mt-3">
-                        <a href="{% url 'password_reset' %}">Forgot your password?</a>
+                        <a href="{% url 'clientportal:password_reset' %}">Forgot your password?</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-{% endblock %}
+</div> {% endblock %}

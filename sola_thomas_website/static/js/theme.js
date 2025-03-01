@@ -48,21 +48,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Form submission handling with validation
         loginForm.addEventListener('submit', (e) => {
-            // TODO: Add client-side validation if needed
+            // TODO: Implement client-side validation for login form
+            // - Check if email/username field is not empty and valid format
+            // - Ensure password field is not empty
+            // - Display inline validation errors if needed
             
-            // TODO: Implement proper form submission
-            // This will be handled by Django's authentication system
+            // TODO: Handle form submission via AJAX (optional)
+            // Form will be handled by Django's authentication system by default
         });
 
         resetPasswordForm.addEventListener('submit', (e) => {
-            // TODO: Add client-side validation if needed
+            // TODO: Implement client-side validation for password reset form
+            // - Validate email format before submission
+            // - Display inline validation errors if needed
             
-            // TODO: Implement password reset functionality
-            // This will be handled by Django's password reset system
+            // TODO: Consider adding AJAX submission for better UX
+            // By default will be handled by Django's password reset system
         });
     }
 
-    // TODO: Handle login errors and display them to the user
-    // TODO: Handle password reset success/error messages
-    // TODO: Implement user role checking after successful login
+    // TODO: Implement notification system for login/auth messages
+    // - Create a function to display error/success messages
+    // - Parse any Django messages from the session
+    // - Style messages according to type (error, success, warning)
+    
+    // TODO: Add role-based redirect functionality after login
+    // - Check user permissions from response data
+    // - Redirect to appropriate dashboard based on user role
 });

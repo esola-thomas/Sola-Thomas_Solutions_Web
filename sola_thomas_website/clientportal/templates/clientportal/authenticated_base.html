@@ -30,7 +30,7 @@
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <form method="post" action="{% url 'logout' %}" id="logout-form" class="d-inline">
+                        <form method="post" action="{% url 'clientportal:logout' %}" id="logout-form" class="d-inline">
                             {% csrf_token %}
                             <button type="submit" class="btn nav-link border-0 bg-transparent">Logout</button>
                         </form>

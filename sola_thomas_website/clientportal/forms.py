@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm as DjangoUserCreationForm
 from django.contrib.auth.models import User
 from .models import Review, Invoice, Service, ServiceNote, ServiceRequest
 
@@ -23,7 +24,7 @@ class InvoiceForm(forms.ModelForm):
             'paid': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
 
-class UserCreationForm(forms.ModelForm):
+class CustomUserForm(forms.ModelForm):
     """Form for creating new users with activation email."""
     is_staff = forms.BooleanField(
         required=False, 
@@ -102,3 +103,9 @@ class ProcessRequestForm(forms.ModelForm):
         widgets = {
             'admin_notes': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
         }
+
+# Authentication form moved from authentication app
+class CreateUserForm(DjangoUserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
