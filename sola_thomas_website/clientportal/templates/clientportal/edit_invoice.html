@@ -45,6 +45,15 @@
                             {{ form.due_date }}
                         </div>
                         
+                        <div class="mb-3">
+                            <label for="id_payment_link" class="form-label">Payment Link</label>
+                            {{ form.payment_link }}
+                            <small class="form-text text-muted">
+                                Paste the Chase (or other payment processor) generated payment link here.
+                                This link will be sent to the customer in the invoice notification email.
+                            </small>
+                        </div>
+                        
                         <div class="mb-3 form-check">
                             {{ form.paid }}
                             <label class="form-check-label" for="id_paid">Paid</label>

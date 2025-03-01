@@ -15,12 +15,13 @@ class ReviewForm(forms.ModelForm):
 class InvoiceForm(forms.ModelForm):
     class Meta:
         model = Invoice
-        fields = ['user', 'amount', 'details', 'due_date', 'paid']
+        fields = ['user', 'amount', 'details', 'due_date', 'payment_link', 'paid']
         widgets = {
             'user': forms.Select(attrs={'class': 'form-control'}),
             'amount': forms.NumberInput(attrs={'class': 'form-control'}),
             'details': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
             'due_date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'payment_link': forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'https://paymentprovider.com/payment/id'}),
             'paid': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
 

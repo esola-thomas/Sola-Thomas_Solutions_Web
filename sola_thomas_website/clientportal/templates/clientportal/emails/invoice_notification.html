@@ -46,6 +46,16 @@
             color: #666;
             text-align: center;
         }
+        .payment-button {
+            display: inline-block;
+            background-color: #198754;
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -65,6 +75,17 @@
             <p><strong>Details:</strong> {{ invoice.details }}</p>
             <p><strong>Status:</strong> {% if invoice.paid %}Paid{% else %}Pending{% endif %}</p>
         </div>
+        
+        {% if invoice.payment_link and not invoice.paid %}
+        <p style="text-align: center;">
+            <a class="payment-button" href="{{ invoice.payment_link }}">
+                Pay Now
+            </a>
+        </p>
+        <p style="text-align: center; font-size: 12px; color: #666;">
+            You will be redirected to our secure payment processor to complete this transaction.
+        </p>
+        {% endif %}
         
         <p style="text-align: center;">
             <a class="button" href="https://{{ domain }}/portal/dashboard/#invoices">

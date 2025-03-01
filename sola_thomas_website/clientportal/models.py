@@ -22,6 +22,8 @@ class Invoice(models.Model):
     paid = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    payment_link = models.URLField(max_length=500, blank=True, null=True, 
+                                  help_text="Enter the payment platform's URL for this invoice")
 
     def __str__(self):
         return f"Invoice #{self.pk} - {self.user.username} - ${self.amount}"
