@@ -1,0 +1,116 @@
+{% extends 'clientportal/authenticated_base.html' %}
+{% block title %}Submit Review{% endblock %}
+
+{% block extra_css %}
+<style>
+    .rating-input {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+    }
+    
+    .rating-input input {
+        display: none;
+    }
+    
+    .rating-input label {
+        cursor: pointer;
+        font-size: 2rem;
+        color: #ddd;
+        margin: 0 5px;
+    }
+    
+    .rating-input label:hover,
+    .rating-input label:hover ~ label,
+    .rating-input input:checked ~ label {
+        color: #ffca08;
+    }
+    
+    .card-service {
+        border-left: 4px solid #0d6efd;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-4">
+        <div class="col">
+            <h2>{% if form.instance.id %}Edit{% else %}Submit{% endif %} Review</h2>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'clientportal:dashboard' %}">Dashboard</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{% if form.instance.id %}Edit{% else %}Submit{% endif %} Review</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4 mb-4">
+            <!-- Service Information Card -->
+            <div class="card card-service h-100">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">Service Details</h5>
+                </div>
+                <div class="card-body">
+                    <h4>{{ service.name }}</h4>
+                    <p><strong>Date:</strong> {{ service.date_performed }}</p>
+                    <p>{{ service.description }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-8">
+            <!-- Review Form Card -->
+            <div class="card">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">Your Review</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{% url 'clientportal:submit_review' service.id %}">
+                        {% csrf_token %}
+                        
+                        <div class="mb-4">
+                            <label class="form-label">Rating</label>
+                            <div class="rating-input mb-2" id="starRating">
+                                <input type="radio" name="rating" value="5" id="rating-5" {% if form.instance.rating == 5 %}checked{% endif %}>
+                                <label for="rating-5" title="5 stars">★</label>
+                                
+                                <input type="radio" name="rating" value="4" id="rating-4" {% if form.instance.rating == 4 %}checked{% endif %}>
+                                <label for="rating-4" title="4 stars">★</label>
+                                
+                                <input type="radio" name="rating" value="3" id="rating-3" {% if form.instance.rating == 3 %}checked{% endif %}>
+                                <label for="rating-3" title="3 stars">★</label>
+                                
+                                <input type="radio" name="rating" value="2" id="rating-2" {% if form.instance.rating == 2 %}checked{% endif %}>
+                                <label for="rating-2" title="2 stars">★</label>
+                                
+                                <input type="radio" name="rating" value="1" id="rating-1" {% if form.instance.rating == 1 %}checked{% endif %}>
+                                <label for="rating-1" title="1 star">★</label>
+                            </div>
+                            <small class="form-text text-muted">Click to rate this service from 1 to 5 stars</small>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="id_comment" class="form-label">Your Comments</label>
+                            <textarea name="comment" id="id_comment" rows="5" class="form-control" placeholder="Please share your experience with this service...">{{ form.instance.comment }}</textarea>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{% url 'clientportal:dashboard' %}#reviews" class="btn btn-outline-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-primary">{% if form.instance.id %}Update{% else %}Submit{% endif %} Review</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Optional - Add animation or interaction for star rating if needed
+</script>
+{% endblock %}

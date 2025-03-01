@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>New Service Added</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .container {
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .button {
+            display: inline-block;
+            background-color: #0d6efd;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <h2>Sola-Thomas Solutions</h2>
+        </div>
+        
+        <p>Hi {{ user.first_name|default:user.username }},</p>
+        
+        <p>A new service has been added to your account:</p>
+        
+        <div style="padding: 15px; background-color: #f8f9fa; border-radius: 5px; margin: 20px 0;">
+            <h3 style="margin-top: 0;">{{ service.name }}</h3>
+            <p><strong>Date Performed:</strong> {{ service.date_performed }}</p>
+            <p>{{ service.description }}</p>
+        </div>
+        
+        <p style="text-align: center;">
+            <a class="button" href="https://{{ domain }}/portal/dashboard/">
+                View in Your Dashboard
+            </a>
+        </p>
+        
+        <p>If you have any questions about this service, you can leave a note for our admin team through the portal.</p>
+        
+        <p>Thank you for choosing Sola-Thomas Solutions!</p>
+        
+        <p>Best regards,<br>The Sola-Thomas Team</p>
+        
+        <div class="footer">
+            <p>This email was sent to {{ user.email }}. If you have any questions, please contact us at support@solathomas.com</p>
+            <p>&copy; {% now "Y" %} Sola-Thomas LLC. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
