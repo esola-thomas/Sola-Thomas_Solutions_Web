@@ -17,14 +17,3 @@ class ServicesViewsTest(TestCase):
     def test_business_services_page(self):
         response = self.client.get(reverse('services:business_services'))
         self.assertEqual(response.status_code, 200)
-
-    # TODO: Implement test for book_service view once the feature is ready
-    # - Need to create mock service booking data
-    # - Test both GET (form display) and POST (form submission) requests
-    # - Verify successful booking redirects to confirmation page
-    # - Test validation errors handling
-    # def test_book_service_page(self):
-    #     response = self.client.get(
-    #         reverse('services:book_service', args=[self.service.id])
-    #     )
-    #     self.assertEqual(response.status_code, 200)
