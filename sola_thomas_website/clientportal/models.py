@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 class Service(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='services')
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=500)
     description = models.TextField()
     date_performed = models.DateField()
     admin_notes = models.TextField(blank=True, null=True, help_text="Internal notes visible only to admins")
