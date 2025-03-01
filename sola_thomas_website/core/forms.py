@@ -1,33 +1,55 @@
 from django import forms
-from django.core.mail import send_mail
-from django.conf import settings
-from .models import Contact
-from utils import send_contact_notification
+from django.core.validators import EmailValidator
 
-class ContactForm(forms.ModelForm):
+class ContactForm(forms.Form):
     name = forms.CharField(
         max_length=100,
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your Name'})
+        required=True,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Your name',
+            'required': 'required',
+        })
     )
+    
     email = forms.EmailField(
-        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Your Email'})
+        required=True,
+        validators=[EmailValidator(message="Please enter a valid email address.")],
+        widget=forms.EmailInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Your email address',
+            'required': 'required',
+        })
     )
+    
+    subject = forms.CharField(
+        max_length=200,
+        required=True, 
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Subject of your message',
+            'required': 'required',
+        })
+    )
+    
     message = forms.CharField(
-        widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Your Message', 'rows': 5})
+        required=True,
+        widget=forms.Textarea(attrs={
+            'class': 'form-control', 
+            'rows': 5,
+            'placeholder': 'Your message',
+            'required': 'required',
+        })
     )
-
-    class Meta:
-        model = Contact
-        fields = ['name', 'email', 'message']
-
-    def save(self, commit=True):
-        instance = super().save(commit=commit)
-        
-        # Send notification email using utility function
-        send_contact_notification(
-            name=self.cleaned_data['name'],
-            email=self.cleaned_data['email'],
-            message=self.cleaned_data['message']
-        )
-        
-        return instance
+    
+    def clean_name(self):
+        name = self.cleaned_data.get('name')
+        if name and len(name.strip()) < 2:
+            raise forms.ValidationError("Please enter your full name.")
+        return name
+    
+    def clean_message(self):
+        message = self.cleaned_data.get('message')
+        if message and len(message.strip()) < 10:
+            raise forms.ValidationError("Please provide a more detailed message (at least 10 characters).")
+        return message
