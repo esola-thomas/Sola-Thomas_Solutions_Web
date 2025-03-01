@@ -1,0 +1,117 @@
+{% extends 'clientportal/authenticated_base.html' %}
+{% block title %}Process Request{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-4">
+        <div class="col">
+            <h2>Process Service Request</h2>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'clientportal:admin_dashboard' %}">Admin Dashboard</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Process Request #{{ service_request.id }}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <div class="card mb-4">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">Request Details</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <p><strong>User:</strong> {{ service_request.user.username }}</p>
+                            <p><strong>Title:</strong> {{ service_request.title }}</p>
+                            <p><strong>Requested Date:</strong> {{ service_request.requested_date }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Submitted:</strong> {{ service_request.created_at|date:"M d, Y g:i A" }}</p>
+                            <p><strong>Current Status:</strong> 
+                                {% if service_request.status == 'pending' %}
+                                    <span class="badge bg-warning text-dark">Pending</span>
+                                {% elif service_request.status == 'approved' %}
+                                    <span class="badge bg-success">Approved</span>
+                                {% elif service_request.status == 'denied' %}
+                                    <span class="badge bg-danger">Denied</span>
+                                {% elif service_request.status == 'completed' %}
+                                    <span class="badge bg-info">Completed</span>
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h6>Request Details:</h6>
+                        <div class="p-3 bg-light rounded">
+                            {{ service_request.description|linebreaks }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">Process this Request</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="id_status" class="form-label">Decision</label>
+                            {{ form.status }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="id_admin_notes" class="form-label">Notes to Customer</label>
+                            {{ form.admin_notes }}
+                            <small class="form-text text-muted">These notes will be visible to the customer</small>
+                        </div>
+                        
+                        <div class="mb-3 form-check">
+                            {{ form.create_service }}
+                            <label class="form-check-label" for="id_create_service">Create service now</label>
+                            <small class="form-text text-muted d-block">
+                                Check this to automatically create a service record. Only applies when approving a request.
+                            </small>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{% url 'clientportal:admin_dashboard' %}#requests" class="btn btn-outline-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-primary">Process Request</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const statusSelect = document.getElementById('id_status');
+        const createServiceCheck = document.getElementById('id_create_service');
+        
+        // If status is not 'approved', disable create_service checkbox
+        statusSelect.addEventListener('change', function() {
+            if (this.value !== 'approved') {
+                createServiceCheck.checked = false;
+                createServiceCheck.disabled = true;
+            } else {
+                createServiceCheck.disabled = false;
+            }
+        });
+        
+        // Call once on page load to set initial state
+        if (statusSelect.value !== 'approved') {
+            createServiceCheck.disabled = true;
+        }
+    });
+</script>
+{% endblock %}

@@ -27,6 +27,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls')),
     path('services/', include('services.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
     path('health/', health_check, name='health_check'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('portal/', include('clientportal.urls')),
+    ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

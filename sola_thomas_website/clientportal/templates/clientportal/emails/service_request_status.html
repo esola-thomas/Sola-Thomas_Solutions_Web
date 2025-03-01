@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Service Request Update</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .container {
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .button {
+            display: inline-block;
+            background-color: #0d6efd;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .request-details {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .status-approved {
+            color: #198754;
+            font-weight: bold;
+        }
+        .status-denied {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .status-pending {
+            color: #ffc107;
+            font-weight: bold;
+        }
+        .status-completed {
+            color: #0dcaf0;
+            font-weight: bold;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <h2>Sola-Thomas Solutions</h2>
+        </div>
+        
+        <p>Hi {{ service_request.user.first_name|default:service_request.user.username }},</p>
+        
+        <p>We have an update regarding your service request:</p>
+        
+        <div class="request-details">
+            <h3>{{ service_request.title }}</h3>
+            <p><strong>Requested Date:</strong> {{ service_request.requested_date }}</p>
+            <p><strong>Status:</strong> 
+                <span class="status-{{ service_request.status }}">{{ service_request.get_status_display }}</span>
+            </p>
+            
+            {% if service_request.admin_notes %}
+                <div style="margin-top: 15px; padding: 10px; background-color: #e9f5fe; border-radius: 5px;">
+                    <h4 style="margin-top: 0;">Admin Notes:</h4>
+                    <p>{{ service_request.admin_notes }}</p>
+                </div>
+            {% endif %}
+        </div>
+        
+        <p style="text-align: center;">
+            <a class="button" href="https://{{ domain }}/portal/request/{{ service_request.id }}/">
+                View Request Details
+            </a>
+        </p>
+        
+        {% if service_request.status == 'approved' and service_request.service %}
+            <div style="padding: 15px; background-color: #d1e7dd; border-radius: 5px; margin-top: 20px;">
+                <h4 style="margin-top: 0; color: #0f5132;">Service Created!</h4>
+                <p>A service has been created based on your request. You can view it in your services dashboard.</p>
+            </div>
+        {% endif %}
+        
+        <p>If you have any questions about this update, please don't hesitate to contact us.</p>
+        
+        <p>Thank you for choosing Sola-Thomas Solutions!</p>
+        
+        <p>Best regards,<br>The Sola-Thomas Team</p>
+        
+        <div class="footer">
+            <p>This email was sent to {{ service_request.user.email }}. If you have any questions, please contact us at support@solathomas.com</p>
+            <p>&copy; {% now "Y" %} Sola-Thomas LLC. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

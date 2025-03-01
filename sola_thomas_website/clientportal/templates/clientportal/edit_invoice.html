@@ -1,0 +1,81 @@
+{% extends 'clientportal/authenticated_base.html' %}
+{% block title %}Edit Invoice{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-4">
+        <div class="col">
+            <h2>Edit Invoice #{{ invoice.pk }}</h2>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'clientportal:admin_dashboard' %}">Admin Dashboard</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Edit Invoice</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">Invoice Details</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="id_user" class="form-label">User</label>
+                            {{ form.user }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="id_amount" class="form-label">Amount ($)</label>
+                            {{ form.amount }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="id_details" class="form-label">Details</label>
+                            {{ form.details }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="id_due_date" class="form-label">Due Date</label>
+                            {{ form.due_date }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="id_payment_link" class="form-label">Payment Link</label>
+                            {{ form.payment_link }}
+                            <small class="form-text text-muted">
+                                Paste the Chase (or other payment processor) generated payment link here.
+                                This link will be sent to the customer in the invoice notification email.
+                            </small>
+                        </div>
+                        
+                        <div class="mb-3 form-check">
+                            {{ form.paid }}
+                            <label class="form-check-label" for="id_paid">Paid</label>
+                            <small class="form-text text-muted d-block">
+                                Check this box if the invoice has been paid.
+                            </small>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{% url 'clientportal:admin_dashboard' %}#invoices" class="btn btn-outline-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-primary">Update Invoice</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-muted">
+                    <small>Created: {{ invoice.created_at|date:"M d, Y H:i" }}</small>
+                    {% if invoice.created_at != invoice.updated_at %}
+                        <small class="ms-3">Last updated: {{ invoice.updated_at|date:"M d, Y H:i" }}</small>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
