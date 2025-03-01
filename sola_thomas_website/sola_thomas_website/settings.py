@@ -141,15 +141,15 @@ STRIPE_SECRET_KEY = 'your_stripe_secret_key'
 STRIPE_WEBHOOK_SECRET = 'your_stripe_webhook_secret'
 
 # Site Settings
-SITE_DOMAIN = '127.0.0.1:8000'# 'solathomas.com'  # Used for email links and other absolute URLs
+SITE_DOMAIN = 'solathomas.com'  # Used for email links and other absolute URLs
 SITE_NAME = 'Sola-Thomas Solutions'
 
 # Email Settings
 SENDGRID_API_KEY = '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'
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
-DEFAULT_FROM_EMAIL = f'no-reply@services.solathomas.com'#{SITE_DOMAIN}'
+DEFAULT_FROM_EMAIL = f'no-reply@service.{SITE_DOMAIN}'
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
-CONTACT_EMAIL = f'info@solathomas.com'#{SITE_DOMAIN}'
+CONTACT_EMAIL = f'info@{SITE_DOMAIN}'
 
 # Authentication settings
 LOGIN_REDIRECT_URL = '/portal/dashboard/'
