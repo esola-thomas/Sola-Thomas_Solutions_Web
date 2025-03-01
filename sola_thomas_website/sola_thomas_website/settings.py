@@ -152,6 +152,11 @@ SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 CONTACT_EMAIL = f'info@{SITE_DOMAIN}'
 
 # Authentication settings
+AUTHENTICATION_BACKENDS = [
+    'custom_auth.backends.EmailOrUsernameModelBackend',  # Custom backend for email/username login
+    'django.contrib.auth.backends.ModelBackend',  # Default backend as fallback
+]
+
 LOGIN_REDIRECT_URL = '/portal/dashboard/'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = '/accounts/login/'
