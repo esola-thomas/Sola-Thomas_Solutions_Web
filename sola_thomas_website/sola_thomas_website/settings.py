@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-2%17#jf%2ekk_xhxmx%w*^$lxnc#f*(5iu9+zqnzdc10(c+%^k
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['solathomas.com', 'new.solathomas.com', 'localhost']
+ALLOWED_HOSTS = ['solathomas.com', 'new.solathomas.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -38,16 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'about',
+    'core.apps.CoreConfig',
     'custom_auth',
-    'contact',
-    'home',
     'payments',
     'services',
-    'core.apps.CoreConfig',  # Add this line
 ]
 
-# Add after INSTALLED_APPS
 SITE_ID = 1
 
 MIDDLEWARE = [
@@ -146,9 +142,9 @@ STRIPE_SECRET_KEY = 'your_stripe_secret_key'
 STRIPE_WEBHOOK_SECRET = 'your_stripe_webhook_secret'
 
 # Email Settings
-SENDGRID_API_KEY = 'YOUR_SENDGRID_API_KEY'
+SENDGRID_API_KEY = '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'
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
-DEFAULT_FROM_EMAIL = 'no-reply@solathomas.com'
+DEFAULT_FROM_EMAIL = 'no-reply@services.solathomas.com'
 SENDGRID_SANDBOX_MODE_IN_DEBUG = True  # Set to False in production
 CONTACT_EMAIL = 'info@solathomas.com'  # Email to receive contact form submissions
 
