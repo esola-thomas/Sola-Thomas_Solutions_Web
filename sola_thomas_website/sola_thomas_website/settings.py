@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'custom_auth',
     'clientportal',
-    'payments',
     'services',
 ]
 
