@@ -19,6 +19,17 @@
                         </div>
                     {% endif %}
                     
+                    <!-- Add display for messages from messages framework -->
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{% if message.tags == 'error' %}danger{% elif message.tags == 'info' %}warning{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                                <i class="fas fa-{% if message.tags == 'error' %}exclamation-circle{% elif message.tags == 'success' %}check-circle{% elif message.tags == 'info' %}info-circle{% else %}bell{% endif %} me-2"></i>
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    
                     <form method="post" action="{% url 'clientportal:login' %}">
                         {% csrf_token %}
                         
