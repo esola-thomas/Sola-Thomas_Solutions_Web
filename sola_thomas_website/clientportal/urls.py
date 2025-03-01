@@ -1,0 +1,25 @@
+from django.urls import path
+from . import views
+
+app_name = 'clientportal'
+
+urlpatterns = [
+    path('dashboard/', views.dashboard, name='dashboard'),
+    path('admin_dashboard/', views.admin_dashboard, name='admin_dashboard'),
+    path('submit_review/<int:service_id>/', views.submit_review, name='submit_review'),
+    path('activate/', views.activate_account, name='activate_account'),
+    path('edit_invoice/<int:invoice_id>/', views.edit_invoice, name='edit_invoice'),
+    path('create_service/', views.create_service, name='create_service'),
+    path('edit_service/<int:service_id>/', views.edit_service, name='edit_service'),
+    path('resend_activation/<int:user_id>/', views.resend_activation_email, name='resend_activation'),
+    # New note-related URLs
+    path('service/<int:service_id>/add_note/', views.add_service_note, name='add_service_note'),
+    path('service/<int:service_id>/notes/', views.view_service_notes, name='view_service_notes'),
+    path('note/<int:note_id>/respond/', views.respond_to_note, name='respond_to_note'),
+    
+    # Service request URLs
+    path('request/create/', views.create_service_request, name='create_service_request'),
+    path('requests/', views.my_service_requests, name='my_service_requests'),
+    path('request/<int:request_id>/', views.service_request_detail, name='service_request_detail'),
+    path('request/<int:request_id>/process/', views.process_service_request, name='process_service_request'),
+]

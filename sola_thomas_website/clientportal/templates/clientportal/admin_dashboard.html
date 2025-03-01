@@ -1,0 +1,301 @@
+{% extends 'clientportal/authenticated_base.html' %}
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<h2>Admin Dashboard</h2>
+
+<ul class="nav nav-tabs mb-4" id="adminTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="invoices-tab" data-bs-toggle="tab" data-bs-target="#invoices" type="button" role="tab" aria-controls="invoices" aria-selected="true">Invoices</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="services-tab" data-bs-toggle="tab" data-bs-target="#services" type="button" role="tab" aria-controls="services" aria-selected="false">Services</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="requests-tab" data-bs-toggle="tab" data-bs-target="#requests" type="button" role="tab" aria-controls="requests" aria-selected="false">
+            Requests
+            {% if pending_requests_count > 0 %}
+                <span class="badge bg-danger rounded-pill ms-1">{{ pending_requests_count }}</span>
+            {% endif %}
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="notes-tab" data-bs-toggle="tab" data-bs-target="#notes" type="button" role="tab" aria-controls="notes" aria-selected="false">
+            Notes
+            {% if pending_notes_count > 0 %}
+                <span class="badge bg-danger rounded-pill ms-1">{{ pending_notes_count }}</span>
+            {% endif %}
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">Reviews</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="users-tab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab" aria-controls="users" aria-selected="false">Users</button>
+    </li>
+</ul>
+
+<div class="tab-content" id="adminTabsContent">
+    <!-- Invoices Tab -->
+    <div class="tab-pane fade show active" id="invoices" role="tabpanel" aria-labelledby="invoices-tab">
+        <section class="my-4">
+            <h3>Create Invoice</h3>
+            <form method="post">
+                {% csrf_token %}
+                {{ invoice_form.as_p }}
+                <button type="submit" class="btn btn-primary" name="submit-invoice">Create Invoice</button>
+            </form>
+        </section>
+
+        <section class="my-4">
+            <h3>All Invoices</h3>
+            {% if invoices %}
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>User</th>
+                                <th>Amount</th>
+                                <th>Details</th>
+                                <th>Due Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for invoice in invoices %}
+                            <tr>
+                                <td>{{ invoice.pk }}</td>
+                                <td>{{ invoice.user.username }}</td>
+                                <td>${{ invoice.amount }}</td>
+                                <td>{{ invoice.details|truncatechars:50 }}</td>
+                                <td>{{ invoice.due_date }}</td>
+                                <td>
+                                    {% if invoice.paid %}
+                                        <span class="badge bg-success">Paid</span>
+                                    {% else %}
+                                        <span class="badge bg-warning text-dark">Pending</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{% url 'clientportal:edit_invoice' invoice.pk %}" class="btn btn-sm btn-outline-primary">Edit</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p>No invoices available.</p>
+            {% endif %}
+        </section>
+    </div>
+    
+    <!-- Services Tab -->
+    <div class="tab-pane fade" id="services" role="tabpanel" aria-labelledby="services-tab">
+        <section class="my-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3>Services Management</h3>
+                <a href="{% url 'clientportal:create_service' %}" class="btn btn-primary">
+                    <i class="fas fa-plus-circle"></i> Create New Service
+                </a>
+            </div>
+            
+            {% if services %}
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Customer</th>
+                                <th>Service Name</th>
+                                <th>Date</th>
+                                <th>Invoice</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for service in services %}
+                            <tr>
+                                <td>{{ service.pk }}</td>
+                                <td>{{ service.user.username }}</td>
+                                <td>{{ service.name }}</td>
+                                <td>{{ service.date_performed }}</td>
+                                <td>
+                                    {% if service.invoice %}
+                                        <a href="{% url 'clientportal:edit_invoice' service.invoice.pk %}" class="text-decoration-none">
+                                            #{{ service.invoice.pk }} - ${{ service.invoice.amount }}
+                                        </a>
+                                    {% else %}
+                                        <span class="text-muted">No invoice</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{% url 'clientportal:edit_service' service.pk %}" class="btn btn-sm btn-outline-primary">Edit</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p>No services available.</p>
+            {% endif %}
+        </section>
+    </div>
+    
+    <!-- Reviews Tab -->
+    <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+        <section class="my-4">
+            <h3>All Reviews</h3>
+            {% if reviews %}
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Service</th>
+                                <th>Rating</th>
+                                <th>Comment</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for review in reviews %}
+                            <tr>
+                                <td>{{ review.user.username }}</td>
+                                <td>{{ review.service.name }}</td>
+                                <td>{{ review.rating }}/5</td>
+                                <td>{{ review.comment|truncatechars:50 }}</td>
+                                <td>{{ review.created_at }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p>No reviews available.</p>
+            {% endif %}
+        </section>
+    </div>
+    
+    <!-- Users Tab -->
+    <div class="tab-pane fade" id="users" role="tabpanel" aria-labelledby="users-tab">
+        <section class="my-4">
+            <h3>Create New User</h3>
+            <form method="post">
+                {% csrf_token %}
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="id_username" class="form-label">Username:</label>
+                            {{ user_form.username }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_email" class="form-label">Email:</label>
+                            {{ user_form.email }}
+                            <small class="form-text text-muted">An activation email will be sent to this address.</small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="id_first_name" class="form-label">First Name:</label>
+                            {{ user_form.first_name }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_last_name" class="form-label">Last Name:</label>
+                            {{ user_form.last_name }}
+                        </div>
+                        <div class="form-check mb-3">
+                            {{ user_form.is_staff }}
+                            <label class="form-check-label" for="id_is_staff">Admin access</label>
+                            <small class="form-text text-muted d-block">{{ user_form.is_staff.help_text }}</small>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" name="submit-user">Create User</button>
+            </form>
+        </section>
+
+        <section class="my-4">
+            <h3>User Management</h3>
+            {% if users %}
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Name</th>
+                                <th>Status</th>
+                                <th>Role</th>
+                                <th>Date Joined</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in users %}
+                            <tr>
+                                <td>{{ user.username }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.get_full_name|default:"-" }}</td>
+                                <td>
+                                    {% if user.is_active %}
+                                        <span class="badge bg-success">Active</span>
+                                    {% else %}
+                                        <span class="badge bg-warning text-dark">Pending</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if user.is_superuser %}
+                                        <span class="badge bg-danger">Superuser</span>
+                                    {% elif user.is_staff %}
+                                        <span class="badge bg-info">Admin</span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">User</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ user.date_joined|date:"M d, Y" }}</td>
+                                <td>
+                                    {% if not user.is_active %}
+                                        <a href="{% url 'clientportal:resend_activation' user.id %}" class="btn btn-sm btn-outline-primary">
+                                            Resend Activation
+                                        </a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p>No users available.</p>
+            {% endif %}
+        </section>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Activate the tab based on URL hash if present
+        let hash = window.location.hash;
+        if (hash) {
+            const tab = document.querySelector(`#adminTabs button[data-bs-target="${hash}"]`);
+            if (tab) {
+                new bootstrap.Tab(tab).show();
+            }
+        }
+        
+        // Update URL hash when tab changes
+        const tabs = document.querySelectorAll('#adminTabs button');
+        tabs.forEach(tab => {
+            tab.addEventListener('shown.bs.tab', function(event) {
+                history.replaceState(null, null, tab.getAttribute('data-bs-target'));
+            });
+        });
+    });
+</script>
+{% endblock %}

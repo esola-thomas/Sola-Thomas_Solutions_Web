@@ -83,6 +83,14 @@ target/
 *.pot
 *.pyc
 */__spycache__/
+*/migrations/
+*.sqlite3
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.sqlite
 local_settings.py
 
 .env

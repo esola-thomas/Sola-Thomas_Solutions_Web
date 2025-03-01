@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'core.apps.CoreConfig',
     'custom_auth',
+    'clientportal',
     'payments',
     'services',
 ]
@@ -139,12 +140,21 @@ STRIPE_PUBLISHABLE_KEY = 'your_stripe_publishable_key'
 STRIPE_SECRET_KEY = 'your_stripe_secret_key'
 STRIPE_WEBHOOK_SECRET = 'your_stripe_webhook_secret'
 
+# Site Settings
+SITE_DOMAIN = '127.0.0.1:8000'# 'solathomas.com'  # Used for email links and other absolute URLs
+SITE_NAME = 'Sola-Thomas Solutions'
+
 # Email Settings
 SENDGRID_API_KEY = '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'
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
-DEFAULT_FROM_EMAIL = 'no-reply@services.solathomas.com'
-SENDGRID_SANDBOX_MODE_IN_DEBUG = True  # Set to False in production
-CONTACT_EMAIL = 'info@solathomas.com'  # Email to receive contact form submissions
+DEFAULT_FROM_EMAIL = f'no-reply@services.solathomas.com'#{SITE_DOMAIN}'
+SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+CONTACT_EMAIL = f'info@solathomas.com'#{SITE_DOMAIN}'
+
+# Authentication settings
+LOGIN_REDIRECT_URL = '/portal/dashboard/'
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/accounts/login/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

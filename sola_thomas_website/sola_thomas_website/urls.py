@@ -19,9 +19,18 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.http import HttpResponse
+from django.contrib.auth.views import LogoutView
+from django.shortcuts import redirect
 
 def health_check(request):
     return HttpResponse("OK", status=200)
+
+# Optional: Create a simple logout view that works with GET requests
+def logout_view(request):
+    if request.user.is_authenticated:
+        from django.contrib.auth import logout
+        logout(request)
+    return redirect('/')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,4 +38,5 @@ urlpatterns = [
     path('services/', include('services.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('health/', health_check, name='health_check'),
+    path('portal/', include('clientportal.urls')),  # Make sure this is correctly defined
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

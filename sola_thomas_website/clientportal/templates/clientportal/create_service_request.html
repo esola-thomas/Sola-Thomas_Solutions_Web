@@ -1,0 +1,62 @@
+{% extends 'clientportal/authenticated_base.html' %}
+{% block title %}Request a Service{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-4">
+        <div class="col">
+            <h2>Request a Service</h2>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'clientportal:dashboard' %}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'clientportal:my_service_requests' %}">My Requests</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">New Request</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">Service Request Form</h5>
+                </div>
+                <div class="card-body">
+                    <p>Fill out this form to request a service from our team. We'll review your request and get back to you soon.</p>
+                    
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="id_title" class="form-label">Service Title</label>
+                            {{ form.title }}
+                            <small class="form-text text-muted">Briefly describe the service you need.</small>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="id_description" class="form-label">Details</label>
+                            {{ form.description }}
+                            <small class="form-text text-muted">Provide as much detail as possible about your service needs.</small>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="id_requested_date" class="form-label">Requested Date</label>
+                            {{ form.requested_date }}
+                            <small class="form-text text-muted">When would you like this service to be performed?</small>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{% url 'clientportal:my_service_requests' %}" class="btn btn-outline-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-primary">Submit Request</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-muted">
+                    <small>We aim to respond to all service requests within 24-48 business hours.</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

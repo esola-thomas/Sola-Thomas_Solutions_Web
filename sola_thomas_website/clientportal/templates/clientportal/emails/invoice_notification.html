@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>New Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .container {
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .button {
+            display: inline-block;
+            background-color: #0d6efd;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .invoice-details {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .amount {
+            color: #0d6efd;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <h2>Sola-Thomas Solutions</h2>
+        </div>
+        
+        <p>Hi {{ user.first_name|default:user.username }},</p>
+        
+        <p>A new invoice has been created for your account:</p>
+        
+        <div class="invoice-details">
+            <h3>Invoice #{{ invoice.id }}</h3>
+            <p><strong>Amount:</strong> <span class="amount">${{ invoice.amount }}</span></p>
+            <p><strong>Due Date:</strong> {{ invoice.due_date }}</p>
+            <p><strong>Details:</strong> {{ invoice.details }}</p>
+            <p><strong>Status:</strong> {% if invoice.paid %}Paid{% else %}Pending{% endif %}</p>
+        </div>
+        
+        <p style="text-align: center;">
+            <a class="button" href="https://{{ domain }}/portal/dashboard/#invoices">
+                View Invoice Details
+            </a>
+        </p>
+        
+        <p>If you have any questions about this invoice, please contact us or leave a note through the portal.</p>
+        
+        <p>Thank you for your business!</p>
+        
+        <p>Best regards,<br>The Sola-Thomas Team</p>
+        
+        <div class="footer">
+            <p>This email was sent to {{ user.email }}. If you have any questions, please contact us at support@solathomas.com</p>
+            <p>&copy; {% now "Y" %} Sola-Thomas LLC. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

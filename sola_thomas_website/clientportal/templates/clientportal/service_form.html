@@ -1,0 +1,81 @@
+{% extends 'clientportal/authenticated_base.html' %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-4">
+        <div class="col">
+            <h2>{{ title }}</h2>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'clientportal:admin_dashboard' %}">Admin Dashboard</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">Service Information</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="id_user" class="form-label">Customer</label>
+                            {{ form.user }}
+                            <small class="form-text text-muted">The customer who received this service</small>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="id_name" class="form-label">Service Name</label>
+                            {{ form.name }}
+                            <small class="form-text text-muted">A brief title for the service performed</small>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="id_description" class="form-label">Description</label>
+                            {{ form.description }}
+                            <small class="form-text text-muted">Detailed description of the service (visible to customer)</small>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="id_date_performed" class="form-label">Date Performed</label>
+                            {{ form.date_performed }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_admin_notes" class="form-label">Admin Notes</label>
+                            {{ form.admin_notes }}
+                            <small class="form-text text-muted">Internal notes (only visible to admins)</small>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="id_invoice" class="form-label">Associated Invoice</label>
+                            {{ form.invoice }}
+                            <small class="form-text text-muted">Link to an existing invoice or leave blank to create one later</small>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{% url 'clientportal:admin_dashboard' %}#services" class="btn btn-outline-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-primary">{{ button_text }}</button>
+                        </div>
+                    </form>
+                </div>
+                {% if not is_new %}
+                <div class="card-footer text-muted">
+                    <small>Created: {{ service.created_at|date:"M d, Y H:i" }}</small>
+                    {% if service.created_at != service.updated_at %}
+                        <small class="ms-3">Last updated: {{ service.updated_at|date:"M d, Y H:i" }}</small>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

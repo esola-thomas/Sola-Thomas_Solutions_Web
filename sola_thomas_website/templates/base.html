@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     {# Meta blocks - Override these in child templates for SEO optimization #}
-    <title>{% block title %}Sola-Thomas LLC{% endblock %}</title>
+    <title>{% block title %}Sola-Thomas Solutions{% endblock %}</title>
     <meta name="description" content="{% block meta_description %}Professional technology consulting and IT solutions by Sola-Thomas LLC{% endblock %}">
     <meta name="keywords" content="{% block meta_keywords %}IT services, consulting, web development, technology solutions{% endblock %}">
     
@@ -49,13 +49,13 @@
     {# Navigation bar - Common across all pages #}
     <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'core:home' %}">Sola-Thomas LLC</a>
+            <a class="navbar-brand" href="/">Sola-Thomas Solutions</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" href="{% url 'core:home' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'core:about' %}">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'services:home_services' %}">Home Services</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'services:business_services' %}">Business Services</a></li>
@@ -63,8 +63,11 @@
                 </ul>
                 <div class="navbar-nav">
                     {% if user.is_authenticated %}
-                        <a class="nav-link" href="{% url 'core:dashboard' %}">Dashboard</a>
-                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        <a class="nav-link" href="/portal/dashboard/">Portal</a>
+                        <form method="post" action="{% url 'logout' %}" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn nav-link border-0 bg-transparent">Logout</button>
+                        </form>
                     {% else %}
                         <a class="nav-link" href="{% url 'login' %}">Login</a>
                     {% endif %}
@@ -90,6 +93,55 @@
             {# Page-specific content goes here in child templates #}
             {% endblock %}
         </main>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content login-modal">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Login Form -->
+                    <form id="loginForm" method="post" action="{% url 'login' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="loginEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="loginEmail" name="username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="loginPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="loginPassword" name="password" required>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="rememberMe" name="remember_me">
+                                <label class="form-check-label" for="rememberMe">Remember me</label>
+                            </div>
+                            <a href="#" class="forgot-password-link" id="forgotPasswordLink">Forgot password?</a>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Login</button>
+                    </form>
+                    
+                    <!-- Password Reset Form (initially hidden) -->
+                    <form id="resetPasswordForm" method="post" action="{% url 'password_reset' %}" style="display: none;">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="resetEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="resetEmail" name="email" required>
+                            <div class="form-text">We'll send you a link to reset your password.</div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Send Reset Link</button>
+                        <button type="button" class="btn btn-outline-secondary w-100 mt-2" id="backToLoginBtn">Back to Login</button>
+                    </form>
+                </div>
+                <div class="modal-footer text-center">
+                    <p class="w-100 mb-0 text-muted small">Access is by invitation only. Contact info@solathomas.com for access.</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     {# JavaScript includes #}

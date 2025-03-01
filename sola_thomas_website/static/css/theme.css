@@ -15,6 +15,8 @@
     --contact-link: #007bff; /* Link color for contact sections */
     --contact-link-hover: #0056b3; /* Hover color for contact links */
     --contact-border: rgba(0, 0, 0, 0.1); /* Border color for contact sections */
+    --link-color: #007bff;
+    --link-hover-color: #0056b3;
 }
 
 :root[data-theme="dark"] {
@@ -33,6 +35,8 @@
     --contact-link: rgba(255, 255, 255, 0.9); /* Link color for contact sections */
     --contact-link-hover: white; /* Hover color for contact links */
     --contact-border: rgba(255, 255, 255, 0.2); /* Border color for contact sections */
+    --link-color: #0d6efd;
+    --link-hover-color: #0b5ed7;
 }
 
 /* Base Styles: Basic styles for the entire page */
@@ -468,5 +472,91 @@ footer small {
 
 :root[data-theme="dark"] .text-wrapper {
     background-color: rgba(33, 37, 41, 0.75);
+    color: var(--text-color);
+}
+
+/* Login Modal Styles */
+.login-modal {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.login-modal .modal-header {
+    border-bottom: 1px solid var(--border-color);
+    padding: 1.5rem;
+}
+
+.login-modal .modal-body {
+    padding: 1.5rem;
+}
+
+.login-modal .modal-footer {
+    border-top: 1px solid var(--border-color);
+    padding: 1rem;
+}
+
+.login-modal .form-control {
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.login-modal .form-control:focus {
+    border-color: var(--link-color);
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.login-modal .form-label {
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.login-modal .form-check-label {
+    color: var(--text-color);
+}
+
+.login-modal .form-check-input {
+    background-color: var(--bg-color);
+    border-color: var(--border-color);
+}
+
+.login-modal .form-check-input:checked {
+    background-color: var(--link-color);
+    border-color: var(--link-color);
+}
+
+.forgot-password-link {
+    color: var(--link-color);
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: color 0.15s ease-in-out;
+}
+
+.forgot-password-link:hover {
+    color: var(--link-hover-color);
+    text-decoration: underline;
+}
+
+.login-modal .btn-primary {
+    background-color: var(--link-color);
+    border-color: var(--link-color);
+}
+
+.login-modal .btn-primary:hover {
+    background-color: var(--link-hover-color);
+    border-color: var(--link-hover-color);
+}
+
+.login-modal .btn-outline-secondary {
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+.login-modal .btn-outline-secondary:hover {
+    background-color: var(--border-color);
     color: var(--text-color);
 }
