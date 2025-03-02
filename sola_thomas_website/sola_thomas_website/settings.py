@@ -129,16 +129,13 @@ if not DEPLOYMENT:
         }
     }
 else:
-    # Supabase PostgreSQL connection for production
-    SUPABASE_DB_PASSWORD = "L3z2tHZPU8x4R69Rg8TX"
-    
     # Direct connection for production
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'postgres',
             'USER': 'postgres',
-            'PASSWORD': SUPABASE_DB_PASSWORD,
+            'PASSWORD': 'L3z2tHZPU8x4R69Rg8TX',
             'HOST': 'db.hqfihrsgttbwkabspnhj.supabase.co',
             'PORT': '5432',
         }
