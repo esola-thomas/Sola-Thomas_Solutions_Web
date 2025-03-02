@@ -208,7 +208,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Production Settings
 if DEPLOYMENT:
-    SECURE_SSL_REDIRECT = True
+    # Since we're using Cloudflare as a proxy, we don't need to enforce SSL redirects
+    # as Cloudflare handles the HTTPS part
+    SECURE_SSL_REDIRECT = False
+    
+    # Trust headers from Cloudflare
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    
+    # Keep these security settings
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     SECURE_BROWSER_XSS_FILTER = True
@@ -218,7 +225,7 @@ if DEPLOYMENT:
     SECURE_HSTS_PRELOAD = True
     X_FRAME_OPTIONS = 'DENY'
 
-    # Logging configuration
+    # Logging configuration - fixed formatting
     LOGGING = {
         'version': 1,
         'disable_existing_loggers': False,
@@ -227,7 +234,7 @@ if DEPLOYMENT:
                 'class': 'logging.StreamHandler',
             },
             'file': {
-                'level': 'ERROR',
+                'level': 'DEBUG',
                 'class': 'logging.FileHandler',
                 'filename': BASE_DIR / 'logs/django.log',
             },
@@ -238,9 +245,19 @@ if DEPLOYMENT:
                 'level': 'ERROR',
                 'propagate': True,
             },
+            'django.request': {
+                'handlers': ['console', 'file'],
+                'level': 'DEBUG',
+                'propagate': True,
+            },
+            'django.server': {
+                'handlers': ['console', 'file'],
+                'level': 'DEBUG', 
+                'propagate': True,
+            },
             'core': {
                 'handlers': ['console', 'file'],
-                'level': 'ERROR',
+                'level': 'DEBUG',
                 'propagate': True,
             },
         },
