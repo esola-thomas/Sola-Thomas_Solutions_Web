@@ -195,7 +195,7 @@ SITE_NAME = 'Sola-Thomas Solutions'
 # Email Settings
 SENDGRID_API_KEY = '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'
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
-DEFAULT_FROM_EMAIL = f'no-reply@service.{SITE_DOMAIN}'
+DEFAULT_FROM_EMAIL = f'no-reply@services.{SITE_DOMAIN}'
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 CONTACT_EMAIL = f'info@{SITE_DOMAIN}'
 
