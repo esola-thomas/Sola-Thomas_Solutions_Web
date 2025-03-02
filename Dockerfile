@@ -45,8 +45,7 @@ RUN mkdir ws out && \
 COPY . ws
 
 RUN pip install --upgrade pip && \
-    pip install -r ws/requirements.txt && \
-    pip install gunicorn gevent psycopg2-binary
+    pip install -r ws/requirements.txt
     
 # Switch back to root for nginx setup
 USER root
