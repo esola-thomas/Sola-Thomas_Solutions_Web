@@ -189,20 +189,25 @@ WHITENOISE_MAX_AGE = 31536000  # 1 year in seconds
 WHITENOISE_ALLOW_ALL_ORIGINS = True
 
 # Site Settings
-SITE_DOMAIN = 'solathomas.com' if DEPLOYMENT else 'localhost:8000'
 SITE_NAME = 'Sola-Thomas Solutions'
+SITE_DOMAIN = 'solathomas.com' if DEPLOYMENT else 'localhost:8000'
 
 # Site domain for password reset and other absolute URLs
 SITE_DOMAIN = 'solathomas.com'  # No http/https prefix
 DEFAULT_FROM_EMAIL = 'noreply@services.solathomas.com'
 EMAIL_SUBJECT_PREFIX = '[Sola-Thomas] '
 
-# Email Settings
+# Email Settings - Use direct email without tracking links
 SENDGRID_API_KEY = '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'
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
-DEFAULT_FROM_EMAIL = f'no-reply@services.{SITE_DOMAIN}'
+DEFAULT_FROM_EMAIL = f'noreply@services.{SITE_DOMAIN}' 
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 CONTACT_EMAIL = f'info@{SITE_DOMAIN}'
+
+# Add this to prevent email click tracking which modifies URLs
+SENDGRID_TRACK_EMAIL_OPENS = False
+SENDGRID_TRACK_CLICKS_HTML = False
+SENDGRID_TRACK_CLICKS_PLAIN = False
 
 # Authentication settings
 AUTHENTICATION_BACKENDS = [
