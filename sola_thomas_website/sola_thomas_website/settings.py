@@ -178,12 +178,13 @@ USE_TZ = True
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
-STATIC_URL = '/static/'  # Make sure the leading slash is present
+# Ensure STATIC_URL has a trailing slash but also starts with a slash
+STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # WhiteNoise configuration
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-WHITENOISE_ROOT = None  # Let WhiteNoise find the files from STATIC_ROOT
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'  # Changed from CompressedManifestStaticFilesStorage
+WHITENOISE_ROOT = None
 WHITENOISE_MAX_AGE = 31536000  # 1 year in seconds
 WHITENOISE_ALLOW_ALL_ORIGINS = True
 
