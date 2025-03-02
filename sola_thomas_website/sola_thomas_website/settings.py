@@ -64,7 +64,7 @@ DEBUG = not DEPLOYMENT
 
 # Set allowed hosts based on deployment status
 if DEPLOYMENT:
-    ALLOWED_HOSTS = ['solathomas.com', 'new.solathomas.com']
+    ALLOWED_HOSTS = ['localhost', 'solathomas.com', 'new.solathomas.com']
 else:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
@@ -80,7 +80,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'core.apps.CoreConfig',
-    'custom_auth',
     'clientportal',
     'services',
 ]
@@ -89,6 +88,7 @@ SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Add this line
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -129,22 +129,19 @@ if not DEPLOYMENT:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+   
 else:
-    # Supabase PostgreSQL connection for production
-    SUPABASE_DB_PASSWORD = "L3z2tHZPU8x4R69Rg8TX"
-    
     # Direct connection for production
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'postgres',
-            'USER': 'postgres',
-            'PASSWORD': SUPABASE_DB_PASSWORD,
-            'HOST': 'db.hqfihrsgttbwkabspnhj.supabase.co',
+            'USER': 'postgres.hqfihrsgttbwkabspnhj',
+            'PASSWORD': 'L3z2tHZPU8x4R69Rg8TX',
+            'HOST': 'aws-0-us-west-1.pooler.supabase.com',
             'PORT': '5432',
         }
     }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -181,23 +178,40 @@ USE_TZ = True
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
-STATIC_URL = 'static/'
+# Ensure STATIC_URL has a trailing slash but also starts with a slash
+STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-# Site Settings
-SITE_DOMAIN = 'solathomas.com' if DEPLOYMENT else 'localhost:8000'
-SITE_NAME = 'Sola-Thomas Solutions'
+# WhiteNoise configuration
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'  # Changed from CompressedManifestStaticFilesStorage
+WHITENOISE_ROOT = None
+WHITENOISE_MAX_AGE = 31536000  # 1 year in seconds
+WHITENOISE_ALLOW_ALL_ORIGINS = True
 
-# Email Settings
+# Site Settings
+SITE_NAME = 'Sola-Thomas Solutions'
+SITE_DOMAIN = 'solathomas.com' if DEPLOYMENT else 'localhost:8000'
+
+# Site domain for password reset and other absolute URLs
+SITE_DOMAIN = 'solathomas.com'  # No http/https prefix
+DEFAULT_FROM_EMAIL = 'noreply@services.solathomas.com'
+EMAIL_SUBJECT_PREFIX = '[Sola-Thomas] '
+
+# Email Settings - Use direct email without tracking links
 SENDGRID_API_KEY = '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'
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
-DEFAULT_FROM_EMAIL = f'no-reply@service.{SITE_DOMAIN}'
+DEFAULT_FROM_EMAIL = f'noreply@services.{SITE_DOMAIN}' 
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 CONTACT_EMAIL = f'info@{SITE_DOMAIN}'
 
+# Add this to prevent email click tracking which modifies URLs
+SENDGRID_TRACK_EMAIL_OPENS = False
+SENDGRID_TRACK_CLICKS_HTML = False
+SENDGRID_TRACK_CLICKS_PLAIN = False
+
 # Authentication settings
 AUTHENTICATION_BACKENDS = [
-    'custom_auth.backends.EmailOrUsernameModelBackend',  # Custom backend for email/username login
+    'clientportal.backend_authenticate.EmailOrUsernameModelBackend',  # Custom backend for email/username login
     'django.contrib.auth.backends.ModelBackend',  # Default backend as fallback
 ]
 
@@ -212,7 +226,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Production Settings
 if DEPLOYMENT:
-    SECURE_SSL_REDIRECT = True
+    # Since we're using Cloudflare as a proxy, we don't need to enforce SSL redirects
+    # as Cloudflare handles the HTTPS part
+    SECURE_SSL_REDIRECT = False
+    
+    # Trust headers from Cloudflare
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    
+    # Keep these security settings
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     SECURE_BROWSER_XSS_FILTER = True
@@ -222,7 +243,7 @@ if DEPLOYMENT:
     SECURE_HSTS_PRELOAD = True
     X_FRAME_OPTIONS = 'DENY'
 
-    # Logging configuration
+    # Logging configuration - fixed formatting
     LOGGING = {
         'version': 1,
         'disable_existing_loggers': False,
@@ -231,7 +252,7 @@ if DEPLOYMENT:
                 'class': 'logging.StreamHandler',
             },
             'file': {
-                'level': 'ERROR',
+                'level': 'DEBUG',
                 'class': 'logging.FileHandler',
                 'filename': BASE_DIR / 'logs/django.log',
             },
@@ -242,9 +263,19 @@ if DEPLOYMENT:
                 'level': 'ERROR',
                 'propagate': True,
             },
+            'django.request': {
+                'handlers': ['console', 'file'],
+                'level': 'DEBUG',
+                'propagate': True,
+            },
+            'django.server': {
+                'handlers': ['console', 'file'],
+                'level': 'DEBUG', 
+                'propagate': True,
+            },
             'core': {
                 'handlers': ['console', 'file'],
-                'level': 'ERROR',
+                'level': 'DEBUG',
                 'propagate': True,
             },
         },

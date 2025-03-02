@@ -1,7 +1,15 @@
 #!/bin/bash
 
-# Set environment variable for deployment
+# Set environment variables for deployment
 export DEPLOYMENT=True
+export DJANGO_SETTINGS_MODULE=sola_thomas_website.settings
+export PYTHONPATH=/home/esolathomas/ws/sola_thomas_website:$PYTHONPATH
+
+# Color codes for output
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+YELLOW='\033[0;33m'
+NC='\033[0m' # No Color
 
 # Create logs directories with timestamp
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
@@ -20,32 +28,13 @@ chmod 666 /home/esolathomas/ws/sola_thomas_website/logs/django.log
 # Activate the virtual environment
 source /home/esolathomas/stsol/bin/activate
 
-# Color codes for output
-GREEN='\033[0;32m'
-RED='\033[0;31m'
-YELLOW='\033[0;33m'
-NC='\033[0m' # No Color
-
 # Navigate to Django project
 cd /home/esolathomas/ws/sola_thomas_website
 
 # Function to test database connection
 test_db_connection() {
     echo -e "${YELLOW}Testing database connection...${NC}"
-    python -c "
-import os
-os.environ['DEPLOYMENT'] = 'True'
-from django.db import connections
-from django.db.utils import OperationalError
-db_conn = connections['default']
-try:
-    db_conn.cursor()
-    print('${GREEN}Database connection successful${NC}')
-    exit(0)
-except OperationalError:
-    print('${RED}Database connection failed${NC}')
-    exit(1)
-"
+    python /home/esolathomas/ws/scripts/db_check.py
     return $?
 }
 
@@ -59,7 +48,7 @@ while [ $retry_count -lt $max_retries ] && [ "$db_ready" = false ]; do
         db_ready=true
     else
         retry_count=$((retry_count+1))
-        echo -e "${YELLOW}Retrying database connection ($retry_count/$max_retries)${NC}"
+        echo -e "${YELLOW}Retrying database connection $retry_count/$max_retries${NC}"
         sleep 5
     fi
 done
@@ -68,26 +57,70 @@ if [ "$db_ready" = false ]; then
     echo -e "${RED}Failed to connect to database after $max_retries attempts. Continuing anyway but may fail later.${NC}"
 fi
 
-# Run migrations regardless of connection test result
+# Create migrations for the clientportal app
+echo -e "${YELLOW}Creating migrations for clientportal app...${NC}"
+python manage.py makemigrations clientportal
+MAKEMIGRATIONS_STATUS=$?
+
+if [ $MAKEMIGRATIONS_STATUS -ne 0 ]; then
+    echo -e "${RED}Failed to create migrations for clientportal app. Continuing anyway but may fail later.${NC}"
+fi
+
+# Run migrations and ensure they complete successfully
 echo -e "${YELLOW}Applying database migrations...${NC}"
 python manage.py migrate --no-input
+MIGRATION_STATUS=$?
 
-# Create superuser if it doesn't exist
-echo -e "${YELLOW}Checking superuser...${NC}"
-python -c "
-from django.contrib.auth import get_user_model
-User = get_user_model()
-if not User.objects.filter(username='esolathomas').exists():
-    print('${GREEN}Creating superuser...${NC}')
-    User.objects.create_superuser('esolathomas', 'ernesto@solathomas.com', 'my_generic_passsword1234')
-    print('${GREEN}Superuser created successfully!${NC}')
+if [ $MIGRATION_STATUS -ne 0 ]; then
+    echo -e "${RED}Database migrations failed with status $MIGRATION_STATUS. Cannot continue with superuser creation.${NC}"
+    # Still continue with server startup, but skip superuser creation
+else
+    echo -e "${GREEN}Database migrations completed successfully.${NC}"
+    
+    # Verify that the auth_user table exists before creating a superuser
+    echo -e "${YELLOW}Verifying database schema...${NC}"
+    python -c "
+import os, sys, django
+sys.path.append('/home/esolathomas/ws/sola_thomas_website')
+os.environ['DJANGO_SETTINGS_MODULE'] = 'sola_thomas_website.settings'
+os.environ['DEPLOYMENT'] = 'True'
+
+django.setup()
+
+from django.db import connection
+
+tables = connection.introspection.table_names()
+if 'auth_user' in tables:
+    print('${GREEN}auth_user table exists, proceeding with superuser check${NC}')
+    from django.contrib.auth import get_user_model
+    User = get_user_model()
+    if not User.objects.filter(username='esolathomas').exists():
+        print('${GREEN}Creating superuser...${NC}')
+        User.objects.create_superuser('esolathomas', 'ernesto@solathomas.com', 'my_generic_passsword1234')
+        print('${GREEN}Superuser created successfully!${NC}')
+    else:
+        print('${YELLOW}Superuser already exists, skipping creation${NC}')
 else:
-    print('${YELLOW}Superuser already exists, skipping creation${NC}')
-"
+    print('${RED}auth_user table does not exist! Migrations may not have completed correctly.${NC}')
+    exit(1)
+" || echo -e "${RED}Failed to create superuser. Will continue without it.${NC}"
+fi
 
-# Collect static files
+# Collect static files with clear flag to ensure fresh copy
 echo -e "${YELLOW}Collecting static files...${NC}"
-python manage.py collectstatic --no-input
+python manage.py collectstatic --no-input --clear
+
+# Ensure proper permissions on static files
+echo -e "${YELLOW}Setting proper permissions on static files...${NC}"
+chmod -R 755 /home/esolathomas/ws/sola_thomas_website/staticfiles/
+
+# Debug static files
+echo -e "${YELLOW}Debugging static files...${NC}"
+python /home/esolathomas/ws/scripts/check_static_files.py
+
+# Check image files specifically
+echo -e "${YELLOW}Checking image files...${NC}"
+python /home/esolathomas/ws/scripts/check_image_files.py
 
 echo -e "${GREEN}Starting Gunicorn server...${NC}"
 
