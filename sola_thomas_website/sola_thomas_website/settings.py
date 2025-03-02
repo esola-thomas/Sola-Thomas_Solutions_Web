@@ -192,6 +192,11 @@ WHITENOISE_ALLOW_ALL_ORIGINS = True
 SITE_DOMAIN = 'solathomas.com' if DEPLOYMENT else 'localhost:8000'
 SITE_NAME = 'Sola-Thomas Solutions'
 
+# Site domain for password reset and other absolute URLs
+SITE_DOMAIN = 'solathomas.com'  # No http/https prefix
+DEFAULT_FROM_EMAIL = 'noreply@services.solathomas.com'
+EMAIL_SUBJECT_PREFIX = '[Sola-Thomas] '
+
 # Email Settings
 SENDGRID_API_KEY = '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'
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"

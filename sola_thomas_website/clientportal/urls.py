@@ -1,6 +1,7 @@
 from django.urls import path, reverse_lazy
 from django.contrib.auth import views as auth_views
 from . import views
+from django.conf import settings
 
 app_name = 'clientportal'
 
@@ -30,13 +31,14 @@ urlpatterns += [
     path('login/', views.login_user, name='login'),
     path('logout/', views.logout_user, name='logout'),
     
-    # Password reset URLs
+    # Password reset URLs - updated with explicit domain configuration
     path('password_reset/', 
          auth_views.PasswordResetView.as_view(
              template_name='clientportal/registration/password_reset_form.html',
              email_template_name='clientportal/registration/password_reset_email.html',
              subject_template_name='clientportal/registration/password_reset_subject.txt',
-             success_url=reverse_lazy('clientportal:password_reset_done')
+             success_url=reverse_lazy('clientportal:password_reset_done'),
+             extra_email_context={'domain': settings.SITE_DOMAIN or 'solathomas.com', 'protocol': 'https'}
          ), 
          name='password_reset'),
     
