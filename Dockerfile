@@ -6,6 +6,8 @@ ARG GITHUB_PAT
 
 # Prevent interactive prompts during package installation
 ENV DEBIAN_FRONTEND=noninteractive
+# Set deployment flag for production environment
+ENV DEPLOYMENT=True
 
 # Install required packages
 RUN apt-get update && apt-get install -y \
@@ -21,6 +23,7 @@ RUN apt-get update && apt-get install -y \
     python3-dev \
     build-essential \
     sudo \
+    postgresql-client \
     && rm -rf /var/lib/apt/lists/*
 
 # Create user and set up directories
@@ -43,7 +46,7 @@ COPY . ws
 
 RUN pip install --upgrade pip && \
     pip install -r ws/requirements.txt && \
-    pip install gunicorn gevent
+    pip install gunicorn gevent psycopg2-binary
     
 # Switch back to root for nginx setup
 USER root
