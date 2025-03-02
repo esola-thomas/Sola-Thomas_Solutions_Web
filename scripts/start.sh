@@ -124,6 +124,10 @@ sudo chmod -R 755 /home/esolathomas/ws/sola_thomas_website/staticfiles/
 echo -e "${YELLOW}Debugging static files...${NC}"
 python /home/esolathomas/ws/scripts/check_static_files.py
 
+# Check image files specifically
+echo -e "${YELLOW}Checking image files...${NC}"
+python /home/esolathomas/ws/scripts/check_image_files.py
+
 # Start nginx in the background
 echo -e "${YELLOW}Starting Nginx...${NC}"
 sudo service nginx stop || true  # Stop if running
