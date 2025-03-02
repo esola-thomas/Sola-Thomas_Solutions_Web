@@ -64,7 +64,7 @@ DEBUG = not DEPLOYMENT
 
 # Set allowed hosts based on deployment status
 if DEPLOYMENT:
-    ALLOWED_HOSTS = ['solathomas.com', 'new.solathomas.com']
+    ALLOWED_HOSTS = ['localhost', 'solathomas.com', 'new.solathomas.com']
 else:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
