@@ -50,10 +50,18 @@ RUN pip install --upgrade pip && \
 # Switch back to root for nginx setup
 USER root
 
+# Configure nginx
+COPY nginx/sola-thomas-site.conf /etc/nginx/conf.d/default.conf
+RUN rm -f /etc/nginx/sites-enabled/default
+
 # Copy scripts
 RUN chmod +x /home/esolathomas/ws/scripts/start.sh && \
     chmod +x /home/esolathomas/ws/scripts/shutdown.sh && \
     chmod -R 777 /home/esolathomas/ws
+
+# Add start-nginx script
+COPY scripts/start-nginx.sh /home/esolathomas/ws/scripts/start-nginx.sh
+RUN chmod +x /home/esolathomas/ws/scripts/start-nginx.sh
 
 USER esolathomas
 

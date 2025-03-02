@@ -97,9 +97,13 @@ else:
 " || echo -e "${RED}Failed to create superuser. Will continue without it.${NC}"
 fi
 
-# Collect static files
+# Collect static files with clear flag to ensure fresh copy
 echo -e "${YELLOW}Collecting static files...${NC}"
-python manage.py collectstatic --no-input
+python manage.py collectstatic --no-input --clear
+
+# Start nginx
+echo -e "${YELLOW}Starting Nginx...${NC}"
+sudo service nginx start
 
 echo -e "${GREEN}Starting Gunicorn server...${NC}"
 
