@@ -3,6 +3,7 @@
 # Set environment variables for deployment
 export DEPLOYMENT=True
 export DJANGO_SETTINGS_MODULE=sola_thomas_website.settings
+export PYTHONPATH=/home/esolathomas/ws/sola_thomas_website:$PYTHONPATH
 
 # Color codes for output
 GREEN='\033[0;32m'
@@ -64,21 +65,30 @@ python manage.py migrate --no-input
 echo -e "${YELLOW}Checking superuser...${NC}"
 python -c "
 import os
+import sys
 import django
+
+# Add the Django project directory to Python path
+project_path = '/home/esolathomas/ws/sola_thomas_website'
+sys.path.append(project_path)
+
+# Set the environment variables
 os.environ['DEPLOYMENT'] = 'True'
 os.environ['DJANGO_SETTINGS_MODULE'] = 'sola_thomas_website.settings'
 
 # Initialize Django properly
-django.setup()
-
-from django.contrib.auth import get_user_model
-User = get_user_model()
-if not User.objects.filter(username='esolathomas').exists():
-    print('${GREEN}Creating superuser...${NC}')
-    User.objects.create_superuser('esolathomas', 'ernesto@solathomas.com', 'my_generic_passsword1234')
-    print('${GREEN}Superuser created successfully!${NC}')
-else:
-    print('${YELLOW}Superuser already exists, skipping creation${NC}')
+try:
+    django.setup()
+    from django.contrib.auth import get_user_model
+    User = get_user_model()
+    if not User.objects.filter(username='esolathomas').exists():
+        print('${GREEN}Creating superuser...${NC}')
+        User.objects.create_superuser('esolathomas', 'ernesto@solathomas.com', 'my_generic_passsword1234')
+        print('${GREEN}Superuser created successfully!${NC}')
+    else:
+        print('${YELLOW}Superuser already exists, skipping creation${NC}')
+except Exception as e:
+    print('${RED}Error creating superuser: ' + str(e) + '${NC}')
 "
 
 # Collect static files
