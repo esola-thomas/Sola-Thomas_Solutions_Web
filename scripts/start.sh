@@ -25,12 +25,6 @@ mkdir -p /home/esolathomas/ws/sola_thomas_website/logs
 touch /home/esolathomas/ws/sola_thomas_website/logs/django.log
 chmod 666 /home/esolathomas/ws/sola_thomas_website/logs/django.log
 
-# Make sure nginx logs directory exists
-mkdir -p /var/log/nginx
-sudo chmod 755 /var/log/nginx
-sudo touch /var/log/nginx/error.log /var/log/nginx/access.log
-sudo chmod 644 /var/log/nginx/error.log /var/log/nginx/access.log
-
 # Activate the virtual environment
 source /home/esolathomas/stsol/bin/activate
 
@@ -118,7 +112,7 @@ python manage.py collectstatic --no-input --clear
 
 # Ensure proper permissions on static files
 echo -e "${YELLOW}Setting proper permissions on static files...${NC}"
-sudo chmod -R 755 /home/esolathomas/ws/sola_thomas_website/staticfiles/
+chmod -R 755 /home/esolathomas/ws/sola_thomas_website/staticfiles/
 
 # Debug static files
 echo -e "${YELLOW}Debugging static files...${NC}"
@@ -127,17 +121,6 @@ python /home/esolathomas/ws/scripts/check_static_files.py
 # Check image files specifically
 echo -e "${YELLOW}Checking image files...${NC}"
 python /home/esolathomas/ws/scripts/check_image_files.py
-
-# Start nginx in the background
-echo -e "${YELLOW}Starting Nginx...${NC}"
-sudo service nginx stop || true  # Stop if running
-sleep 1
-sudo service nginx start &
-
-# Wait for nginx to start up
-sleep 2
-echo -e "${YELLOW}Checking Nginx status...${NC}"
-sudo service nginx status || echo -e "${RED}Nginx failed to start properly${NC}"
 
 echo -e "${GREEN}Starting Gunicorn server...${NC}"
 
