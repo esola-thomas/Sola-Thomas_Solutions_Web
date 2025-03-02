@@ -128,19 +128,19 @@ if not DEPLOYMENT:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+   
 else:
     # Direct connection for production
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'postgres',
-            'USER': 'postgres',
+            'USER': 'postgres.hqfihrsgttbwkabspnhj',
             'PASSWORD': 'L3z2tHZPU8x4R69Rg8TX',
-            'HOST': 'db.hqfihrsgttbwkabspnhj.supabase.co',
+            'HOST': 'aws-0-us-west-1.pooler.supabase.com',
             'PORT': '5432',
         }
     }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
