@@ -11,10 +11,47 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+from django.core.exceptions import ImproperlyConfigured
+
+# Function to get environment variables
+def get_env_variable(var_name, default=None):
+    try:
+        return os.environ[var_name]
+    except KeyError:
+        if default is not None:
+            return default
+        error_msg = f"Set the {var_name} environment variable"
+        raise ImproperlyConfigured(error_msg)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Check if we're in deployment mode
+DEPLOYMENT = get_env_variable('DEPLOYMENT', 'False').lower() in ('true', '1', 't')
+
+# Display a startup message about deployment mode - prevent double printing
+# by checking if message has already been displayed
+class TerminalColors:
+    HEADER = '\033[95m'
+    BLUE = '\033[94m'
+    GREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+
+# Only print the deployment message if it hasn't been displayed already
+if not os.environ.get('DJANGO_SETTINGS_MESSAGE_DISPLAYED'):
+    if DEPLOYMENT:
+        print(f"\n{TerminalColors.BOLD}{TerminalColors.GREEN}✓ DEPLOYMENT MODE: Running in PRODUCTION environment{TerminalColors.ENDC}")
+        print(f"{TerminalColors.BOLD}{TerminalColors.GREEN}✓ SITE DOMAIN: solathomas.com{TerminalColors.ENDC}\n")
+    else:
+        print(f"\n{TerminalColors.BOLD}{TerminalColors.BLUE}✓ DEVELOPMENT MODE: Running in LOCAL environment{TerminalColors.ENDC}")
+        print(f"{TerminalColors.BOLD}{TerminalColors.BLUE}✓ SITE DOMAIN: localhost:8000{TerminalColors.ENDC}\n")
+    
+    # Set flag to prevent repeated display
+    os.environ['DJANGO_SETTINGS_MESSAGE_DISPLAYED'] = 'True'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -23,9 +60,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-2%17#jf%2ekk_xhxmx%w*^$lxnc#f*(5iu9+zqnzdc10(c+%^k'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = not DEPLOYMENT
 
-ALLOWED_HOSTS = ['solathomas.com', 'new.solathomas.com', 'localhost', '127.0.0.1']
+# Set allowed hosts based on deployment status
+if DEPLOYMENT:
+    ALLOWED_HOSTS = ['solathomas.com', 'new.solathomas.com']
+else:
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -80,7 +121,8 @@ WSGI_APPLICATION = 'sola_thomas_website.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-if DEBUG:
+# Database configuration based on deployment status
+if not DEPLOYMENT:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -88,10 +130,18 @@ if DEBUG:
         }
     }
 else:
+    # Supabase PostgreSQL connection for production
+    SUPABASE_DB_PASSWORD = "L3z2tHZPU8x4R69Rg8TX"
+    
+    # Direct connection for production
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': Path.home() / 'out' / 'db.sqlite3',
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'postgres',
+            'USER': 'postgres',
+            'PASSWORD': SUPABASE_DB_PASSWORD,
+            'HOST': 'db.hqfihrsgttbwkabspnhj.supabase.co',
+            'PORT': '5432',
         }
     }
 
@@ -134,13 +184,8 @@ STATICFILES_DIRS = [
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-# Stripe Settings
-STRIPE_PUBLISHABLE_KEY = 'your_stripe_publishable_key'
-STRIPE_SECRET_KEY = 'your_stripe_secret_key'
-STRIPE_WEBHOOK_SECRET = 'your_stripe_webhook_secret'
-
 # Site Settings
-SITE_DOMAIN = 'solathomas.com'  # Used for email links and other absolute URLs
+SITE_DOMAIN = 'solathomas.com' if DEPLOYMENT else 'localhost:8000'
 SITE_NAME = 'Sola-Thomas Solutions'
 
 # Email Settings
@@ -166,7 +211,7 @@ LOGIN_URL = '/portal/login/'  # Changed from '/accounts/login/' to use our custo
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Production Settings
-if not DEBUG:
+if DEPLOYMENT:
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
