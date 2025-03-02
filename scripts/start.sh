@@ -57,28 +57,32 @@ if [ "$db_ready" = false ]; then
     echo -e "${RED}Failed to connect to database after $max_retries attempts. Continuing anyway but may fail later.${NC}"
 fi
 
-# Run migrations regardless of connection test result
+# Run migrations and ensure they complete successfully
 echo -e "${YELLOW}Applying database migrations...${NC}"
 python manage.py migrate --no-input
+MIGRATION_STATUS=$?
 
-# Create superuser if it doesn't exist
-echo -e "${YELLOW}Checking superuser...${NC}"
-python -c "
-import os
-import sys
-import django
-
-# Add the Django project directory to Python path
-project_path = '/home/esolathomas/ws/sola_thomas_website'
-sys.path.append(project_path)
-
-# Set the environment variables
-os.environ['DEPLOYMENT'] = 'True'
+if [ $MIGRATION_STATUS -ne 0 ]; then
+    echo -e "${RED}Database migrations failed with status $MIGRATION_STATUS. Cannot continue with superuser creation.${NC}"
+    # Still continue with server startup, but skip superuser creation
+else
+    echo -e "${GREEN}Database migrations completed successfully.${NC}"
+    
+    # Verify that the auth_user table exists before creating a superuser
+    echo -e "${YELLOW}Verifying database schema...${NC}"
+    python -c "
+import os, sys, django
+sys.path.append('/home/esolathomas/ws/sola_thomas_website')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'sola_thomas_website.settings'
+os.environ['DEPLOYMENT'] = 'True'
 
-# Initialize Django properly
-try:
-    django.setup()
+django.setup()
+
+from django.db import connection
+
+tables = connection.introspection.table_names()
+if 'auth_user' in tables:
+    print('${GREEN}auth_user table exists, proceeding with superuser check${NC}')
     from django.contrib.auth import get_user_model
     User = get_user_model()
     if not User.objects.filter(username='esolathomas').exists():
@@ -87,9 +91,11 @@ try:
         print('${GREEN}Superuser created successfully!${NC}')
     else:
         print('${YELLOW}Superuser already exists, skipping creation${NC}')
-except Exception as e:
-    print('${RED}Error creating superuser: ' + str(e) + '${NC}')
-"
+else:
+    print('${RED}auth_user table does not exist! Migrations may not have completed correctly.${NC}')
+    exit(1)
+" || echo -e "${RED}Failed to create superuser. Will continue without it.${NC}"
+fi
 
 # Collect static files
 echo -e "${YELLOW}Collecting static files...${NC}"
