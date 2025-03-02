@@ -16,7 +16,8 @@ from .tokens import account_activation_token
 from .utils import send_service_notification, send_invoice_notification, send_note_response_notification, send_request_status_notification
 from django.contrib.auth import authenticate, login, logout
 from .forms import CreateUserForm
-
+import pytz
+EST_TIMEZONE = pytz.timezone('US/Eastern')
 @login_required
 def dashboard(request):
     """
@@ -38,6 +39,9 @@ def dashboard(request):
     unresolved_notes_count = notes.filter(is_resolved=False).count()
     pending_requests_count = service_requests.filter(status='pending').count()
     
+    # Current time in EST for context
+    current_time_est = timezone.now().astimezone(EST_TIMEZONE)
+    
     context = {
         'services': services,
         'services_without_reviews': services_without_reviews,
@@ -47,6 +51,7 @@ def dashboard(request):
         'service_requests': service_requests,
         'unresolved_notes_count': unresolved_notes_count,
         'pending_requests_count': pending_requests_count,
+        'current_time_est': current_time_est,
     }
     return render(request, 'clientportal/dashboard.html', context)
 
