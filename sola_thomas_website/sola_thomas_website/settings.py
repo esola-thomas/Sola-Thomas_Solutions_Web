@@ -178,11 +178,14 @@ USE_TZ = True
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'  # Make sure the leading slash is present
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-# Add whitenoise configuration
+# WhiteNoise configuration
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+WHITENOISE_ROOT = None  # Let WhiteNoise find the files from STATIC_ROOT
+WHITENOISE_MAX_AGE = 31536000  # 1 year in seconds
+WHITENOISE_ALLOW_ALL_ORIGINS = True
 
 # Site Settings
 SITE_DOMAIN = 'solathomas.com' if DEPLOYMENT else 'localhost:8000'

@@ -110,24 +110,33 @@ fi
 echo -e "${YELLOW}Collecting static files...${NC}"
 python manage.py collectstatic --no-input --clear
 
+# Debug static filesions on static files
+echo -e "${YELLOW}Debugging static files...${NC}"ions on static files...${NC}"
+python /home/esolathomas/ws/scripts/check_static_files.pythomas/ws/sola_thomas_website/staticfiles/
+sudo chown -R www-data:www-data /home/esolathomas/ws/sola_thomas_website/staticfiles/
 # Start nginx
-echo -e "${YELLOW}Starting Nginx...${NC}"
-sudo service nginx start
-
+echo -e "${YELLOW}Starting Nginx...${NC}"# Start nginx
+sudo service nginx start.${NC}"
+& sudo service nginx start
 echo -e "${GREEN}Starting Gunicorn server...${NC}"
-
+ Gunicorn server...${NC}"
 # Start gunicorn in the foreground
-exec gunicorn \
+exec gunicorn \oreground
     --pid /home/esolathomas/gunicorn.pid \
-    --bind 0.0.0.0:8000 \
-    --workers 1 \
+    --bind 0.0.0.0:8000 \lathomas/gunicorn.pid \
+    --workers 1 \000 \
     --worker-class sync \
     --worker-connections 100 \
-    --timeout 120 \
+    --timeout 120 \ns 100 \
     --keep-alive 5 \
     --max-requests 200 \
-    --max-requests-jitter 50 \
+    --max-requests-jitter 50 \ \
     --log-level info \
+
+
+
+
+    sola_thomas_website.wsgi:application    --capture-output \    --error-logfile - \    --access-logfile - \    --log-level info \
     --access-logfile - \
     --error-logfile - \
     --capture-output \
