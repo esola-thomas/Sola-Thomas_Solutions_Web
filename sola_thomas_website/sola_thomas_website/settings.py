@@ -80,7 +80,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'core.apps.CoreConfig',
-    'custom_auth',
     'clientportal',
     'services',
 ]
@@ -197,7 +196,7 @@ CONTACT_EMAIL = f'info@{SITE_DOMAIN}'
 
 # Authentication settings
 AUTHENTICATION_BACKENDS = [
-    'custom_auth.backends.EmailOrUsernameModelBackend',  # Custom backend for email/username login
+    'clientportal.backend_authenticate.EmailOrUsernameModelBackend',  # Custom backend for email/username login
     'django.contrib.auth.backends.ModelBackend',  # Default backend as fallback
 ]
 
