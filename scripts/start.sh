@@ -57,6 +57,15 @@ if [ "$db_ready" = false ]; then
     echo -e "${RED}Failed to connect to database after $max_retries attempts. Continuing anyway but may fail later.${NC}"
 fi
 
+# Create migrations for the clientportal app
+echo -e "${YELLOW}Creating migrations for clientportal app...${NC}"
+python manage.py makemigrations clientportal
+MAKEMIGRATIONS_STATUS=$?
+
+if [ $MAKEMIGRATIONS_STATUS -ne 0 ]; then
+    echo -e "${RED}Failed to create migrations for clientportal app. Continuing anyway but may fail later.${NC}"
+fi
+
 # Run migrations and ensure they complete successfully
 echo -e "${YELLOW}Applying database migrations...${NC}"
 python manage.py migrate --no-input
