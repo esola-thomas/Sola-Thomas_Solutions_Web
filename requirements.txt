@@ -13,3 +13,4 @@ django-environ>=0.11.2
 sendgrid
 gevent
 psycopg2-binary
+six
