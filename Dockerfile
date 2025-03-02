@@ -19,7 +19,6 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     python3-venv \
     git \
-    nginx \
     python3-dev \
     build-essential \
     sudo \
@@ -45,21 +44,19 @@ RUN mkdir ws out && \
 COPY . ws
 
 RUN pip install --upgrade pip && \
-    pip install -r ws/requirements.txt && \
-    pip install gunicorn gevent psycopg2-binary
+    pip install -r ws/requirements.txt
     
-# Switch back to root for nginx setup
+# Switch back to root for permissions
 USER root
 
-# Copy scripts
+# Copy scripts 
 RUN chmod +x /home/esolathomas/ws/scripts/start.sh && \
     chmod +x /home/esolathomas/ws/scripts/shutdown.sh && \
     chmod -R 777 /home/esolathomas/ws
 
 USER esolathomas
 
-# Expose ports
-EXPOSE 80 8000
+EXPOSE 8000
 
 # Change CMD to use start.sh
 CMD ["/home/esolathomas/ws/scripts/start.sh"]

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Static File Test</title>
+    <!-- Test CSS -->
+    <link rel="stylesheet" href="/static/css/theme.css">
+    <!-- Test direct path -->
+</head>
+<body>
+    <h1>Static File Test</h1>
+    <p>The following resources should load:</p>
+    <ul>
+        <li>CSS Theme: <span id="css-status">Loading...</span></li>
+        <li>SVG Moon: <img src="/static/svg/moon.svg" width="20" height="20"> <span id="svg-status">Check if visible</span></li>
+        <li>JS Theme: <span id="js-status">Loading...</span></li>
+    </ul>
+    
+    <script src="/static/js/theme.js"></script>
+    <script>
+        // Check if CSS loaded
+        window.onload = function() {
+            // Check if theme.js loaded
+            if (typeof window.themeLoaded !== 'undefined') {
+                document.getElementById('js-status').innerText = 'Loaded';
+                document.getElementById('js-status').style.color = 'green';
+            } else {
+                document.getElementById('js-status').innerText = 'Failed';
+                document.getElementById('js-status').style.color = 'red';
+            }
+            
+            // Check if CSS loaded
+            const cssLoaded = Array.from(document.styleSheets).some(sheet => {
+                try {
+                    return sheet.href && sheet.href.includes('theme.css');
+                } catch (e) {
+                    return false;
+                }
+            });
+            
+            if (cssLoaded) {
+                document.getElementById('css-status').innerText = 'Loaded';
+                document.getElementById('css-status').style.color = 'green';
+            } else {
+                document.getElementById('css-status').innerText = 'Failed';
+                document.getElementById('css-status').style.color = 'red';
+            }
+            
+            // Check if SVG loaded
+            const svgImg = document.querySelector('img[src*="moon.svg"]');
+            if (svgImg.complete && svgImg.naturalHeight !== 0) {
+                document.getElementById('svg-status').innerText = 'Loaded';
+                document.getElementById('svg-status').style.color = 'green';
+            } else {
+                document.getElementById('svg-status').innerText = 'Failed';
+                document.getElementById('svg-status').style.color = 'red';
+            }
+        };
+    </script>
+</body>
+</html>

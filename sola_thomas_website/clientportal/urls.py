@@ -1,6 +1,7 @@
-from django.urls import path
+from django.urls import path, reverse_lazy
 from django.contrib.auth import views as auth_views
 from . import views
+from django.conf import settings
 
 app_name = 'clientportal'
 
@@ -30,13 +31,18 @@ urlpatterns += [
     path('login/', views.login_user, name='login'),
     path('logout/', views.logout_user, name='logout'),
     
-    # Password reset URLs
+    # Password reset URLs - updated with complete context
     path('password_reset/', 
          auth_views.PasswordResetView.as_view(
              template_name='clientportal/registration/password_reset_form.html',
              email_template_name='clientportal/registration/password_reset_email.html',
              subject_template_name='clientportal/registration/password_reset_subject.txt',
-             success_url='/password_reset/done/'
+             success_url=reverse_lazy('clientportal:password_reset_done'),
+             extra_email_context={
+                 'domain': settings.SITE_DOMAIN,
+                 'protocol': 'https',
+                 'site_name': settings.SITE_NAME
+             }
          ), 
          name='password_reset'),
     
@@ -49,7 +55,7 @@ urlpatterns += [
     path('reset/<uidb64>/<token>/', 
          auth_views.PasswordResetConfirmView.as_view(
              template_name='clientportal/registration/password_reset_confirm.html',
-             success_url='/reset/done/'
+             success_url=reverse_lazy('clientportal:password_reset_complete')  # Fix: use reverse_lazy to get the correct URL
          ), 
          name='password_reset_confirm'),
     
