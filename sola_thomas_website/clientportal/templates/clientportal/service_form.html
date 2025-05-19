@@ -59,6 +59,16 @@
                             {{ form.invoice }}
                             <small class="form-text text-muted">Link to an existing invoice or leave blank to create one later</small>
                         </div>
+
+                        <div class="mb-3">
+                            <label for="id_cost_estimate" class="form-label">Cost Estimate ($)</label>
+                            {{ form.cost_estimate }}
+                            <small class="form-text text-muted">Estimated cost for this work item (WI).</small>
+                        </div>
+                        <div class="mb-3 form-check">
+                            {{ form.user_approved }}
+                            <label class="form-check-label" for="id_user_approved">User has approved the cost estimate</label>
+                        </div>
                         
                         <div class="d-flex justify-content-between mt-4">
                             <a href="{% url 'clientportal:admin_dashboard' %}#services" class="btn btn-outline-secondary">Cancel</a>

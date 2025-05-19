@@ -74,6 +74,8 @@
                                 <th>Service</th>
                                 <th>Date</th>
                                 <th>Description</th>
+                                <th>Cost Estimate</th>
+                                <th>Approval</th>
                                 <th>Review Status</th>
                                 <th>Action</th>
                             </tr>
@@ -84,6 +86,25 @@
                                 <td><strong>{{ service.name }}</strong></td>
                                 <td>{{ service.date_performed }}</td>
                                 <td>{{ service.description|truncatechars:50 }}</td>
+                                <td>
+                                    {% if service.cost_estimate %}
+                                        ${{ service.cost_estimate }}
+                                    {% else %}
+                                        <span class="text-muted">N/A</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if service.cost_estimate and not service.user_approved %}
+                                        <form method="post" action="{% url 'clientportal:approve_service_cost' service.id %}">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-sm btn-success">Approve Estimate</button>
+                                        </form>
+                                    {% elif service.user_approved %}
+                                        <span class="badge bg-success">Approved</span>
+                                    {% else %}
+                                        <span class="text-muted">-</span>
+                                    {% endif %}
+                                </td>
                                 <td>
                                     {% if service.reviews.exists %}
                                         <span class="badge badge-reviewed">Reviewed</span>
