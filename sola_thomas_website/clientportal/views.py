@@ -17,6 +17,8 @@ from .utils import send_service_notification, send_invoice_notification, send_no
 from django.contrib.auth import authenticate, login, logout
 from .forms import CreateUserForm
 import pytz
+from django.views.decorators.http import require_POST
+
 EST_TIMEZONE = pytz.timezone('US/Eastern')
 @login_required
 def dashboard(request):
@@ -516,3 +518,15 @@ def register_user(request):
     
     context = {'form': form}
     return render(request, 'clientportal/registration/register.html', context)
+
+@login_required
+@require_POST
+def approve_service_cost(request, service_id):
+    service = get_object_or_404(Service, id=service_id, user=request.user)
+    if service.cost_estimate and not service.user_approved:
+        service.user_approved = True
+        service.save()
+        messages.success(request, "You have approved the cost estimate for this work item.")
+    else:
+        messages.info(request, "This work item is already approved or has no estimate.")
+    return redirect('clientportal:dashboard')

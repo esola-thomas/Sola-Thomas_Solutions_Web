@@ -10,6 +10,8 @@ class Service(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     invoice = models.ForeignKey('Invoice', on_delete=models.SET_NULL, related_name='services', null=True, blank=True)
+    cost_estimate = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, help_text="Estimated cost for this work item")
+    user_approved = models.BooleanField(default=False, help_text="Has the user approved the cost estimate?")
 
     def __str__(self):
         return f"{self.name} - {self.user.username}"

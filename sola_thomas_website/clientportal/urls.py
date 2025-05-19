@@ -24,6 +24,7 @@ urlpatterns = [
     path('requests/', views.my_service_requests, name='my_service_requests'),
     path('request/<int:request_id>/', views.service_request_detail, name='service_request_detail'),
     path('request/<int:request_id>/process/', views.process_service_request, name='process_service_request'),
+    path('service/<int:service_id>/approve_cost/', views.approve_service_cost, name='approve_service_cost'),
 ]
 
 # Auth URLs moved from authentication app
