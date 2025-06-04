@@ -5,5 +5,5 @@ def analytics(request):
     Adds Google Analytics tracking ID to the template context
     """
     return {
-        'GA_TRACKING_ID': getattr(settings, 'GA_TRACKING_ID', ''),
+        'GOOGLE_ANALYTICS_ID': getattr(settings, 'GOOGLE_ANALYTICS_ID', ''),
     }

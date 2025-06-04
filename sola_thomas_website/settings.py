@@ -1,7 +1,7 @@
 # Google Analytics Settings
-GA_TRACKING_ID = 'G-24QFBN3WGN'
+GOOGLE_ANALYTICS_ID = 'G-24QFBN3WGN'
 
-# Add GA_TRACKING_ID to the template context
+# Add GOOGLE_ANALYTICS_ID to the template context
 TEMPLATES = [
     {
         'OPTIONS': {

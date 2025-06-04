@@ -10,7 +10,8 @@ import json
 
 # Import the custom forms and email utilities
 from .forms import ContactForm
-from .email import send_email, send_contact_notification
+from .email import send_email
+from utils import send_contact_notification
 
 # Set up logger
 logger = logging.getLogger(__name__)
