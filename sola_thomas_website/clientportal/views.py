@@ -27,8 +27,8 @@ def dashboard(request):
     """
     work_orders = WorkOrder.objects.filter(user=request.user)
     
-    # Identify services without reviews
-    services_without_reviews = work_orders.exclude(
+    # Identify work orders without reviews
+    work_orders_without_reviews = work_orders.exclude(
         reviews__user=request.user
     ).order_by('-date_performed')
     
@@ -46,7 +46,7 @@ def dashboard(request):
     
     context = {
         'work_orders': work_orders,
-        'work_orders_without_reviews': services_without_reviews,
+        'work_orders_without_reviews': work_orders_without_reviews,
         'invoices': invoices,
         'reviews': reviews,
         'notes': notes,

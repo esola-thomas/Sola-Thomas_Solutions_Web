@@ -71,7 +71,7 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Service</th>
+                                <th>Work Order</th>
                                 <th>Date</th>
                                 <th>Description</th>
                                 <th>Cost Estimate</th>
@@ -81,42 +81,42 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for service in work_orders %}
+                            {% for work_order in work_orders %}
                             <tr>
-                                <td><strong>{{ service.name }}</strong></td>
-                                <td>{{ service.date_performed }}</td>
-                                <td>{{ service.description|truncatechars:50 }}</td>
+                                <td><strong>{{ work_order.name }}</strong></td>
+                                <td>{{ work_order.date_performed }}</td>
+                                <td>{{ work_order.description|truncatechars:50 }}</td>
                                 <td>
-                                    {% if service.cost_estimate %}
-                                        ${{ service.cost_estimate }}
+                                    {% if work_order.cost_estimate %}
+                                        ${{ work_order.cost_estimate }}
                                     {% else %}
                                         <span class="text-muted">N/A</span>
                                     {% endif %}
                                 </td>
                                 <td>
-                                    {% if service.cost_estimate and not service.user_approved %}
-                                        <form method="post" action="{% url 'clientportal:approve_service_cost' service.id %}">
+                                    {% if work_order.cost_estimate and not work_order.user_approved %}
+                                        <form method="post" action="{% url 'clientportal:approve_service_cost' work_order.id %}">
                                             {% csrf_token %}
                                             <button type="submit" class="btn btn-sm btn-success">Approve Estimate</button>
                                         </form>
-                                    {% elif service.user_approved %}
+                                    {% elif work_order.user_approved %}
                                         <span class="badge bg-success">Approved</span>
                                     {% else %}
                                         <span class="text-muted">-</span>
                                     {% endif %}
                                 </td>
                                 <td>
-                                    {% if service.reviews.exists %}
+                                    {% if work_order.reviews.exists %}
                                         <span class="badge badge-reviewed">Reviewed</span>
                                     {% else %}
                                         <span class="badge badge-review-needed">Review Needed</span>
                                     {% endif %}
                                 </td>
                                 <td>
-                                    {% if service.reviews.exists %}
-                                        <a href="{% url 'clientportal:submit_review' service.id %}" class="btn btn-sm btn-outline-secondary review-btn">Edit Review</a>
+                                    {% if work_order.reviews.exists %}
+                                        <a href="{% url 'clientportal:submit_review' work_order.id %}" class="btn btn-sm btn-outline-secondary review-btn">Edit Review</a>
                                     {% else %}
-                                        <a href="{% url 'clientportal:submit_review' service.id %}" class="btn btn-sm btn-primary review-btn">Leave Review</a>
+                                        <a href="{% url 'clientportal:submit_review' work_order.id %}" class="btn btn-sm btn-primary review-btn">Leave Review</a>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -182,18 +182,18 @@
             <h3>Work Orders Awaiting Your Review</h3>
             {% if work_orders_without_reviews %}
                 <div class="row">
-                    {% for service in work_orders_without_reviews %}
+                    {% for work_order in work_orders_without_reviews %}
                     <div class="col-md-6 col-lg-4 mb-4">
                         <div class="card h-100">
                             <div class="card-header bg-light">
-                                <h5 class="card-title mb-0">{{ service.name }}</h5>
+                                <h5 class="card-title mb-0">{{ work_order.name }}</h5>
                             </div>
                             <div class="card-body">
-                                <p class="card-text"><strong>Date:</strong> {{ service.date_performed }}</p>
-                                <p class="card-text">{{ service.description|truncatechars:100 }}</p>
+                                <p class="card-text"><strong>Date:</strong> {{ work_order.date_performed }}</p>
+                                <p class="card-text">{{ work_order.description|truncatechars:100 }}</p>
                             </div>
                             <div class="card-footer bg-white text-center">
-                                <a href="{% url 'clientportal:submit_review' service.id %}" class="btn btn-primary">Write Review</a>
+                                <a href="{% url 'clientportal:submit_review' work_order.id %}" class="btn btn-primary">Write Review</a>
                             </div>
                         </div>
                     </div>
