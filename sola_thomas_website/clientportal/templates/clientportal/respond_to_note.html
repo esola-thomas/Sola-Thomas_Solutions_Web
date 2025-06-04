@@ -24,7 +24,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-start">
                         <div>
-                            <h5>Service: {{ note.service.name }}</h5>
+                            <h5>Work Order: {{ note.service.name }}</h5>
                             <p class="text-muted">From: {{ note.user.get_full_name|default:note.user.username }}</p>
                         </div>
                         <span class="badge bg-secondary">{{ note.created_at|date:"M d, Y" }}</span>

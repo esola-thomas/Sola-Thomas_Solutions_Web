@@ -10,7 +10,7 @@ from django.utils import timezone
 from django.conf import settings
 from django.db.models import Exists, OuterRef, Count, Q
 from django.core.mail import send_mail
-from .models import Service, Invoice, Review, ServiceNote, ServiceRequest
+from .models import WorkOrder, Invoice, Review, ServiceNote, ServiceRequest
 from .forms import ReviewForm, InvoiceForm, CustomUserForm, ServiceForm, ServiceNoteForm, ServiceNoteResponseForm, ServiceRequestForm, ProcessRequestForm
 from .tokens import account_activation_token
 from .utils import send_service_notification, send_invoice_notification, send_note_response_notification, send_request_status_notification
@@ -25,10 +25,10 @@ def dashboard(request):
     """
     Regular user dashboard: Shows the user's services, invoices, reviews, and service requests.
     """
-    services = Service.objects.filter(user=request.user)
+    work_orders = WorkOrder.objects.filter(user=request.user)
     
-    # Identify services without reviews
-    services_without_reviews = services.exclude(
+    # Identify work orders without reviews
+    work_orders_without_reviews = work_orders.exclude(
         reviews__user=request.user
     ).order_by('-date_performed')
     
@@ -45,8 +45,8 @@ def dashboard(request):
     current_time_est = timezone.now().astimezone(EST_TIMEZONE)
     
     context = {
-        'services': services,
-        'services_without_reviews': services_without_reviews,
+        'work_orders': work_orders,
+        'work_orders_without_reviews': work_orders_without_reviews,
         'invoices': invoices,
         'reviews': reviews,
         'notes': notes,
@@ -112,7 +112,7 @@ def admin_dashboard(request):
         invoice_form = InvoiceForm()
         user_form = CustomUserForm()
     
-    services = Service.objects.all()
+    work_orders = WorkOrder.objects.all()
     invoices = Invoice.objects.all()
     reviews = Review.objects.all()
     users = User.objects.all().order_by('-date_joined')
@@ -126,7 +126,7 @@ def admin_dashboard(request):
     context = {
         'invoice_form': invoice_form,
         'user_form': user_form,
-        'services': services,
+        'work_orders': work_orders,
         'invoices': invoices,
         'reviews': reviews,
         'users': users,
@@ -165,7 +165,7 @@ def submit_review(request, service_id):
     Handles review submission for a specific service (only if the service belongs
     to the current user).
     """
-    service = get_object_or_404(Service, pk=service_id, user=request.user)
+    work_order = get_object_or_404(WorkOrder, pk=service_id, user=request.user)
     
     if request.method == 'POST':
         form = ReviewForm(request.POST)
@@ -243,12 +243,12 @@ def create_service(request):
     if request.method == 'POST':
         form = ServiceForm(request.POST)
         if form.is_valid():
-            service = form.save()
-            messages.success(request, f"Service '{service.name}' created successfully.")
+            work_order = form.save()
+            messages.success(request, f"Work Order '{work_order.name}' created successfully.")
             
             # Send email notification
             try:
-                send_service_notification(service)
+                send_service_notification(work_order)
             except Exception as e:
                 messages.warning(request, f"Service created but email notification failed: {str(e)}")
                 
@@ -258,8 +258,8 @@ def create_service(request):
     
     return render(request, 'clientportal/service_form.html', {
         'form': form,
-        'title': 'Create Service',
-        'button_text': 'Create Service',
+        'title': 'Create Work Order',
+        'button_text': 'Create Work Order',
         'is_new': True
     })
 
@@ -269,22 +269,22 @@ def edit_service(request, service_id):
     """
     Allow staff to edit an existing service.
     """
-    service = get_object_or_404(Service, pk=service_id)
+    work_order = get_object_or_404(WorkOrder, pk=service_id)
     
     if request.method == 'POST':
-        form = ServiceForm(request.POST, instance=service)
+        form = ServiceForm(request.POST, instance=work_order)
         if form.is_valid():
-            service = form.save()
-            messages.success(request, f"Service '{service.name}' updated successfully.")
+            work_order = form.save()
+            messages.success(request, f"Work Order '{work_order.name}' updated successfully.")
             return redirect('clientportal:admin_dashboard')
     else:
-        form = ServiceForm(instance=service)
+        form = ServiceForm(instance=work_order)
     
     return render(request, 'clientportal/service_form.html', {
         'form': form,
-        'service': service,
-        'title': 'Edit Service',
-        'button_text': 'Update Service',
+        'service': work_order,
+        'title': 'Edit Work Order',
+        'button_text': 'Update Work Order',
         'is_new': False
     })
 
@@ -329,13 +329,13 @@ def add_service_note(request, service_id):
     """
     Allow users to add notes to their services.
     """
-    service = get_object_or_404(Service, pk=service_id, user=request.user)
+    work_order = get_object_or_404(WorkOrder, pk=service_id, user=request.user)
     
     if request.method == 'POST':
         form = ServiceNoteForm(request.POST)
         if form.is_valid():
             note = form.save(commit=False)
-            note.service = service
+            note.service = work_order
             note.user = request.user
             note.save()
             messages.success(request, "Your note has been submitted successfully.")
@@ -345,7 +345,7 @@ def add_service_note(request, service_id):
     
     return render(request, 'clientportal/add_service_note.html', {
         'form': form,
-        'service': service
+        'service': work_order
     })
 
 @login_required
@@ -353,11 +353,11 @@ def view_service_notes(request, service_id):
     """
     View notes for a specific service.
     """
-    service = get_object_or_404(Service, pk=service_id, user=request.user)
-    notes = ServiceNote.objects.filter(service=service).order_by('-created_at')
+    work_order = get_object_or_404(WorkOrder, pk=service_id, user=request.user)
+    notes = ServiceNote.objects.filter(service=work_order).order_by('-created_at')
     
     return render(request, 'clientportal/view_service_notes.html', {
-        'service': service,
+        'service': work_order,
         'notes': notes
     })
 
@@ -451,22 +451,22 @@ def process_service_request(request, request_id):
             service_request.processed_at = timezone.now()
             service_request.save()
             
-            # If approved and create_service is checked, create a new service
+            # If approved and create_service is checked, create a new work order
             if service_request.status == 'approved' and should_create_service:
-                service = Service.objects.create(
+                work_order = WorkOrder.objects.create(
                     user=service_request.user,
                     name=service_request.title,
                     description=service_request.description,
                     date_performed=service_request.requested_date
                 )
-                service_request.service = service
+                service_request.service = work_order
                 service_request.save()
-                
-                # Notify the user that their service has been created
+
+                # Notify the user that their work order has been created
                 try:
-                    send_service_notification(service)
+                    send_service_notification(work_order)
                 except Exception as e:
-                    messages.warning(request, f"Service created but email notification failed: {str(e)}")
+                    messages.warning(request, f"Work order created but email notification failed: {str(e)}")
             
             # Send notification about request status update
             try:
@@ -522,10 +522,10 @@ def register_user(request):
 @login_required
 @require_POST
 def approve_service_cost(request, service_id):
-    service = get_object_or_404(Service, id=service_id, user=request.user)
-    if service.cost_estimate and not service.user_approved:
-        service.user_approved = True
-        service.save()
+    work_order = get_object_or_404(WorkOrder, id=service_id, user=request.user)
+    if work_order.cost_estimate and not work_order.user_approved:
+        work_order.user_approved = True
+        work_order.save()
         messages.success(request, "You have approved the cost estimate for this work item.")
     else:
         messages.info(request, "This work item is already approved or has no estimate.")
