@@ -9,7 +9,7 @@
         <button class="nav-link active" id="invoices-tab" data-bs-toggle="tab" data-bs-target="#invoices" type="button" role="tab" aria-controls="invoices" aria-selected="true">Invoices</button>
     </li>
     <li class="nav-item" role="presentation">
-        <button class="nav-link" id="services-tab" data-bs-toggle="tab" data-bs-target="#services" type="button" role="tab" aria-controls="services" aria-selected="false">Services</button>
+        <button class="nav-link" id="services-tab" data-bs-toggle="tab" data-bs-target="#services" type="button" role="tab" aria-controls="services" aria-selected="false">Work Orders</button>
     </li>
     <li class="nav-item" role="presentation">
         <button class="nav-link" id="requests-tab" data-bs-toggle="tab" data-bs-target="#requests" type="button" role="tab" aria-controls="requests" aria-selected="false">
@@ -92,17 +92,17 @@
         </section>
     </div>
     
-    <!-- Services Tab -->
+    <!-- Work Orders Tab -->
     <div class="tab-pane fade" id="services" role="tabpanel" aria-labelledby="services-tab">
         <section class="my-4">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h3>Services Management</h3>
+                <h3>Work Order Management</h3>
                 <a href="{% url 'clientportal:create_service' %}" class="btn btn-primary">
-                    <i class="fas fa-plus-circle"></i> Create New Service
+                    <i class="fas fa-plus-circle"></i> Create New Work Order
                 </a>
             </div>
             
-            {% if services %}
+            {% if work_orders %}
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
@@ -116,7 +116,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for service in services %}
+                            {% for service in work_orders %}
                             <tr>
                                 <td>{{ service.pk }}</td>
                                 <td>{{ service.user.username }}</td>
@@ -140,7 +140,7 @@
                     </table>
                 </div>
             {% else %}
-                <p>No services available.</p>
+                <p>No work orders available.</p>
             {% endif %}
         </section>
     </div>

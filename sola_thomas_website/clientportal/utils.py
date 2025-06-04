@@ -7,7 +7,7 @@ def send_service_notification(service):
     """
     Send a notification email when a new service is created.
     """
-    mail_subject = 'New Service Added to Your Account'
+    mail_subject = 'New Work Order Added to Your Account'
     message = render_to_string('clientportal/emails/service_notification.html', {
         'user': service.user,
         'service': service,

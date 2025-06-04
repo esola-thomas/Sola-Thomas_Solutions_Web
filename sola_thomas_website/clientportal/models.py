@@ -1,15 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-class Service(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='services')
+class WorkOrder(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='work_orders')
     name = models.CharField(max_length=500)
     description = models.TextField()
     date_performed = models.DateField()
     admin_notes = models.TextField(blank=True, null=True, help_text="Internal notes visible only to admins")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    invoice = models.ForeignKey('Invoice', on_delete=models.SET_NULL, related_name='services', null=True, blank=True)
+    invoice = models.ForeignKey('Invoice', on_delete=models.SET_NULL, related_name='work_orders', null=True, blank=True)
     cost_estimate = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, help_text="Estimated cost for this work item")
     user_approved = models.BooleanField(default=False, help_text="Has the user approved the cost estimate?")
 
@@ -32,7 +32,7 @@ class Invoice(models.Model):
 
 class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews')
-    service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='reviews')
+    service = models.ForeignKey(WorkOrder, on_delete=models.CASCADE, related_name='reviews')
     rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
     comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -45,8 +45,8 @@ class Review(models.Model):
         return f"Review by {self.user.username} for {self.service.name}"
 
 class ServiceNote(models.Model):
-    """Notes that users can leave for admins regarding a service"""
-    service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='notes')
+    """Notes that users can leave for admins regarding a work order"""
+    service = models.ForeignKey(WorkOrder, on_delete=models.CASCADE, related_name='notes')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='service_notes')
     message = models.TextField(help_text="Your message to the admin")
     created_at = models.DateTimeField(auto_now_add=True)
@@ -79,7 +79,7 @@ class ServiceRequest(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     processed_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='processed_requests')
     processed_at = models.DateTimeField(null=True, blank=True)
-    service = models.ForeignKey('Service', on_delete=models.SET_NULL, null=True, blank=True, related_name='from_request')
+    service = models.ForeignKey('WorkOrder', on_delete=models.SET_NULL, null=True, blank=True, related_name='from_request')
     
     def __str__(self):
         return f"{self.title} - {self.user.username} ({self.get_status_display()})"

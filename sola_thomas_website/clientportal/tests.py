@@ -8,7 +8,7 @@ from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 import json
 from datetime import datetime, timedelta
-from .models import Service, Invoice, Review, ServiceNote, ServiceRequest
+from .models import WorkOrder, Invoice, Review, ServiceNote, ServiceRequest
 from .forms import ReviewForm, InvoiceForm, CustomUserForm, ServiceForm, ServiceNoteForm, ProcessRequestForm
 from .tokens import account_activation_token
 
@@ -37,8 +37,8 @@ class ModelTests(TestCase):
             paid=False
         )
         
-        # Create test service
-        self.service = Service.objects.create(
+        # Create test work order
+        self.work_order = WorkOrder.objects.create(
             user=self.regular_user,
             name="Test Service",
             description="This is a test service description",
@@ -49,14 +49,14 @@ class ModelTests(TestCase):
         # Create test review
         self.review = Review.objects.create(
             user=self.regular_user,
-            service=self.service,
+            service=self.work_order,
             rating=5,
             comment="Excellent service!"
         )
         
         # Create test service note
         self.note = ServiceNote.objects.create(
-            service=self.service,
+            service=self.work_order,
             user=self.regular_user,
             message="This is a test note",
             is_resolved=False
@@ -72,9 +72,9 @@ class ModelTests(TestCase):
         )
     
     def test_service_model(self):
-        self.assertEqual(str(self.service), "Test Service - testuser")
-        self.assertEqual(self.service.user, self.regular_user)
-        self.assertEqual(self.service.invoice, self.invoice)
+        self.assertEqual(str(self.work_order), "Test Service - testuser")
+        self.assertEqual(self.work_order.user, self.regular_user)
+        self.assertEqual(self.work_order.invoice, self.invoice)
         
     def test_invoice_model(self):
         self.assertEqual(self.invoice.amount, 150.00)
@@ -84,7 +84,7 @@ class ModelTests(TestCase):
         
     def test_review_model(self):
         self.assertEqual(self.review.rating, 5)
-        self.assertEqual(self.review.service, self.service)
+        self.assertEqual(self.review.service, self.work_order)
         self.assertEqual(self.review.user, self.regular_user)
         self.assertIn("Review by testuser", str(self.review))
         
@@ -92,7 +92,7 @@ class ModelTests(TestCase):
         self.assertEqual(self.note.message, "This is a test note")
         self.assertEqual(self.note.is_resolved, False)
         self.assertIsNone(self.note.admin_response)
-        self.assertEqual(self.note.service, self.service)
+        self.assertEqual(self.note.service, self.work_order)
         self.assertEqual(self.note.user, self.regular_user)
         
     def test_service_request_model(self):
@@ -110,7 +110,7 @@ class FormTests(TestCase):
             password='password123'
         )
         
-        self.service = Service.objects.create(
+        self.work_order = WorkOrder.objects.create(
             user=self.user,
             name="Test Service",
             description="This is a test service",
@@ -200,7 +200,7 @@ class ViewTests(TestCase):
             paid=False
         )
         
-        self.service = Service.objects.create(
+        self.work_order = WorkOrder.objects.create(
             user=self.regular_user,
             name="Test Service",
             description="This is a test service description",
@@ -209,7 +209,7 @@ class ViewTests(TestCase):
         )
         
         self.service_note = ServiceNote.objects.create(
-            service=self.service,
+            service=self.work_order,
             user=self.regular_user,
             message="This is a test note",
             is_resolved=False
@@ -280,7 +280,7 @@ class ViewTests(TestCase):
         self.client.login(username='testuser', password='password123')
         
         # Get review form page
-        url = reverse('clientportal:submit_review', kwargs={'service_id': self.service.id})
+        url = reverse('clientportal:submit_review', kwargs={'service_id': self.work_order.id})
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         
@@ -293,7 +293,7 @@ class ViewTests(TestCase):
         self.assertRedirects(response, reverse('clientportal:dashboard'))
         
         # Check if review was created
-        self.assertTrue(Review.objects.filter(user=self.regular_user, service=self.service).exists())
+        self.assertTrue(Review.objects.filter(user=self.regular_user, service=self.work_order).exists())
     
     def test_create_service_as_admin(self):
         self.client.login(username='staffuser', password='password123')
@@ -313,14 +313,14 @@ class ViewTests(TestCase):
         response = self.client.post(url, service_data)
         self.assertRedirects(response, reverse('clientportal:admin_dashboard'))
         
-        # Check if service was created
-        self.assertTrue(Service.objects.filter(name='New Admin Service').exists())
+        # Check if work order was created
+        self.assertTrue(WorkOrder.objects.filter(name='New Admin Service').exists())
     
     # Service notes tests
     def test_add_service_note(self):
         self.client.login(username='testuser', password='password123')
         
-        url = reverse('clientportal:add_service_note', kwargs={'service_id': self.service.id})
+        url = reverse('clientportal:add_service_note', kwargs={'service_id': self.work_order.id})
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         
@@ -329,7 +329,7 @@ class ViewTests(TestCase):
             'message': 'This is a new note'
         }
         response = self.client.post(url, note_data)
-        self.assertRedirects(response, reverse('clientportal:view_service_notes', kwargs={'service_id': self.service.id}))
+        self.assertRedirects(response, reverse('clientportal:view_service_notes', kwargs={'service_id': self.work_order.id}))
         
         # Check if note was created
         self.assertTrue(ServiceNote.objects.filter(message='This is a new note').exists())
@@ -441,7 +441,7 @@ class UtilsTests(TestCase):
             paid=False
         )
         
-        self.service = Service.objects.create(
+        self.work_order = WorkOrder.objects.create(
             user=self.user,
             name="Test Service",
             description="This is a test service description",
@@ -450,7 +450,7 @@ class UtilsTests(TestCase):
         )
         
         self.note = ServiceNote.objects.create(
-            service=self.service,
+            service=self.work_order,
             user=self.user,
             message="This is a test note",
             is_resolved=False,
@@ -469,13 +469,13 @@ class UtilsTests(TestCase):
         from .utils import send_service_notification
         
         # Test email sending
-        send_service_notification(self.service)
+        send_service_notification(self.work_order)
         
         # Check that one message has been sent
         self.assertEqual(len(mail.outbox), 1)
         
         # Verify the subject of the message
-        self.assertEqual(mail.outbox[0].subject, 'New Service Added to Your Account')
+        self.assertEqual(mail.outbox[0].subject, 'New Work Order Added to Your Account')
         
         # Verify the message is sent to the right person
         self.assertEqual(mail.outbox[0].to[0], self.user.email)
