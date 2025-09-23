@@ -19,7 +19,7 @@
         <div class="col-lg-8 mx-auto">
             <div class="card">
                 <div class="card-header bg-light">
-                    <h5 class="mb-0">Service Information</h5>
+                    <h5 class="mb-0">Work Order Information</h5>
                 </div>
                 <div class="card-body">
                     <form method="post">
@@ -32,7 +32,7 @@
                         </div>
                         
                         <div class="mb-3">
-                            <label for="id_name" class="form-label">Service Name</label>
+                            <label for="id_name" class="form-label">Work Order Name</label>
                             {{ form.name }}
                             <small class="form-text text-muted">A brief title for the service performed</small>
                         </div>
@@ -58,6 +58,16 @@
                             <label for="id_invoice" class="form-label">Associated Invoice</label>
                             {{ form.invoice }}
                             <small class="form-text text-muted">Link to an existing invoice or leave blank to create one later</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_cost_estimate" class="form-label">Cost Estimate ($)</label>
+                            {{ form.cost_estimate }}
+                            <small class="form-text text-muted">Estimated cost for this work item (WI).</small>
+                        </div>
+                        <div class="mb-3 form-check">
+                            {{ form.user_approved }}
+                            <label class="form-check-label" for="id_user_approved">User has approved the cost estimate</label>
                         </div>
                         
                         <div class="d-flex justify-content-between mt-4">

@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row mb-4">
         <div class="col">
-            <h2>Add Note to Service</h2>
+            <h2>Add Note to Work Order</h2>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{% url 'clientportal:dashboard' %}">Dashboard</a></li>
@@ -19,7 +19,7 @@
         <div class="col-lg-8 mx-auto">
             <div class="card mb-4">
                 <div class="card-header bg-light">
-                    <h5 class="mb-0">Service Details</h5>
+                    <h5 class="mb-0">Work Order Details</h5>
                 </div>
                 <div class="card-body">
                     <h4>{{ service.name }}</h4>
@@ -33,7 +33,7 @@
                     <h5 class="mb-0">Your Note</h5>
                 </div>
                 <div class="card-body">
-                    <p>Use this form to send a message to our admin team about this service.</p>
+                    <p>Use this form to send a message to our admin team about this work order.</p>
                     
                     <form method="post">
                         {% csrf_token %}
