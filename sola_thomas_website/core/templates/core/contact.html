@@ -26,7 +26,25 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-8 border-end border-light">
-                                    <h2 class="card-title h4 mb-4">Send us a Message</h2>
+                                    <h2 class="card-title h4 mb-4">Get in Touch</h2>
+                                    <!-- Temporary replacement for contact form -->
+                                    <div class="temp-contact-message">
+                                        <p>Our contact form is temporarily unavailable.</p>
+                                        <p>Please reach out to us directly via:</p>
+                                        <ul class="list-unstyled mt-4">
+                                            <li class="mb-3">
+                                                <i class="fas fa-phone me-2"></i>
+                                                <a href="tel:+18027935422">(802) 793-5422</a>
+                                            </li>
+                                            <li class="mb-3">
+                                                <i class="fas fa-envelope me-2"></i>
+                                                <a href="mailto:info@solathomas.com">info@solathomas.com</a>
+                                            </li>
+                                        </ul>
+                                        <p class="mt-4">We'll get back to you as quickly as possible. Thank you for your understanding!</p>
+                                    </div>
+                                    
+                                    <!-- Original contact form (commented out)
                                     <form method="post" id="contact-form">
                                         {% csrf_token %}
                                         {% for field in form %}
@@ -43,6 +61,7 @@
                                         {% endfor %}
                                         <button type="submit" class="btn btn-primary">Send Message</button>
                                     </form>
+                                    -->
                                 </div>
                                 <div class="col-md-4 d-flex align-items-center">
                                     <div class="contact-info-wrapper w-100">
@@ -61,7 +80,7 @@
                                         </div>
                                         <div class="availability">
                                             <h3 class="h5 mb-3">Availability</h3>
-                                            <p class="small mb-0">We don't have set hours. We'll address your issues as quickly as possible - just reach out via phone, email, or this form!</p>
+                                            <p class="small mb-0">We don't have set hours. We'll address your issues as quickly as possible - just reach out via phone or email!</p>
                                         </div>
                                     </div>
                                 </div>
@@ -74,7 +93,7 @@
     </div>
 </section>
 
-<!-- Messages Modal -->
+<!-- Messages Modal - Commented out since form is disabled
 <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true"
      data-show-modal="{% if messages and is_submission %}true{% else %}false{% endif %}"
      data-message-type="{% for message in messages %}{% if message.tags == 'success' %}success{% else %}error{% endif %}{% endfor %}">
@@ -114,8 +133,9 @@
         </div>
     </div>
 </div>
+-->
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/pages/contact.js' %}"></script>
+<!-- <script src="{% static 'js/pages/contact.js' %}"></script> -->
 {% endblock %}
