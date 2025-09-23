@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm as DjangoUserCreationForm
 from django.contrib.auth.models import User
-from .models import Review, Invoice, Service, ServiceNote, ServiceRequest
+from .models import Review, Invoice, WorkOrder, ServiceNote, ServiceRequest
 
 class ReviewForm(forms.ModelForm):
     class Meta:
@@ -49,8 +49,8 @@ class CustomUserForm(forms.ModelForm):
 
 class ServiceForm(forms.ModelForm):
     class Meta:
-        model = Service
-        fields = ['user', 'name', 'description', 'date_performed', 'admin_notes', 'invoice']
+        model = WorkOrder
+        fields = ['user', 'name', 'description', 'date_performed', 'admin_notes', 'invoice', 'cost_estimate', 'user_approved']
         widgets = {
             'user': forms.Select(attrs={'class': 'form-control'}),
             'name': forms.TextInput(attrs={'class': 'form-control'}),
@@ -58,6 +58,8 @@ class ServiceForm(forms.ModelForm):
             'date_performed': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'admin_notes': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
             'invoice': forms.Select(attrs={'class': 'form-control'}),
+            'cost_estimate': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01', 'min': '0'}),
+            'user_approved': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
 
 class ServiceNoteForm(forms.ModelForm):
