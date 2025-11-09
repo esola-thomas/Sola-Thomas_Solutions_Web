@@ -22,67 +22,82 @@ def about(request):
     return render(request, 'core/about.html')
 
 def contact(request):
-    # Determine if this is a form submission
-    is_submission = request.method == 'POST'
-    
-    if is_submission:
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            name = form.cleaned_data['name']
-            email = form.cleaned_data['email']
-            subject = form.cleaned_data['subject']
-            message_text = form.cleaned_data['message']
-            
-            try:
-                # Create HTML email content
-                html_message = render_to_string('core/email/contact_email.html', {
-                    'name': name,
-                    'email': email,
-                    'subject': subject,
-                    'message': message_text,
-                })
-                
-                # Plain text version of the email
-                plain_message = strip_tags(html_message)
-                
-                # Use the dedicated contact notification function with HTML content
-                status_code = send_contact_notification(
-                    name, 
-                    email, 
-                    subject,
-                    plain_message, 
-                    html_message
-                )
-                
-                if status_code and 200 <= status_code < 300:
-                    messages.success(request, 'Your message has been sent. We will get back to you soon!')
-                    # Return a fresh form on success
-                    form = ContactForm()
-                else:
-                    messages.error(request, 'There was a problem sending your message. Please try again later.')
-                    logger.error(f"Failed to send email: Status code {status_code}")
-            except Exception as e:
-                logger.error(f"Failed to send contact email: {str(e)}")
-                messages.error(request, 'Sorry, there was an error sending your message. Please try again later.')
-        else:
-            # If form is invalid, don't display a modal but let Django's form validation display errors
-            pass
-    else:
-        # New page load, not a submission
-        form = ContactForm()
-    
-    # Add a context variable to indicate if this is a form submission 
-    # This can be used in the template to decide if we show messages
-    context = {
-        'form': form,
-        'is_submission': is_submission
-    }
-    
-    return render(request, 'core/contact.html', context)
+    # ============================================================================
+    # STATIC SITE MODE: Server-side form processing disabled
+    # To re-enable: Replace this function with the commented code below
+    # ============================================================================
 
-@login_required
-def dashboard(request):
-    return render(request, 'core/dashboard.html', {
-        'bookings': request.user.bookings.all(),
-        'invoices': request.user.invoices.all()
-    })
+    # Static site version - just render the template
+    return render(request, 'core/contact.html')
+
+    # ============================================================================
+    # ORIGINAL DYNAMIC CODE (DISABLED FOR STATIC SITE)
+    # ============================================================================
+    # # Determine if this is a form submission
+    # is_submission = request.method == 'POST'
+    #
+    # if is_submission:
+    #     form = ContactForm(request.POST)
+    #     if form.is_valid():
+    #         name = form.cleaned_data['name']
+    #         email = form.cleaned_data['email']
+    #         subject = form.cleaned_data['subject']
+    #         message_text = form.cleaned_data['message']
+    #
+    #         try:
+    #             # Create HTML email content
+    #             html_message = render_to_string('core/email/contact_email.html', {
+    #                 'name': name,
+    #                 'email': email,
+    #                 'subject': subject,
+    #                 'message': message_text,
+    #             })
+    #
+    #             # Plain text version of the email
+    #             plain_message = strip_tags(html_message)
+    #
+    #             # Use the dedicated contact notification function with HTML content
+    #             status_code = send_contact_notification(
+    #                 name,
+    #                 email,
+    #                 subject,
+    #                 plain_message,
+    #                 html_message
+    #             )
+    #
+    #             if status_code and 200 <= status_code < 300:
+    #                 messages.success(request, 'Your message has been sent. We will get back to you soon!')
+    #                 # Return a fresh form on success
+    #                 form = ContactForm()
+    #             else:
+    #                 messages.error(request, 'There was a problem sending your message. Please try again later.')
+    #                 logger.error(f"Failed to send email: Status code {status_code}")
+    #         except Exception as e:
+    #             logger.error(f"Failed to send contact email: {str(e)}")
+    #             messages.error(request, 'Sorry, there was an error sending your message. Please try again later.')
+    #     else:
+    #         # If form is invalid, don't display a modal but let Django's form validation display errors
+    #         pass
+    # else:
+    #     # New page load, not a submission
+    #     form = ContactForm()
+    #
+    # # Add a context variable to indicate if this is a form submission
+    # # This can be used in the template to decide if we show messages
+    # context = {
+    #     'form': form,
+    #     'is_submission': is_submission
+    # }
+    #
+    # return render(request, 'core/contact.html', context)
+
+# ============================================================================
+# STATIC SITE MODE: Dashboard disabled (requires authentication)
+# To re-enable: Uncomment the code below
+# ============================================================================
+# @login_required
+# def dashboard(request):
+#     return render(request, 'core/dashboard.html', {
+#         'bookings': request.user.bookings.all(),
+#         'invoices': request.user.invoices.all()
+#     })
