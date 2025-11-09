@@ -24,11 +24,17 @@ def health_check(request):
     return HttpResponse("OK", status=200)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # ============================================================================
+    # STATIC SITE MODE: Dynamic features disabled
+    # To re-enable: Uncomment the lines below and remove the static alternatives
+    # ============================================================================
+    # path('admin/', admin.site.urls),  # DISABLED FOR STATIC SITE
+    # path('portal/', include('clientportal.urls')),  # DISABLED FOR STATIC SITE
+    # ============================================================================
+
     path('', include('core.urls')),
     path('services/', include('services.urls')),
     path('health/', health_check, name='health_check'),
-    path('portal/', include('clientportal.urls')),
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
