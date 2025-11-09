@@ -57,7 +57,8 @@ if not os.environ.get('DJANGO_SETTINGS_MESSAGE_DISPLAYED'):
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-2%17#jf%2ekk_xhxmx%w*^$lxnc#f*(5iu9+zqnzdc10(c+%^k'
+# SECRET_KEY moved to environment variables for security
+SECRET_KEY = get_env_variable('DJANGO_SECRET_KEY', 'django-insecure-dev-key-only-for-local')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = not DEPLOYMENT
@@ -72,15 +73,19 @@ else:
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
+    # ============================================================================
+    # STATIC SITE MODE: Authentication and database apps disabled
+    # To re-enable: Uncomment the lines below
+    # ============================================================================
+    # 'django.contrib.admin',  # DISABLED FOR STATIC SITE
+    # 'django.contrib.auth',  # DISABLED FOR STATIC SITE
+    # 'django.contrib.contenttypes',  # DISABLED FOR STATIC SITE
+    # 'django.contrib.sessions',  # DISABLED FOR STATIC SITE
+    # 'django.contrib.messages',  # DISABLED FOR STATIC SITE
     'django.contrib.staticfiles',
-    'django.contrib.sites',
+    # 'django.contrib.sites',  # DISABLED FOR STATIC SITE
     'core.apps.CoreConfig',
-    'clientportal',
+    # 'clientportal',  # DISABLED FOR STATIC SITE
     'services',
 ]
 
@@ -88,12 +93,16 @@ SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # Add this line
-    'django.contrib.sessions.middleware.SessionMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # ============================================================================
+    # STATIC SITE MODE: Session and auth middleware disabled
+    # To re-enable: Uncomment the lines below
+    # ============================================================================
+    # 'django.contrib.sessions.middleware.SessionMiddleware',  # DISABLED FOR STATIC SITE
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',  # DISABLED FOR STATIC SITE
+    # 'django.contrib.auth.middleware.AuthenticationMiddleware',  # DISABLED FOR STATIC SITE
+    # 'django.contrib.messages.middleware.MessageMiddleware',  # DISABLED FOR STATIC SITE
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -131,15 +140,15 @@ if not DEPLOYMENT:
     }
    
 else:
-    # Direct connection for production
+    # Direct connection for production - using environment variables for security
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'postgres',
-            'USER': 'postgres.hqfihrsgttbwkabspnhj',
-            'PASSWORD': 'L3z2tHZPU8x4R69Rg8TX',
-            'HOST': 'aws-0-us-west-1.pooler.supabase.com',
-            'PORT': '5432',
+            'NAME': get_env_variable('DB_NAME', 'postgres'),
+            'USER': get_env_variable('DB_USER'),
+            'PASSWORD': get_env_variable('DB_PASSWORD'),
+            'HOST': get_env_variable('DB_HOST'),
+            'PORT': get_env_variable('DB_PORT', '5432'),
         }
     }
 
@@ -198,7 +207,8 @@ DEFAULT_FROM_EMAIL = 'noreply@services.solathomas.com'
 EMAIL_SUBJECT_PREFIX = '[Sola-Thomas] '
 
 # Email Settings - Use direct email without tracking links
-SENDGRID_API_KEY = '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'
+# SENDGRID_API_KEY moved to environment variables for security
+SENDGRID_API_KEY = get_env_variable('SENDGRID_API_KEY', '')
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 DEFAULT_FROM_EMAIL = f'noreply@services.{SITE_DOMAIN}' 
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
@@ -209,15 +219,19 @@ SENDGRID_TRACK_EMAIL_OPENS = False
 SENDGRID_TRACK_CLICKS_HTML = False
 SENDGRID_TRACK_CLICKS_PLAIN = False
 
-# Authentication settings
-AUTHENTICATION_BACKENDS = [
-    'clientportal.backend_authenticate.EmailOrUsernameModelBackend',  # Custom backend for email/username login
-    'django.contrib.auth.backends.ModelBackend',  # Default backend as fallback
-]
-
-LOGIN_REDIRECT_URL = '/portal/dashboard/'
-LOGOUT_REDIRECT_URL = '/'
-LOGIN_URL = '/portal/login/'  # Changed from '/accounts/login/' to use our custom view
+# ============================================================================
+# STATIC SITE MODE: Authentication settings disabled
+# To re-enable: Uncomment the lines below
+# ============================================================================
+# # Authentication settings
+# AUTHENTICATION_BACKENDS = [
+#     'clientportal.backend_authenticate.EmailOrUsernameModelBackend',  # Custom backend for email/username login
+#     'django.contrib.auth.backends.ModelBackend',  # Default backend as fallback
+# ]
+#
+# LOGIN_REDIRECT_URL = '/portal/dashboard/'
+# LOGOUT_REDIRECT_URL = '/'
+# LOGIN_URL = '/portal/login/'  # Changed from '/accounts/login/' to use our custom view
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
