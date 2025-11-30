@@ -6,10 +6,10 @@ GitHub Pages, which serves the site from a subdirectory.
 """
 
 import os
+import re
 import shutil
 from datetime import datetime
 from django.core.management.base import BaseCommand
-from django.template.loader import render_to_string
 from django.conf import settings
 
 
@@ -117,7 +117,9 @@ class Command(BaseCommand):
                 break
 
         if template_content is None:
-            raise FileNotFoundError(f"Template {template_name} not found")
+            raise FileNotFoundError(
+                f"Template {template_name} not found in directories: {template_dirs}"
+            )
 
         # Read base template
         base_template_path = os.path.join(settings.BASE_DIR, 'templates', 'base.html')
@@ -150,7 +152,6 @@ class Command(BaseCommand):
         # Replace block content
         for block_name, block_content in blocks.items():
             # Replace {% block name %}...{% endblock %} with content
-            import re
             pattern = r'\{%\s*block\s+' + block_name + r'\s*%\}.*?\{%\s*endblock\s*%\}'
             html = re.sub(pattern, block_content, html, flags=re.DOTALL)
 
@@ -167,7 +168,6 @@ class Command(BaseCommand):
 
     def extract_blocks(self, content):
         """Extract block content from a Django template."""
-        import re
         blocks = {}
 
         # Pattern to match {% block name %}...{% endblock %}
@@ -181,14 +181,11 @@ class Command(BaseCommand):
 
     def process_static_tags(self, html, static_url):
         """Replace {% static 'path' %} tags with actual URLs."""
-        import re
         pattern = r'\{%\s*static\s+[\'"]([^\'"]+)[\'"]\s*%\}'
         return re.sub(pattern, f'{static_url}/\\1', html)
 
     def process_url_tags(self, html, base_url):
         """Replace {% url 'name' %} tags with actual URLs."""
-        import re
-
         # URL mappings
         url_map = {
             'core:home': '',
@@ -217,7 +214,6 @@ class Command(BaseCommand):
 
     def process_hardcoded_home_links(self, html, base_url):
         """Replace hardcoded home links with base_url-prefixed versions."""
-        import re
         # Replace href="/" with href="/base_url/" but not href="/something"
         # Only replace exact root links
         html = re.sub(r'href="/"', f'href="{base_url}/"', html)
@@ -225,14 +221,11 @@ class Command(BaseCommand):
 
     def process_now_tag(self, html, year):
         """Replace {% now "Y" %} tags with the current year."""
-        import re
         pattern = r'\{%\s*now\s+[\'"]Y[\'"]\s*%\}'
         return re.sub(pattern, str(year), html)
 
     def process_if_authenticated(self, html):
         """Process {% if user.is_authenticated %} blocks - show unauthenticated version."""
-        import re
-
         # Remove authenticated content, keep unauthenticated content
         pattern = r'\{%\s*if\s+user\.is_authenticated\s*%\}.*?\{%\s*else\s*%\}(.*?)\{%\s*endif\s*%\}'
         html = re.sub(pattern, r'\1', html, flags=re.DOTALL)
@@ -249,8 +242,6 @@ class Command(BaseCommand):
 
     def remove_template_artifacts(self, html):
         """Remove remaining Django template artifacts."""
-        import re
-
         # Remove {% load static %} and other load tags
         html = re.sub(r'\{%\s*load\s+\w+\s*%\}', '', html)
 
@@ -270,7 +261,8 @@ class Command(BaseCommand):
         html = re.sub(r'\{%\s*block\s+\w+\s*%\}\s*\{%\s*endblock\s*%\}', '', html)
 
         # Remove blocks with default content (keep the default content)
-        html = re.sub(r'\{%\s*block\s+\w+\s*%\}([^{]*)\{%\s*endblock\s*%\}', r'\1', html)
+        # Use non-greedy match to handle nested content properly
+        html = re.sub(r'\{%\s*block\s+\w+\s*%\}(.*?)\{%\s*endblock\s*%\}', r'\1', html, flags=re.DOTALL)
 
         # Remove any remaining block tags (without matching endblock)
         html = re.sub(r'\{%\s*block\s+\w+\s*%\}', '', html)
@@ -278,7 +270,8 @@ class Command(BaseCommand):
 
         # Remove variable references that might be left (like {{ request.build_absolute_uri }})
         html = re.sub(r'\{\{\s*request\.[^\}]+\}\}', '', html)
-        html = re.sub(r'\{\{\s*\w+\.?\w*\s*\}\}', '', html)
+        # Match any Django variable syntax including filters and methods
+        html = re.sub(r'\{\{[^}]+\}\}', '', html)
 
         # Clean up extra whitespace and empty lines
         html = re.sub(r'\n\s*\n\s*\n', '\n\n', html)
