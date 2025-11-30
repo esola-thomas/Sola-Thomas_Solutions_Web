@@ -34,14 +34,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Collect static files
+      - name: Generate static site
         env:
           # Using placeholder values for required settings - these won't be used in static mode
           DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY || 'github-actions-build-key' }}
           DEPLOYMENT: 'False'
         run: |
           cd sola_thomas_website
-          python manage.py collectstatic --noinput --clear
+          python manage.py generate_static_site --output-dir=staticsite --base-url=/Sola-Thomas_Solutions_Web
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -49,7 +49,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'sola_thomas_website/staticfiles'
+          path: 'sola_thomas_website/staticsite'
 
   deploy:
     environment:
