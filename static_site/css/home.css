@@ -1,0 +1,62 @@
+/* Services Carousel Styles */
+.service-card {
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: 100%;
+}
+
+.carousel-item {
+    min-height: 250px;
+}
+
+.carousel-indicators {
+    bottom: -10px;
+}
+
+.carousel-indicators button {
+    width: 10px !important;
+    height: 10px !important;
+    border-radius: 50%;
+    margin: 0 5px;
+}
+
+.service-card .card-body {
+    padding: 2rem 1rem;
+}
+
+/* Clickable Feature Styles */
+.feature-container {
+    position: relative;
+    padding: 15px;
+}
+
+.feature-text {
+    cursor: pointer;
+    position: relative;
+}
+
+.feature-text::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 50%;
+    background-color: #fff;
+}
+
+/* Services Section Heading Styles */
+.services-section h2 {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Contact Page Card Styles */
+.contact-page .card {
+    border-width: 2px;
+    border-style: solid;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.hero-section {
+    margin-top: 15vh;
+}

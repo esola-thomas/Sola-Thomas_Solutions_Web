@@ -1,0 +1,96 @@
+.hero-section {
+    min-height: 60vh;
+    position: relative;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/business-hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+    margin-top: -76px; /* Compensate for fixed navbar */
+    padding-top: 76px;
+}
+
+.hero-section .content-box {
+    max-width: 800px;
+}
+
+/* Service Grid Layout */
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+/* Center items in incomplete rows */
+.service-grid::after {
+    content: '';
+    grid-column: span 1;
+}
+
+.service-grid > *:last-child:nth-child(3n - 2) {
+    grid-column-start: 2;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .service-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .service-grid > *:last-child:nth-child(2n - 1) {
+        grid-column-start: 1;
+        grid-column-end: 3;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        min-height: 50vh;
+        background-attachment: scroll;
+    }
+
+    .service-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .service-grid > *:last-child {
+        grid-column: 1;
+    }
+}
+
+.service-card {
+    height: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-icon {
+    background: linear-gradient(135deg, #0d6efd, #0a58ca);
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.card-icon i {
+    color: white;
+    font-size: 1.75rem;
+}
+
+.feature-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 1.5rem 0 0;
+}
+
+.feature-list li {
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+}

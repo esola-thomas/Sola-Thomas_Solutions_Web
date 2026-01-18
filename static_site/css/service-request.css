@@ -1,0 +1,86 @@
+/* Service Request Page Specific Styles */
+
+.phone-link {
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.phone-link:hover {
+    color: var(--primary-color) !important;
+    transform: scale(1.05);
+}
+
+.card {
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+.form-control:focus,
+.form-check-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.btn-primary {
+    padding: 12px 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+}
+
+.alert-warning {
+    border-left: 5px solid #ffc107;
+    background-color: #fff3cd;
+}
+
+[data-theme="dark"] .alert-warning {
+    background-color: rgba(255, 193, 7, 0.1);
+    border-color: #ffc107;
+    color: #ffc107;
+}
+
+[data-theme="dark"] .bg-light {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+[data-theme="dark"] .text-muted {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Form styling improvements */
+.form-label.fw-bold {
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.form-check-label {
+    cursor: pointer;
+    user-select: none;
+}
+
+.form-check-input {
+    cursor: pointer;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .phone-link {
+        font-size: 0.95rem;
+    }
+    
+    .display-5 {
+        font-size: 2rem;
+    }
+    
+    .card-body {
+        padding: 1.5rem !important;
+    }
+}

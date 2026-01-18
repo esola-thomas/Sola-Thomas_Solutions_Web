@@ -1,0 +1,262 @@
+/* Reset and update base animation styles */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    will-change: transform, opacity;
+}
+
+.animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Custom animations for each section */
+#about.animate-on-scroll {
+    transform: translateY(10px);
+    opacity: 0;
+}
+
+#about.animate-on-scroll.visible {
+    transform: translateY(0);
+    filter: blur(0);
+}
+
+#mission-vision.animate-on-scroll {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    transform: translateY(10px);
+    opacity: 0;
+}
+
+#mission-vision.animate-on-scroll.visible {
+    transform: rotateX(0);
+}
+
+#mission-vision .card {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 1s ease-out var(--delay, 0s);
+}
+
+#mission-vision.visible .card {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#mission-vision.visible .card:nth-child(1) { --delay: 0.2s; }
+#mission-vision.visible .card:nth-child(2) { --delay: 0.4s; }
+#mission-vision.visible .card:nth-child(3) { --delay: 0.6s; }
+
+#service-area.animate-on-scroll {
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+    transform: translateY(10px);
+    opacity: 0;
+}
+
+#service-area.animate-on-scroll.visible {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.cta-section.animate-on-scroll {
+    transform: translateY(10px);
+    opacity: 0;
+    filter: brightness(0.8);
+}
+
+.cta-section.animate-on-scroll.visible {
+    transform: scale(1);
+    filter: brightness(1);
+}
+
+.hover-effect {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-effect:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+.text-center .hover-description {
+    display: none;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+.text-center:hover .hover-description {
+    display: block;
+    opacity: 1;
+}
+
+.parallax-bg {
+    background-attachment: fixed;
+}
+
+.hero-section {
+    @extend .hero;
+}
+
+.hero-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-image: url('../images/electronic.jpg');
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}
+
+/* Additional Animation Styles moved from theme.css */
+.feature-container {
+    transition: transform 0.3s ease;
+}
+
+.feature-text {
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.feature-icon {
+    transition: all 0.3s ease;
+}
+
+.feature-container:hover {
+    transform: translateY(-5px);
+}
+
+.feature-container:hover .feature-icon {
+    transform: scale(1.2);
+    color: #ffd700;
+}
+
+.feature-container:hover .feature-text::before {
+    transform: scaleX(1);
+}
+
+.feature-container:hover .feature-text strong {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    color: #fff;
+}
+
+.feature-text::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    right: -5px;
+    top: -2px;
+    bottom: -2px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.floating-contact .btn {
+    transition: transform 0.3s ease, background-color 0.3s;
+}
+
+.floating-contact .btn:hover {
+    transform: scale(1.1);
+}
+
+.service-card {
+    transition: transform 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+}
+
+.service-card i {
+    transition: transform 0.3s ease;
+}
+
+.service-card:hover i {
+    transform: scale(1.1);
+}
+
+.theme-icon {
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.features-section .feature-column {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.features-section .feature-column:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+:root[data-theme="dark"] .features-section .feature-column:hover {
+    box-shadow: 0 8px 16px rgba(255, 255, 255, 0.1);
+}
+
+
+#about.animate-on-scroll {
+    transform: translateX(-30px);
+}
+
+#mission-vision.animate-on-scroll {
+    transform: scale(0.95);
+}
+
+#service-area.animate-on-scroll {
+    transform: translateX(30px);
+}
+
+.cta-section.animate-on-scroll {
+    transform: translateY(30px);
+}
+
+/* Card animations */
+#mission-vision .card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease-out;
+}
+
+#mission-vision.visible .card {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger card animations */
+#mission-vision.visible .card:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+#mission-vision.visible .card:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+#mission-vision.visible .card:nth-child(3) {
+    transition-delay: 0.3s;
+}
+
+/* Apply the same transition as cta-section */
+.py-5.bg-primary.text-white.animate-on-scroll {
+    transform: translateY(30px);
+    opacity: 0;
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.py-5.bg-primary.text-white.animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
