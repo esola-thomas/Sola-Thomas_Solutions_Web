@@ -31,7 +31,7 @@ static_site/
 - **Dark/Light Theme**: Toggle between themes with persistent localStorage
 - **Service Request Form**: Integrated form (configured for Formspree)
 - **Phone Number Prominent**: (802) 793-2871 displayed in header, footer, and CTAs
-- **Gilbarco Veeder-Root Tab**: Dedicated page for Gilbarco equipment services
+- **Gilbarco Veeder-Root Tab**: Dedicated page for Gilbarco  Veeder-Root equipment services
 - **Clean Navigation**: Simple, intuitive menu structure
 - **SEO Optimized**: Meta tags, structured data, Google Analytics
 - **Nationwide Service**: Business serving clients across the United States
