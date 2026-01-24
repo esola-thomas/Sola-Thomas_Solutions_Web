@@ -7,7 +7,7 @@ This is the simplified static website for Sola-Thomas Solutions, migrated from t
 ```
 static_site/
 ├── index.html              # Homepage
-├── gilbarco.html           # Gilbarco bdroot services page
+├── gilbarco.html           # Gilbarco Veeder-Root services page
 ├── home-services.html      # Home services
 ├── business-services.html  # Business services
 ├── service-request.html    # Service request form
@@ -31,7 +31,7 @@ static_site/
 - **Dark/Light Theme**: Toggle between themes with persistent localStorage
 - **Service Request Form**: Integrated form (configured for Formspree)
 - **Phone Number Prominent**: (802) 793-2871 displayed in header, footer, and CTAs
-- **Gilbarco bdroot Tab**: Dedicated page for Gilbarco equipment services
+- **Gilbarco Veeder-Root Tab**: Dedicated page for Gilbarco equipment services
 - **Clean Navigation**: Simple, intuitive menu structure
 - **SEO Optimized**: Meta tags, structured data, Google Analytics
 - **Nationwide Service**: Business serving clients across the United States
@@ -152,7 +152,7 @@ Theme colors are defined in `css/theme.css`. Key CSS variables:
 
 - [x] Homepage with service request CTA
 - [x] Service request form page
-- [x] Gilbarco bdroot page
+- [x] Gilbarco Veeder-Root page
 - [x] Home services page
 - [x] Business services page
 - [x] Contact page

@@ -1,7 +1,7 @@
 .hero-section {
     min-height: 60vh;
     position: relative;
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/business-hero-bg.jpg');
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/hero_blue_waves_background.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
