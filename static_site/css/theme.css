@@ -316,20 +316,13 @@ footer small {
     color: var(--text-color) !important;
 }
 
-/* Dark mode overrides for features section */
-:root[data-theme="dark"] .features-section .bg-body-secondary {
-    background-color: var(--card-bg) !important;
-}
-
-:root[data-theme="dark"] .features-section h3 {
-    color: var(--text-color) !important;
-}
-
-/* Dark mode overrides for service-intro section */
+/* Dark mode overrides for features and service sections */
+:root[data-theme="dark"] .features-section .bg-body-secondary,
 :root[data-theme="dark"] .service-intro .bg-body-secondary {
     background-color: var(--card-bg) !important;
 }
 
+:root[data-theme="dark"] .features-section h3,
 :root[data-theme="dark"] .service-intro h3 {
     color: var(--text-color) !important;
 }
