@@ -317,16 +317,8 @@ footer small {
 }
 
 /* Dark mode overrides for features section */
-:root[data-theme="dark"] .features-section {
-    background-color: var(--bg-color) !important;
-}
-
 :root[data-theme="dark"] .features-section .bg-body-secondary {
     background-color: var(--card-bg) !important;
-}
-
-:root[data-theme="dark"] .features-section .text-muted {
-    color: rgba(255, 255, 255, 0.7) !important;
 }
 
 :root[data-theme="dark"] .features-section h3 {
