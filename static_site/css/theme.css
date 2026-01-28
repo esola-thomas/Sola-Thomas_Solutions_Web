@@ -316,6 +316,15 @@ footer small {
     color: var(--text-color) !important;
 }
 
+/* Dark mode overrides for features section */
+:root[data-theme="dark"] .features-section .bg-body-secondary {
+    background-color: var(--card-bg) !important;
+}
+
+:root[data-theme="dark"] .features-section h3 {
+    color: var(--text-color) !important;
+}
+
 .themed-section {
     background-color: var(--bg-color);
     color: var(--text-color);
