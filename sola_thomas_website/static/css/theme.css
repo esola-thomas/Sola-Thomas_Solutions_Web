@@ -316,6 +316,23 @@ footer small {
     color: var(--text-color) !important;
 }
 
+/* Dark mode specific styles for features section */
+:root[data-theme="dark"] .features-section {
+    background-color: #212529 !important;
+}
+
+:root[data-theme="dark"] .features-section .bg-light {
+    background-color: #343a40 !important;
+}
+
+:root[data-theme="dark"] .features-section .text-dark {
+    color: #f8f9fa !important;
+}
+
+:root[data-theme="dark"] .features-section .text-muted {
+    color: #e9ecef !important;
+}
+
 .themed-section {
     background-color: var(--bg-color);
     color: var(--text-color);
