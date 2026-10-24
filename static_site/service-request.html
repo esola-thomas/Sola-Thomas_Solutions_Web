@@ -1,26 +1,29 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Service Request | Sola-Thomas Solutions</title>
-    <meta name="description" content="Request repair and maintenance services from Sola-Thomas Solutions. Complete our service request form and we'll contact you right away.">
-    <meta name="keywords" content="service request, IT repair, maintenance, Melbourne FL">
-    
-    <!-- Social Media Meta Tags -->
+    <title>Request Service | Gilbarco Veeder-Root Service | Sola-Thomas</title>
+    <meta name="description" content="Request Gilbarco Veeder-Root service from Sola-Thomas for dispensers, Passport POS, and Veeder-Root tank monitoring in New England and Central Florida. Emergencies: call (802) 793-2871.">
+    <link rel="canonical" href="https://solathomas.com/service-request.html">
+    <meta name="theme-color" content="#0b2545">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Service Request | Sola-Thomas Solutions">
-    <meta property="og:description" content="Request IT services and support from Sola-Thomas Solutions">
-    <meta property="og:image" content="images/default-og.jpg">
-    
-    <!-- CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="css/theme.css">
-    <link rel="stylesheet" href="css/animations.css">
-    <link rel="stylesheet" href="css/service-request.css">
-    
+    <meta property="og:site_name" content="Sola-Thomas">
+    <meta property="og:title" content="Request Service | Sola-Thomas">
+    <meta property="og:description" content="Request Gilbarco Veeder-Root service. For emergencies call (802) 793-2871, 24/7.">
+    <meta property="og:url" content="https://solathomas.com/service-request.html">
+    <meta property="og:image" content="https://solathomas.com/images/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/site.css">
+
+    <script src="js/config.js"></script>
+    <script src="js/site.js"></script>
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-24QFBN3WGN"></script>
     <script>
@@ -30,336 +33,285 @@
         gtag('config', 'G-24QFBN3WGN');
     </script>
 </head>
-<body>
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm">
+<body class="has-mobile-cta">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="topbar">24/7 emergency service: <a href="tel:+18027932871" data-cta="topbar">(802) 793-2871</a></div>
+
+    <header class="site-header">
         <div class="container">
-            <a class="navbar-brand" href="index.html">Sola-Thomas Solutions</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="gilbarco.html">Gilbarco Veeder-Root</a></li>
-                    <li class="nav-item"><a class="nav-link" href="home-services.html">Home Services</a></li>
-                    <li class="nav-item"><a class="nav-link" href="business-services.html">Business Services</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="service-request.html">Service Request</a></li>
-                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-                </ul>
-                <div class="navbar-nav align-items-center">
-                    <a href="tel:+18027932871" class="nav-link phone-link">
-                        <i class="fas fa-phone me-2"></i>
-                        <strong>(802) 793-2871</strong>
-                    </a>
-                    <button class="btn btn-outline-primary ms-2 theme-toggle" id="theme-toggle" aria-label="Toggle theme">
-                        <img src="svg/sun.svg" alt="Light theme" class="theme-icon sun-icon">
-                        <img src="svg/moon.svg" alt="Dark theme" class="theme-icon moon-icon">
-                    </button>
+            <a class="brand" href="./" aria-label="Sola-Thomas home">
+                <img src="images/logo-mark.svg" alt="" width="44" height="44">
+                <span>
+                    <span class="brand-name">SOLA-THOMAS</span>
+                    <span class="brand-sub">GILBARCO VEEDER-ROOT SERVICE</span>
+                </span>
+            </a>
+            <button class="nav-toggle" type="button" aria-controls="site-nav" aria-expanded="false">Menu</button>
+            <nav class="nav" id="site-nav" aria-label="Main">
+                <a href="./#services">Services</a>
+                <a href="./#experience">Experience</a>
+                <a href="./#coverage">Coverage</a>
+                <a href="./#contact">Contact</a>
+                <a class="nav-phone" href="tel:+18027932871" data-cta="nav">(802) 793-2871</a>
+                <a class="btn btn-red" href="service-request.html" aria-current="page">Request Service</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main">
+        <section class="page-head">
+            <div class="container">
+                <h1>Request Service</h1>
+                <p>Tell us about your site and the equipment issue. We will review your request and contact you to schedule service.</p>
+            </div>
+        </section>
+
+        <div class="container" style="padding-top:32px;padding-bottom:64px">
+            <div class="alert alert-emergency" role="note">
+                <svg aria-hidden="true"><use href="images/icons.svg#i-alert"></use></svg>
+                <div>
+                    <h2>Emergency? Call now.</h2>
+                    <p>For emergencies or equipment that is down, call <a href="tel:+18027932871" data-cta="form-top">(802) 793-2871</a> immediately. We are available 24/7. Do not rely on this form alone for emergency service.</p>
                 </div>
+            </div>
+
+            <div class="form-layout">
+                <div class="form-card">
+                    <form id="serviceRequestForm" novalidate>
+                        <fieldset>
+                            <legend>Contact Information</legend>
+                            <div class="field">
+                                <label for="company_name">Company name</label>
+                                <input type="text" id="company_name" name="company_name" autocomplete="organization" maxlength="150">
+                            </div>
+                            <div class="row">
+                                <div class="field">
+                                    <label for="contact_name">Contact name <span class="req">*</span></label>
+                                    <input type="text" id="contact_name" name="contact_name" autocomplete="name" maxlength="120" required>
+                                    <div class="error">Enter a contact name.</div>
+                                </div>
+                                <div class="field">
+                                    <label for="phone">Telephone number <span class="req">*</span></label>
+                                    <input type="tel" id="phone" name="phone" autocomplete="tel" maxlength="30" pattern="[0-9()+.\- ]{10,}" required>
+                                    <div class="error">Enter a phone number with area code.</div>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label for="email">Email address <span class="req">*</span></label>
+                                <input type="email" id="email" name="email" autocomplete="email" maxlength="150" required>
+                                <div class="error">Enter a valid email address.</div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Station or Service Location</legend>
+                            <div class="field">
+                                <label for="site_name">Station or site name</label>
+                                <input type="text" id="site_name" name="site_name" maxlength="150" placeholder="e.g. Main Street Mobil #12">
+                            </div>
+                            <div class="field">
+                                <label for="site_address">Street address <span class="req">*</span></label>
+                                <input type="text" id="site_address" name="site_address" autocomplete="address-line1" maxlength="200" required>
+                                <div class="error">Enter the service location address.</div>
+                            </div>
+                            <div class="row-3">
+                                <div class="field">
+                                    <label for="site_city">City <span class="req">*</span></label>
+                                    <input type="text" id="site_city" name="site_city" autocomplete="address-level2" maxlength="100" required>
+                                    <div class="error">Enter a city.</div>
+                                </div>
+                                <div class="field">
+                                    <label for="site_state">State <span class="req">*</span></label>
+                                    <select id="site_state" name="site_state" autocomplete="address-level1" required>
+                                        <option value="">Select</option>
+                                        <optgroup label="New England">
+                                            <option value="CT">CT</option>
+                                            <option value="MA">MA</option>
+                                            <option value="ME">ME</option>
+                                            <option value="NH">NH</option>
+                                            <option value="RI">RI</option>
+                                            <option value="VT">VT</option>
+                                        </optgroup>
+                                        <optgroup label="Florida">
+                                            <option value="FL">FL</option>
+                                        </optgroup>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                    <div class="error">Select a state.</div>
+                                </div>
+                                <div class="field">
+                                    <label for="site_zip">ZIP</label>
+                                    <input type="text" id="site_zip" name="site_zip" autocomplete="postal-code" inputmode="numeric" maxlength="10" pattern="\d{5}(-\d{4})?">
+                                    <div class="error">Enter a 5-digit ZIP.</div>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Equipment and Problem</legend>
+                            <div class="row">
+                                <div class="field">
+                                    <label for="equipment_type">Equipment type</label>
+                                    <select id="equipment_type" name="equipment_type">
+                                        <option value="">Select</option>
+                                        <option>Fuel dispenser</option>
+                                        <option>Passport POS</option>
+                                        <option>Payment terminal</option>
+                                        <option>Veeder-Root tank monitoring</option>
+                                        <option>Fleet management system</option>
+                                        <option>Other / not sure</option>
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <label for="equipment_model">Model</label>
+                                    <input type="text" id="equipment_model" name="equipment_model" maxlength="120" placeholder="e.g. Encore 700 S">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label for="description">Problem or service description <span class="req">*</span></label>
+                                <textarea id="description" name="description" maxlength="4000" required placeholder="What is happening? Error codes, affected fueling positions, when it started."></textarea>
+                                <div class="error">Describe the problem or the service you need.</div>
+                            </div>
+
+                            <label class="emergency-check" for="emergency">
+                                <input type="checkbox" id="emergency" name="emergency" value="yes">
+                                <span><strong>This is an emergency.</strong> Equipment is down or there is a safety concern.</span>
+                            </label>
+                            <div class="alert alert-emergency emergency-callout" id="emergencyCallout" role="alert">
+                                <svg aria-hidden="true"><use href="images/icons.svg#i-phone"></use></svg>
+                                <div>
+                                    <h2>Please call now: <a href="tel:+18027932871" data-cta="emergency-checkbox">(802) 793-2871</a></h2>
+                                    <p>Calling is the fastest way to reach a technician. You can still submit this form so we have your details.</p>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Scheduling and Photos</legend>
+                            <div class="row">
+                                <div class="field">
+                                    <label for="preferred_date">Preferred service date</label>
+                                    <input type="date" id="preferred_date" name="preferred_date">
+                                    <div class="error">Choose today or a future date.</div>
+                                </div>
+                                <div class="field">
+                                    <label for="lead_source">How did you hear about us?</label>
+                                    <select id="lead_source" name="lead_source">
+                                        <option value="">Select</option>
+                                        <option value="google_search">Google search</option>
+                                        <option value="google_business_profile">Google Maps / Business Profile</option>
+                                        <option value="linkedin">LinkedIn</option>
+                                        <option value="facebook">Facebook</option>
+                                        <option value="instagram">Instagram</option>
+                                        <option value="referral">Referral from another customer</option>
+                                        <option value="existing_customer">I am an existing customer</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label for="photos">Photos (optional)</label>
+                                <input type="file" id="photos" name="photos" accept="image/*" multiple>
+                                <div class="hint">Up to 5 images, 10 MB total. Photos of the equipment, error screens, or data plates help us arrive prepared.</div>
+                                <div class="error" id="photosError">Attach up to 5 images, 10 MB total.</div>
+                            </div>
+                        </fieldset>
+
+                        <div class="hp-field" aria-hidden="true">
+                            <label for="_gotcha">Leave this field empty</label>
+                            <input type="text" id="_gotcha" name="_gotcha" tabindex="-1" autocomplete="off">
+                        </div>
+
+                        <button type="submit" class="btn btn-red btn-block" id="submitBtn">
+                            <svg aria-hidden="true"><use href="images/icons.svg#i-clipboard"></use></svg><span>Submit Service Request</span>
+                        </button>
+                        <p class="muted" style="font-size:0.9rem;margin-top:12px">Your information is used only to respond to and perform your service request.</p>
+
+                        <div class="alert alert-error form-status" id="formError" role="alert">
+                            <svg aria-hidden="true"><use href="images/icons.svg#i-alert"></use></svg>
+                            <div>
+                                <strong>We could not submit your request.</strong>
+                                <p style="margin:4px 0 0">Your information is still on this page. Please call <a href="tel:+18027932871" data-cta="form-error">(802) 793-2871</a> or <a href="#" id="mailFallback">send it by email</a> instead.</p>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="confirmation" id="confirmation" hidden tabindex="-1">
+                        <div class="check"><svg aria-hidden="true"><use href="images/icons.svg#i-check"></use></svg></div>
+                        <h2>Request received</h2>
+                        <p>Thank you. Your reference number is <span class="ref" id="refNumber"></span></p>
+                        <p class="muted">We will review your request and contact you to schedule service. A confirmation will be sent to <strong id="confirmEmail"></strong>.</p>
+                        <p id="photoNote" class="muted" hidden>Your photos could not be attached. Please email them to <a href="mailto:service@solathomas.com">service@solathomas.com</a> with your reference number.</p>
+                        <div class="alert alert-emergency" id="confirmEmergency" hidden style="text-align:left">
+                            <svg aria-hidden="true"><use href="images/icons.svg#i-phone"></use></svg>
+                            <div>
+                                <h2>You marked this as an emergency.</h2>
+                                <p>If you have not already, call <a href="tel:+18027932871" data-cta="confirmation">(802) 793-2871</a> now.</p>
+                            </div>
+                        </div>
+                        <p style="margin-top:20px"><a class="btn btn-outline" href="./">Back to home</a></p>
+                    </div>
+                </div>
+
+                <aside class="side-card">
+                    <h2>24/7 Emergency Service</h2>
+                    <a class="phone" href="tel:+18027932871" data-cta="sidebar">(802) 793-2871</a>
+                    <hr>
+                    <h2>What happens next</h2>
+                    <ol>
+                        <li>Our team is notified of your request right away.</li>
+                        <li>You receive an email confirmation with your reference number.</li>
+                        <li>We contact you to confirm details and schedule service.</li>
+                    </ol>
+                    <hr>
+                    <p style="margin:0;color:#d2dcea">Questions? <a href="mailto:service@solathomas.com" style="color:#fff">service@solathomas.com</a></p>
+                </aside>
             </div>
         </div>
-    </nav>
+    </main>
 
-    <div class="content-wrapper" style="margin-top: 76px;">
-        <main class="container mt-5">
-            <!-- Header Section -->
-            <div class="row justify-content-center mb-5">
-                <div class="col-lg-10">
-                    <div class="text-center mb-4">
-                        <h1 class="display-5 fw-bold">REQUEST SERVICE</h1>
-                        <p class="lead">If you are in need of repair and maintenance, please complete the form below and we will contact you right away.</p>
-                    </div>
-                    
-                    <!-- Emergency Notice -->
-                    <div class="alert alert-warning border-2 shadow-sm" role="alert">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-exclamation-triangle fa-2x me-3"></i>
-                            <div>
-                                <h5 class="alert-heading mb-1">Emergency Service</h5>
-                                <p class="mb-0">Service requests submitted online will be checked during business hours, Monday-Friday, 8 AM - 5 PM.</p>
-                                <p class="mb-0 mt-2"><strong>If this is an emergency or immediate service is needed, please call:</strong></p>
-                                <p class="mb-0 fs-4 fw-bold text-danger">
-                                    <i class="fas fa-phone me-2"></i>
-                                    <a href="tel:+18027932871" class="text-danger text-decoration-none">(802) 793-2871</a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Service Request Form -->
-            <div class="row justify-content-center">
-                <div class="col-lg-10">
-                    <div class="card shadow-lg border-0">
-                        <div class="card-body p-4 p-md-5">
-                            <form id="serviceRequestForm" action="https://formspree.io/f/xgoaqvvd" method="POST">
-                                <!-- Customer Type -->
-                                <div class="mb-4">
-                                    <label class="form-label fw-bold">Customer Type *</label>
-                                    <div class="d-flex flex-wrap gap-3">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="customer_type" id="newCustomer" value="New Customer" required>
-                                            <label class="form-check-label" for="newCustomer">
-                                                New Customer
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="customer_type" id="existingCustomer" value="Existing Customer">
-                                            <label class="form-check-label" for="existingCustomer">
-                                                Existing Customer
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Contact Information -->
-                                <div class="row mb-4">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="name" class="form-label fw-bold">Name *</label>
-                                        <input type="text" class="form-control" id="name" name="name" required>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="phone" class="form-label fw-bold">Phone *</label>
-                                        <input type="tel" class="form-control" id="phone" name="phone" required>
-                                    </div>
-                                </div>
-
-                                <div class="mb-4">
-                                    <label for="email" class="form-label fw-bold">Email *</label>
-                                    <input type="email" class="form-control" id="email" name="email" required>
-                                </div>
-
-                                <!-- Site/Location Information -->
-                                <div class="mb-4">
-                                    <h5 class="border-bottom pb-2 mb-3">Site Information</h5>
-                                    
-                                    <div class="row">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="siteName" class="form-label">Site Name</label>
-                                            <input type="text" class="form-control" id="siteName" name="site_name">
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label for="sitePhone" class="form-label">Site Phone Number</label>
-                                            <input type="tel" class="form-control" id="sitePhone" name="site_phone">
-                                        </div>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="siteAddress1" class="form-label">Address Line 1</label>
-                                        <input type="text" class="form-control" id="siteAddress1" name="site_address_1">
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="siteAddress2" class="form-label">Address Line 2</label>
-                                        <input type="text" class="form-control" id="siteAddress2" name="site_address_2">
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="city" class="form-label">City</label>
-                                            <input type="text" class="form-control" id="city" name="city">
-                                        </div>
-                                        <div class="col-md-3 mb-3">
-                                            <label for="state" class="form-label">State</label>
-                                            <input type="text" class="form-control" id="state" name="state" placeholder="FL">
-                                        </div>
-                                        <div class="col-md-3 mb-3">
-                                            <label for="zipCode" class="form-label">ZIP Code</label>
-                                            <input type="text" class="form-control" id="zipCode" name="zip_code">
-                                        </div>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="poNumber" class="form-label">PO Number</label>
-                                        <input type="text" class="form-control" id="poNumber" name="po_number">
-                                    </div>
-                                </div>
-
-                                <!-- Service Type -->
-                                <div class="mb-4">
-                                    <h5 class="border-bottom pb-2 mb-3">Service Type *</h5>
-                                    <p class="text-muted small mb-3">Please check all that apply:</p>
-                                    
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-check mb-2">
-                                                <input class="form-check-input" type="checkbox" id="computerRepair" name="service_type[]" value="Computer Repair">
-                                                <label class="form-check-label" for="computerRepair">
-                                                    Computer Repair
-                                                </label>
-                                            </div>
-                                            <div class="form-check mb-2">
-                                                <input class="form-check-input" type="checkbox" id="networkSetup" name="service_type[]" value="Network Setup">
-                                                <label class="form-check-label" for="networkSetup">
-                                                    Network Setup
-                                                </label>
-                                            </div>
-                                            <div class="form-check mb-2">
-                                                <input class="form-check-input" type="checkbox" id="securityCameras" name="service_type[]" value="Security Cameras">
-                                                <label class="form-check-label" for="securityCameras">
-                                                    Security Cameras
-                                                </label>
-                                            </div>
-                                            <div class="form-check mb-2">
-                                                <input class="form-check-input" type="checkbox" id="posSystem" name="service_type[]" value="POS System">
-                                                <label class="form-check-label" for="posSystem">
-                                                    POS System
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-check mb-2">
-                                                <input class="form-check-input" type="checkbox" id="gilbarco" name="service_type[]" value="Gilbarco  Veeder-Root Equipment">
-                                                <label class="form-check-label" for="gilbarco">
-                                                    Gilbarco  Veeder-Root Equipment
-                                                </label>
-                                            </div>
-                                            <div class="form-check mb-2">
-                                                <input class="form-check-input" type="checkbox" id="electrical" name="service_type[]" value="Electrical">
-                                                <label class="form-check-label" for="electrical">
-                                                    Electrical
-                                                </label>
-                                            </div>
-                                            <div class="form-check mb-2">
-                                                <input class="form-check-input" type="checkbox" id="webServices" name="service_type[]" value="Web Services">
-                                                <label class="form-check-label" for="webServices">
-                                                    Web Services
-                                                </label>
-                                            </div>
-                                            <div class="form-check mb-2">
-                                                <input class="form-check-input" type="checkbox" id="other" name="service_type[]" value="Other">
-                                                <label class="form-check-label" for="other">
-                                                    Other
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Service Description -->
-                                <div class="mb-4">
-                                    <label for="description" class="form-label fw-bold">Describe Your Needs *</label>
-                                    <textarea class="form-control" id="description" name="description" rows="6" required placeholder="Please provide details about the service you need..."></textarea>
-                                    <div class="form-text">Please be as specific as possible to help us serve you better.</div>
-                                </div>
-
-                                <!-- Additional Information -->
-                                <div class="mb-4">
-                                    <h5 class="border-bottom pb-2 mb-3">Additional Information (Optional)</h5>
-                                    
-                                    <div class="mb-3">
-                                        <label for="preferredDate" class="form-label">Preferred Service Date</label>
-                                        <input type="date" class="form-control" id="preferredDate" name="preferred_date">
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="additionalNotes" class="form-label">Additional Notes</label>
-                                        <textarea class="form-control" id="additionalNotes" name="additional_notes" rows="3" placeholder="Any other information that might be helpful..."></textarea>
-                                    </div>
-                                </div>
-
-                                <!-- Submit Button -->
-                                <div class="d-grid gap-2">
-                                    <button type="submit" class="btn btn-primary btn-lg">
-                                        <i class="fas fa-paper-plane me-2"></i>Submit Service Request
-                                    </button>
-                                    <button type="reset" class="btn btn-outline-secondary">
-                                        <i class="fas fa-redo me-2"></i>Reset Form
-                                    </button>
-                                </div>
-
-                                <div class="mt-4 text-center">
-                                    <p class="text-muted mb-0">Questions? Call us at <a href="tel:+18027932871" class="fw-bold">(802) 793-2871</a></p>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Additional Info Section -->
-            <div class="row justify-content-center mt-5">
-                <div class="col-lg-10">
-                    <div class="row g-4">
-                        <div class="col-md-4">
-                            <div class="text-center p-4 bg-body-secondary rounded shadow-sm h-100">
-                                <i class="fas fa-clock fa-3x mb-3 text-primary"></i>
-                                <h5>Quick Response</h5>
-                                <p class="text-muted mb-0">We'll review your request and contact you within 24 hours</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="text-center p-4 bg-body-secondary rounded shadow-sm h-100">
-                                <i class="fas fa-shield-alt fa-3x mb-3 text-primary"></i>
-                                <h5>Professional Service</h5>
-                                <p class="text-muted mb-0">Experienced technicians with diverse expertise</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="text-center p-4 bg-body-secondary rounded shadow-sm h-100">
-                                <i class="fas fa-hand-holding-usd fa-3x mb-3 text-primary"></i>
-                                <h5>Fair Pricing</h5>
-                                <p class="text-muted mb-0">Transparent pricing with no hidden fees</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
-
-    <!-- Footer -->
-    <footer class="bg-dark text-white py-4 mt-5">
+    <footer class="site-footer">
         <div class="container">
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <h5>Sola-Thomas Solutions</h5>
-                    <p class="mb-0">Family-owned technology solutions serving clients nationwide</p>
+            <div class="footer-grid">
+                <div>
+                    <a class="brand" href="./">
+                        <img src="images/logo-mark.svg" alt="" width="44" height="44">
+                        <span class="brand-name">SOLA-THOMAS</span>
+                    </a>
+                    <p class="footer-slogan" style="margin-top:14px">Fueling Reliability. Delivering Performance.</p>
+                    <p>Gilbarco Veeder-Root Authorized Service Contractor serving New England and Central Florida.</p>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <h5>Contact</h5>
-                    <p class="mb-1">
-                        <i class="fas fa-phone me-2"></i>
-                        <a href="tel:+18027932871" class="text-white text-decoration-none">(802) 793-2871</a>
-                    </p>
-                    <p class="mb-0">
-                        <i class="fas fa-envelope me-2"></i>
-                        <a href="mailto:info@solathomas.com" class="text-white text-decoration-none">info@solathomas.com</a>
-                    </p>
+                <div>
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="tel:+18027932871" data-cta="footer">(802) 793-2871</a></li>
+                        <li><a href="mailto:service@solathomas.com">service@solathomas.com</a></li>
+                        <li>24/7 emergency availability</li>
+                    </ul>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <h5>Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="service-request.html" class="text-white text-decoration-none">Request Service</a></li>
-                        <li><a href="contact.html" class="text-white text-decoration-none">Contact</a></li>
+                <div>
+                    <h4>Links</h4>
+                    <ul>
+                        <li><a href="./">Home</a></li>
+                        <li><a href="./#services">Services</a></li>
+                        <li><a href="./#coverage">Service Coverage</a></li>
+                        <li><a href="#" data-team-login hidden rel="nofollow">Team Login</a></li>
                     </ul>
                 </div>
             </div>
-            <hr class="bg-white">
-            <div class="text-center">
-                <small>&copy; 2026 Sola-Thomas LLC. All rights reserved.</small>
+            <div class="footer-bottom">
+                <span>&copy; <span data-year>2026</span> Sola-Thomas LLC. All rights reserved.</span>
+                <span>Gilbarco, Veeder-Root, and Passport are trademarks of their respective owners.</span>
             </div>
         </div>
     </footer>
 
-    <!-- JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/theme.js"></script>
-    <script src="js/animations.js"></script>
-    <script>
-        // Form validation and enhancement
-        document.getElementById('serviceRequestForm').addEventListener('submit', function(e) {
-            const checkboxes = document.querySelectorAll('input[name="service_type[]"]');
-            const checked = Array.from(checkboxes).some(cb => cb.checked);
-            
-            if (!checked) {
-                e.preventDefault();
-                alert('Please select at least one service type.');
-                return false;
-            }
-        });
-    </script>
+    <div class="mobile-cta">
+        <a class="btn btn-red" href="tel:+18027932871" data-cta="mobile-bar">Call Now</a>
+        <a class="btn btn-navy" href="#serviceRequestForm">Fill Out Form</a>
+    </div>
+
+    <script src="js/service-request.js"></script>
 </body>
 </html>

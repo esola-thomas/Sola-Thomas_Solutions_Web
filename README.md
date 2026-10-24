@@ -1,6 +1,12 @@
 # Sola-Thomas LLC Website
 
-A Django-based website for Sola-Thomas LLC, providing IT services and consulting solutions.
+Website and tooling for Sola-Thomas LLC, a Gilbarco Veeder-Root Authorized Service Contractor.
+
+- **Public site** (`static_site/`): the live solathomas.com, deployed to GitHub Pages. See `static_site/README.md`.
+- **Service request contract** (`docs/service-request-contract.md`): fields the public form sends; the service-management app intake must accept them.
+- **Legacy Django project** (`sola_thomas_website/`): the earlier site and client portal (service requests, work orders, invoices). Not deployed. Its public marketing pages (home/business IT services) are retired; the `clientportal` app is under review as the base for the private service-management app.
+
+The sections below apply to the legacy Django project only.
 
 ## Requirements
 
