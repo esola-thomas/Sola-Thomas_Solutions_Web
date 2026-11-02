@@ -27,6 +27,8 @@ every push to `main` (`.github/workflows/deploy-static-site.yml`).
   Sola-Thomas logo (navy with red fuel nozzle) when the source file is available, and
   re-render `images/og-image.png` (1200x630).
 - `images/Gilbarco_Veeder-Root.png`: use subject to Gilbarco brand guidelines.
+- `images/technicians-dispenser-*.webp` (hero) and `images/lead-technician-*.webp` (experience):
+  owner-provided, 800w and 1600w WebP. Replace with real job-site photos as they become available.
 
 Colors and type live in `css/site.css` (`:root` tokens). No frameworks; the only external
 assets are Google Fonts (Barlow) and Google Analytics (`G-24QFBN3WGN`).
