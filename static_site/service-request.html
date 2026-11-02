@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Request Service | Gilbarco Veeder-Root Service | Sola-Thomas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com; connect-src 'self' https://formspree.io https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>Request Service | Sola-Thomas</title>
     <meta name="description" content="Request Gilbarco Veeder-Root service from Sola-Thomas for dispensers, Passport POS, and Veeder-Root tank monitoring in New England and Central Florida. Emergencies: call (802) 793-2871.">
     <link rel="canonical" href="https://solathomas.com/service-request.html">
     <meta name="theme-color" content="#0b2545">
@@ -15,15 +17,13 @@
     <meta property="og:description" content="Request Gilbarco Veeder-Root service. For emergencies call (802) 793-2871, 24/7.">
     <meta property="og:url" content="https://solathomas.com/service-request.html">
     <meta property="og:image" content="https://solathomas.com/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Sola-Thomas. Fueling Reliability. Delivering Performance. Gilbarco Veeder-Root service in New England and Central Florida.">
     <meta name="twitter:card" content="summary_large_image">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/site.css">
-
-    <script src="js/config.js"></script>
-    <script src="js/site.js"></script>
+    <link rel="preload" href="fonts/barlow-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="css/site.css?v=20261102">
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-24QFBN3WGN"></script>
     <script>
@@ -32,15 +32,18 @@
         gtag('js', new Date());
         gtag('config', 'G-24QFBN3WGN');
     </script>
+
+    <script defer src="js/config.js?v=20261102"></script>
+    <script defer src="js/site.js?v=20261102"></script>
+    <script defer src="js/service-request.js?v=20261102"></script>
 </head>
 <body class="has-mobile-cta">
     <a class="skip-link" href="#main">Skip to content</a>
 
-    <div class="topbar">24/7 emergency service: <a href="tel:+18027932871" data-cta="topbar">(802) 793-2871</a></div>
-
     <header class="site-header">
-        <div class="container">
-            <a class="brand" href="./" aria-label="Sola-Thomas home">
+        <div class="topbar">24/7 emergency service: <a href="tel:+18027932871" data-cta="topbar">(802) 793-2871</a></div>
+        <div class="container header-bar">
+            <a class="brand" href="./">
                 <img src="images/logo-mark.svg" alt="" width="44" height="44">
                 <span>
                     <span class="brand-name">SOLA-THOMAS</span>
@@ -67,18 +70,19 @@
             </div>
         </section>
 
-        <div class="container" style="padding-top:32px;padding-bottom:64px">
+        <div class="container form-page">
             <div class="alert alert-emergency" role="note">
                 <svg aria-hidden="true"><use href="images/icons.svg#i-alert"></use></svg>
                 <div>
                     <h2>Emergency? Call now.</h2>
-                    <p>For emergencies or equipment that is down, call <a href="tel:+18027932871" data-cta="form-top">(802) 793-2871</a> immediately. We are available 24/7. Do not rely on this form alone for emergency service.</p>
+                    <p>For emergencies or equipment that is down, call <a href="tel:+18027932871" data-cta="form-top">(802) 793-2871</a> immediately, 24/7. Do not rely on this form alone for emergency service.</p>
                 </div>
             </div>
 
             <div class="form-layout">
                 <div class="form-card">
                     <form id="serviceRequestForm" novalidate>
+                        <p class="req-note"><span class="req" aria-hidden="true">*</span> Fields marked with an asterisk are required.</p>
                         <fieldset>
                             <legend>Contact Information</legend>
                             <div class="field">
@@ -87,20 +91,20 @@
                             </div>
                             <div class="row">
                                 <div class="field">
-                                    <label for="contact_name">Contact name <span class="req">*</span></label>
+                                    <label for="contact_name">Contact name <span class="req" aria-hidden="true">*</span></label>
                                     <input type="text" id="contact_name" name="contact_name" autocomplete="name" maxlength="120" required>
-                                    <div class="error">Enter a contact name.</div>
+                                    <div class="error" id="contact_name-error">Enter a contact name.</div>
                                 </div>
                                 <div class="field">
-                                    <label for="phone">Telephone number <span class="req">*</span></label>
-                                    <input type="tel" id="phone" name="phone" autocomplete="tel" maxlength="30" pattern="[0-9()+.\- ]{10,}" required>
-                                    <div class="error">Enter a phone number with area code.</div>
+                                    <label for="phone">Telephone number <span class="req" aria-hidden="true">*</span></label>
+                                    <input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel" maxlength="30" required>
+                                    <div class="error" id="phone-error">Enter a phone number with area code.</div>
                                 </div>
                             </div>
                             <div class="field">
-                                <label for="email">Email address <span class="req">*</span></label>
+                                <label for="email">Email address <span class="req" aria-hidden="true">*</span></label>
                                 <input type="email" id="email" name="email" autocomplete="email" maxlength="150" required>
-                                <div class="error">Enter a valid email address.</div>
+                                <div class="error" id="email-error">Enter a valid email address.</div>
                             </div>
                         </fieldset>
 
@@ -111,19 +115,19 @@
                                 <input type="text" id="site_name" name="site_name" maxlength="150" placeholder="e.g. Main Street Mobil #12">
                             </div>
                             <div class="field">
-                                <label for="site_address">Street address <span class="req">*</span></label>
+                                <label for="site_address">Street address <span class="req" aria-hidden="true">*</span></label>
                                 <input type="text" id="site_address" name="site_address" autocomplete="address-line1" maxlength="200" required>
-                                <div class="error">Enter the service location address.</div>
+                                <div class="error" id="site_address-error">Enter the service location address.</div>
                             </div>
                             <div class="row-3">
                                 <div class="field">
-                                    <label for="site_city">City <span class="req">*</span></label>
+                                    <label for="site_city">City <span class="req" aria-hidden="true">*</span></label>
                                     <input type="text" id="site_city" name="site_city" autocomplete="address-level2" maxlength="100" required>
-                                    <div class="error">Enter a city.</div>
+                                    <div class="error" id="site_city-error">Enter a city.</div>
                                 </div>
                                 <div class="field">
-                                    <label for="site_state">State <span class="req">*</span></label>
-                                    <select id="site_state" name="site_state" autocomplete="address-level1" required>
+                                    <label for="site_state">State <span class="req" aria-hidden="true">*</span></label>
+                                    <select id="site_state" name="site_state" autocomplete="address-level1" aria-describedby="state-hint" required>
                                         <option value="">Select</option>
                                         <optgroup label="New England">
                                             <option value="CT">CT</option>
@@ -138,14 +142,15 @@
                                         </optgroup>
                                         <option value="Other">Other</option>
                                     </select>
-                                    <div class="error">Select a state.</div>
+                                    <div class="error" id="site_state-error">Select a state.</div>
                                 </div>
                                 <div class="field">
                                     <label for="site_zip">ZIP</label>
                                     <input type="text" id="site_zip" name="site_zip" autocomplete="postal-code" inputmode="numeric" maxlength="10" pattern="\d{5}(-\d{4})?">
-                                    <div class="error">Enter a 5-digit ZIP.</div>
+                                    <div class="error" id="site_zip-error">Enter a 5-digit ZIP.</div>
                                 </div>
                             </div>
+                            <p class="hint hint-row" id="state-hint">Outside New England or Central Florida? Call to confirm availability.</p>
                         </fieldset>
 
                         <fieldset>
@@ -165,13 +170,13 @@
                                 </div>
                                 <div class="field">
                                     <label for="equipment_model">Model</label>
-                                    <input type="text" id="equipment_model" name="equipment_model" maxlength="120" placeholder="e.g. Encore 700 S">
+                                    <input type="text" id="equipment_model" name="equipment_model" maxlength="120" placeholder="Model from the data plate">
                                 </div>
                             </div>
                             <div class="field">
-                                <label for="description">Problem or service description <span class="req">*</span></label>
+                                <label for="description">Problem or service description <span class="req" aria-hidden="true">*</span></label>
                                 <textarea id="description" name="description" maxlength="4000" required placeholder="What is happening? Error codes, affected fueling positions, when it started."></textarea>
-                                <div class="error">Describe the problem or the service you need.</div>
+                                <div class="error" id="description-error">Describe the problem or the service you need.</div>
                             </div>
 
                             <label class="emergency-check" for="emergency">
@@ -182,7 +187,7 @@
                                 <svg aria-hidden="true"><use href="images/icons.svg#i-phone"></use></svg>
                                 <div>
                                     <h2>Please call now: <a href="tel:+18027932871" data-cta="emergency-checkbox">(802) 793-2871</a></h2>
-                                    <p>Calling is the fastest way to reach a technician. You can still submit this form so we have your details.</p>
+                                    <p>Calling is the best way to reach us for emergencies. You can still submit this form so we have your details.</p>
                                 </div>
                             </div>
                         </fieldset>
@@ -193,7 +198,7 @@
                                 <div class="field">
                                     <label for="preferred_date">Preferred service date</label>
                                     <input type="date" id="preferred_date" name="preferred_date">
-                                    <div class="error">Choose today or a future date.</div>
+                                    <div class="error" id="preferred_date-error">Choose today or a future date.</div>
                                 </div>
                                 <div class="field">
                                     <label for="lead_source">How did you hear about us?</label>
@@ -212,9 +217,9 @@
                             </div>
                             <div class="field">
                                 <label for="photos">Photos (optional)</label>
-                                <input type="file" id="photos" name="photos" accept="image/*" multiple>
-                                <div class="hint">Up to 5 images, 10 MB total. Photos of the equipment, error screens, or data plates help us arrive prepared.</div>
-                                <div class="error" id="photosError">Attach up to 5 images, 10 MB total.</div>
+                                <input type="file" id="photos" name="photos" accept="image/*" multiple aria-describedby="photos-hint">
+                                <div class="hint" id="photos-hint">Up to 5 images, 10 MB total. Photos of the equipment, error screens, or data plates help us arrive prepared. Avoid photos showing people or customer payment information.</div>
+                                <div class="error" id="photos-error">Attach up to 5 images, 10 MB total.</div>
                             </div>
                         </fieldset>
 
@@ -223,34 +228,37 @@
                             <input type="text" id="_gotcha" name="_gotcha" tabindex="-1" autocomplete="off">
                         </div>
 
+                        <div class="alert alert-error form-summary" id="errorSummary" role="alert" tabindex="-1"></div>
+
                         <button type="submit" class="btn btn-red btn-block" id="submitBtn">
                             <svg aria-hidden="true"><use href="images/icons.svg#i-clipboard"></use></svg><span>Submit Service Request</span>
                         </button>
-                        <p class="muted" style="font-size:0.9rem;margin-top:12px">We use your details to respond to your request and schedule service.</p>
+                        <p class="muted form-note">We use your details to respond to your request and schedule service. See our <a href="privacy.html">Privacy Notice</a>.</p>
+                        <p class="sr-only" id="submitStatus" role="status"></p>
 
-                        <div class="alert alert-error form-status" id="formError" role="alert">
+                        <div class="alert alert-error form-status" id="formError" role="alert" tabindex="-1">
                             <svg aria-hidden="true"><use href="images/icons.svg#i-alert"></use></svg>
                             <div>
                                 <strong>We could not submit your request.</strong>
-                                <p style="margin:4px 0 0">Your information is still on this page. Please call <a href="tel:+18027932871" data-cta="form-error">(802) 793-2871</a> or <a href="#" id="mailFallback">send it by email</a> instead.</p>
+                                <p>Your information is still on this page. Please call <a href="tel:+18027932871" data-cta="form-error">(802) 793-2871</a> or <a href="#" id="mailFallback">send it by email</a> instead.</p>
                             </div>
                         </div>
                     </form>
 
-                    <div class="confirmation" id="confirmation" hidden tabindex="-1">
+                    <div class="confirmation" id="confirmation" hidden tabindex="-1" role="status">
                         <div class="check"><svg aria-hidden="true"><use href="images/icons.svg#i-check"></use></svg></div>
                         <h2>Request received</h2>
                         <p>Thank you. Your reference number is <span class="ref" id="refNumber"></span></p>
-                        <p class="muted">We will review your request and contact you at <strong id="confirmEmail"></strong> or by phone to schedule service. Keep this reference number.</p>
+                        <p class="muted">We will contact you at <strong id="confirmEmail"></strong> or by phone to schedule service. Keep this reference number. For urgent problems, call <a href="tel:+18027932871" data-cta="confirmation-urgent">(802) 793-2871</a>.</p>
                         <p id="photoNote" class="muted" hidden>Your photos could not be attached. Please email them to <a href="mailto:service@solathomas.com">service@solathomas.com</a> with your reference number.</p>
-                        <div class="alert alert-emergency" id="confirmEmergency" hidden style="text-align:left">
+                        <div class="alert alert-emergency" id="confirmEmergency" hidden>
                             <svg aria-hidden="true"><use href="images/icons.svg#i-phone"></use></svg>
                             <div>
                                 <h2>You marked this as an emergency.</h2>
                                 <p>If you have not already, call <a href="tel:+18027932871" data-cta="confirmation">(802) 793-2871</a> now.</p>
                             </div>
                         </div>
-                        <p style="margin-top:20px"><a class="btn btn-outline" href="./">Back to home</a></p>
+                        <p class="center-cta"><a class="btn btn-outline" href="./">Back to home</a></p>
                     </div>
                 </div>
 
@@ -260,12 +268,12 @@
                     <hr>
                     <h2>What happens next</h2>
                     <ol>
-                        <li>Our service team reviews your request.</li>
-                        <li>Keep the reference number shown after you submit.</li>
+                        <li>We review your request.</li>
                         <li>We contact you by phone or email to confirm details and schedule service.</li>
+                        <li>Keep the reference number shown after you submit.</li>
                     </ol>
                     <hr>
-                    <p style="margin:0;color:#d2dcea">Questions? <a href="mailto:service@solathomas.com" style="color:#fff">service@solathomas.com</a></p>
+                    <p class="side-note">Questions? <a href="mailto:service@solathomas.com">service@solathomas.com</a></p>
                 </aside>
             </div>
         </div>
@@ -279,23 +287,24 @@
                         <img src="images/logo-mark.svg" alt="" width="44" height="44">
                         <span class="brand-name">SOLA-THOMAS</span>
                     </a>
-                    <p class="footer-slogan" style="margin-top:14px">Fueling Reliability. Delivering Performance.</p>
+                    <p class="footer-slogan">Fueling Reliability. Delivering Performance.</p>
                     <p>Gilbarco Veeder-Root Authorized Service Contractor serving New England and Central Florida.</p>
                 </div>
                 <div>
-                    <h4>Contact</h4>
+                    <h2 class="footer-title">Contact</h2>
                     <ul>
                         <li><a href="tel:+18027932871" data-cta="footer">(802) 793-2871</a></li>
                         <li><a href="mailto:service@solathomas.com">service@solathomas.com</a></li>
-                        <li>24/7 emergency availability</li>
                     </ul>
                 </div>
                 <div>
-                    <h4>Links</h4>
+                    <h2 class="footer-title">Links</h2>
                     <ul>
                         <li><a href="./">Home</a></li>
+                        <li><a href="service-request.html">Request Service</a></li>
                         <li><a href="./#services">Services</a></li>
                         <li><a href="./#coverage">Service Coverage</a></li>
+                        <li><a href="privacy.html">Privacy Notice</a></li>
                         <li><a href="#" data-team-login hidden rel="nofollow">Team Login</a></li>
                     </ul>
                 </div>
@@ -307,11 +316,9 @@
         </div>
     </footer>
 
-    <div class="mobile-cta">
+    <nav class="mobile-cta" aria-label="Quick contact">
         <a class="btn btn-red" href="tel:+18027932871" data-cta="mobile-bar">Call Now</a>
         <a class="btn btn-navy" href="#serviceRequestForm">Fill Out Form</a>
-    </div>
-
-    <script src="js/service-request.js"></script>
+    </nav>
 </body>
 </html>
