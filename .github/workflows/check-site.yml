@@ -1,0 +1,19 @@
+name: Check Site Standards
+
+on:
+  pull_request:
+    paths:
+      - 'static_site/**'
+      - 'docs/service-request-contract.md'
+      - 'scripts/check_site.py'
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check site standards
+        run: python3 scripts/check_site.py
