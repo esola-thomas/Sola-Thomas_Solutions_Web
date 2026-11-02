@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found | Sola-Thomas</title>
+    <meta name="robots" content="noindex">
+    <meta name="theme-color" content="#0b2545">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <!-- GitHub Pages serves this file for any missing path, so all asset URLs are root-absolute. -->
+    <base href="/">
+    <script>
+        // Retired URLs from the previous IT-services site (static .html pages and the older
+        // Django routes). The 404 status tells search engines to drop them; visitors land on
+        // the closest current page instead.
+        (function () {
+            var path = window.location.pathname.replace(/\/+$/, "").toLowerCase();
+            var map = {
+                "/index": "/",
+                "/gilbarco.html": "/#services",
+                "/contact.html": "/#contact",
+                "/home-services.html": "/",
+                "/business-services.html": "/",
+                "/about": "/",
+                "/about.html": "/",
+                "/contact": "/#contact",
+                "/dashboard": "/",
+                "/services/home-services": "/",
+                "/services/business-services": "/",
+                "/service-request": "/service-request.html",
+                "/portal": "/",
+                "/admin": "/"
+            };
+            var target = map[path];
+            if (!target && path.indexOf("/portal/") === 0) { target = "/"; }
+            if (!target && path.indexOf("/services/") === 0) { target = "/"; }
+            if (target) { window.location.replace(target); }
+        })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/site.css">
+    <script src="js/config.js"></script>
+    <script src="js/site.js"></script>
+</head>
+<body>
+
+    <div class="topbar">24/7 emergency service: <a href="tel:+18027932871" data-cta="topbar">(802) 793-2871</a></div>
+
+    <header class="site-header">
+        <div class="container">
+            <a class="brand" href="./" aria-label="Sola-Thomas home">
+                <img src="images/logo-mark.svg" alt="" width="44" height="44">
+                <span>
+                    <span class="brand-name">SOLA-THOMAS</span>
+                    <span class="brand-sub">GILBARCO VEEDER-ROOT SERVICE</span>
+                </span>
+            </a>
+            <button class="nav-toggle" type="button" aria-controls="site-nav" aria-expanded="false">Menu</button>
+            <nav class="nav" id="site-nav" aria-label="Main">
+                <a href="./#services">Services</a>
+                <a href="./#experience">Experience</a>
+                <a href="./#coverage">Coverage</a>
+                <a href="./#contact">Contact</a>
+                <a class="nav-phone" href="tel:+18027932871" data-cta="nav">(802) 793-2871</a>
+                <a class="btn btn-red" href="service-request.html">Request Service</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main" class="container notfound">
+        <div>
+            <h1>Page not found</h1>
+            <p class="muted">This page has moved or is no longer available. Sola-Thomas now focuses exclusively on Gilbarco Veeder-Root service.</p>
+            <p class="hero-actions" style="justify-content:center">
+                <a class="btn btn-navy" href="./">Go to homepage</a>
+                <a class="btn btn-red" href="service-request.html">Request Service</a>
+            </p>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <a class="brand" href="./">
+                        <img src="images/logo-mark.svg" alt="" width="44" height="44">
+                        <span class="brand-name">SOLA-THOMAS</span>
+                    </a>
+                    <p class="footer-slogan" style="margin-top:14px">Fueling Reliability. Delivering Performance.</p>
+                    <p>Gilbarco Veeder-Root Authorized Service Contractor serving New England and Central Florida.</p>
+                </div>
+                <div>
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="tel:+18027932871" data-cta="footer">(802) 793-2871</a></li>
+                        <li><a href="mailto:service@solathomas.com">service@solathomas.com</a></li>
+                        <li>24/7 emergency availability</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Links</h4>
+                    <ul>
+                        <li><a href="service-request.html">Request Service</a></li>
+                        <li><a href="./#services">Services</a></li>
+                        <li><a href="./#coverage">Service Coverage</a></li>
+                        <li><a href="#" data-team-login hidden rel="nofollow">Team Login</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; <span data-year>2026</span> Sola-Thomas LLC. All rights reserved.</span>
+                <span>Gilbarco, Veeder-Root, and Passport are trademarks of their respective owners.</span>
+            </div>
+        </div>
+    </footer>
+
+    </body>
+</html>

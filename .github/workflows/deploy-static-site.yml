@@ -23,6 +23,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Check site standards
+        run: python3 scripts/check_site.py
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
