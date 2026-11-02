@@ -10,11 +10,19 @@
     var MAX_PHOTO_BYTES = 10 * 1024 * 1024;
     var SERVICE_EMAIL = "service@solathomas.com";
 
-    var config = window.ST_CONFIG || {};
-    var track = window.stTrack || function () {};
+    // This script is deferred and may run before or after site.js: read shared globals at call time.
+    function config() { return window.ST_CONFIG || {}; }
+    function track() {
+        if (typeof window.stTrack === "function") { window.stTrack.apply(null, arguments); }
+    }
+    var REQUEST_TIMEOUT_MS = 30000;
+    var REQUEST_TIMEOUT_WITH_PHOTOS_MS = 60000;
     var form = document.getElementById("serviceRequestForm");
     var submitBtn = document.getElementById("submitBtn");
     var errorBox = document.getElementById("formError");
+    var summary = document.getElementById("errorSummary");
+    var liveStatus = document.getElementById("submitStatus");
+    var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     var emergency = document.getElementById("emergency");
     var emergencyCallout = document.getElementById("emergencyCallout");
     var photos = document.getElementById("photos");
@@ -31,7 +39,12 @@
     function newRequestId() {
         var alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
         var bytes = new Uint8Array(5);
-        (window.crypto || window.msCrypto).getRandomValues(bytes);
+        var cryptoApi = window.crypto || window.msCrypto;
+        if (cryptoApi && cryptoApi.getRandomValues) {
+            cryptoApi.getRandomValues(bytes);
+        } else {
+            for (var j = 0; j < bytes.length; j++) { bytes[j] = Math.floor(Math.random() * 256); }
+        }
         var suffix = "";
         for (var i = 0; i < bytes.length; i++) { suffix += alphabet[bytes[i] % alphabet.length]; }
         return "ST-" + localDate(new Date()).replace(/-/g, "") + "-" + suffix;
@@ -52,24 +65,60 @@
         }
     });
 
-    function photosValid() {
+    function formatMb(bytes) { return (bytes / (1024 * 1024)).toFixed(1) + " MB"; }
+
+    // Returns "" when the selection is fine, otherwise a specific message naming the problem.
+    function photosProblem() {
         var files = photos.files ? Array.prototype.slice.call(photos.files) : [];
+        var notImages = files.filter(function (f) { return !/^image\//.test(f.type); });
+        if (notImages.length) {
+            return notImages.map(function (f) { return f.name; }).join(", ") + (notImages.length > 1 ? " are not images." : " is not an image.");
+        }
+        if (files.length > MAX_PHOTOS) {
+            return "You selected " + files.length + " photos. Attach up to " + MAX_PHOTOS + ".";
+        }
         var total = files.reduce(function (sum, f) { return sum + f.size; }, 0);
-        var allImages = files.every(function (f) { return /^image\//.test(f.type); });
-        return files.length <= MAX_PHOTOS && total <= MAX_PHOTO_BYTES && allImages;
+        if (total > MAX_PHOTO_BYTES) {
+            var biggest = files.slice().sort(function (x, y) { return y.size - x.size; })[0];
+            return "The selected photos total " + formatMb(total) + "; the limit is 10 MB. Largest: " +
+                biggest.name + " (" + formatMb(biggest.size) + ").";
+        }
+        return "";
     }
 
+    // Phone: free text, but it must contain at least 10 digits.
+    function phoneValid(input) {
+        return input.value.replace(/\D/g, "").length >= 10 && /^[0-9()+.\-\s]+$/.test(input.value.trim());
+    }
+
+    // aria-describedby keeps any static hint id and adds the error id only while the field is invalid.
     function setFieldState(input, valid) {
         var field = input.closest(".field");
         if (!field) { return; }
         field.classList.toggle("invalid", !valid);
         input.setAttribute("aria-invalid", valid ? "false" : "true");
+        var errorEl = document.getElementById(input.id + "-error");
+        if (!errorEl) { return; }
+        if (input.__baseDescribedBy === undefined) {
+            input.__baseDescribedBy = (input.getAttribute("aria-describedby") || "").split(/\s+/).filter(function (id) {
+                return id && id !== errorEl.id;
+            });
+        }
+        var ids = input.__baseDescribedBy.slice();
+        if (!valid) { ids.push(errorEl.id); }
+        if (ids.length) { input.setAttribute("aria-describedby", ids.join(" ")); }
+        else { input.removeAttribute("aria-describedby"); }
     }
 
     function validateInput(input) {
         var valid = input.checkValidity();
         if (valid && input.type === "text" && input.required) { valid = input.value.trim().length > 0; }
-        if (valid && input === photos) { valid = photosValid(); }
+        if (valid && input.name === "phone") { valid = phoneValid(input); }
+        if (input === photos) {
+            var problem = photosProblem();
+            valid = !problem;
+            if (problem) { document.getElementById("photos-error").textContent = problem; }
+        }
         setFieldState(input, valid);
         return valid;
     }
@@ -84,14 +133,26 @@
         });
     });
 
+    function labelFor(input) {
+        var label = form.querySelector('label[for="' + input.id + '"]');
+        return label ? label.textContent.replace("*", "").trim() : input.name;
+    }
+
     function validateForm() {
-        var firstInvalid = null;
+        var invalid = [];
         form.querySelectorAll("input, select, textarea").forEach(function (input) {
             if (input.type === "checkbox" || input.name === "_gotcha") { return; }
-            if (!validateInput(input) && !firstInvalid) { firstInvalid = input; }
+            if (!validateInput(input)) { invalid.push(input); }
         });
-        if (firstInvalid) { firstInvalid.focus(); }
-        return !firstInvalid;
+        if (invalid.length) {
+            // role="alert" summary is announced; the first invalid field then takes focus.
+            summary.textContent = (invalid.length === 1 ? "1 field needs attention: " : invalid.length + " fields need attention: ") +
+                invalid.map(labelFor).join(", ") + ".";
+            invalid[0].focus();
+        } else {
+            summary.textContent = "";
+        }
+        return invalid.length === 0;
     }
 
     function value(name) {
@@ -126,14 +187,20 @@
         return data;
     }
 
-    function send(data) {
-        return fetch(config.formEndpoint, {
-            method: "POST",
-            body: data,
-            headers: { "Accept": "application/json" }
-        }).then(function (res) {
+    function send(data, timeoutMs) {
+        var controller = typeof AbortController === "function" ? new AbortController() : null;
+        var timer = controller ? setTimeout(function () { controller.abort(); }, timeoutMs) : null;
+        var options = { method: "POST", body: data, headers: { "Accept": "application/json" } };
+        if (controller) { options.signal = controller.signal; }
+        return fetch(config().formEndpoint, options).then(function (res) {
             if (!res.ok) { throw new Error("HTTP " + res.status); }
             return res;
+        }).then(function (res) {
+            clearTimeout(timer);
+            return res;
+        }, function (err) {
+            clearTimeout(timer);
+            throw err;
         });
     }
 
@@ -160,6 +227,7 @@
     function setBusy(busy) {
         submitBtn.disabled = busy;
         submitBtn.querySelector("span").textContent = busy ? "Submitting..." : "Submit Service Request";
+        liveStatus.textContent = busy ? "Submitting your request." : "";
     }
 
     function showConfirmation(requestId, photosDropped) {
@@ -171,7 +239,7 @@
         document.getElementById("confirmEmergency").hidden = !emergency.checked;
         box.hidden = false;
         box.focus();
-        box.scrollIntoView({ behavior: "smooth", block: "start" });
+        box.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
     }
 
     var requestId = null;
@@ -180,21 +248,27 @@
         e.preventDefault();
         errorBox.classList.remove("show");
         if (!validateForm()) { return; }
-        if (value("_gotcha")) { return; }
-
-        // Reuse the same reference on retries so the office can de-duplicate.
         requestId = requestId || newRequestId();
+        if (value("_gotcha")) {
+            // Likely browser autofill into the hidden field: do not send, but never fail silently.
+            document.getElementById("mailFallback").href = mailtoFallback(requestId);
+            errorBox.classList.add("show");
+            errorBox.focus();
+            return;
+        }
+
+        // The same reference is reused on retries so the office can de-duplicate.
         var hasPhotos = photos.files && photos.files.length > 0;
         setBusy(true);
 
-        send(buildPayload(requestId, true))
+        send(buildPayload(requestId, true), hasPhotos ? REQUEST_TIMEOUT_WITH_PHOTOS_MS : REQUEST_TIMEOUT_MS)
             .then(function () { return false; })
             .catch(function (err) {
                 // An upload problem must not lose the request: retry once without photos.
                 if (!hasPhotos) { throw err; }
                 var data = buildPayload(requestId, false);
                 data.set("photos_not_uploaded", String(photos.files.length));
-                return send(data).then(function () { return true; });
+                return send(data, REQUEST_TIMEOUT_MS).then(function () { return true; });
             })
             .then(function (photosDropped) {
                 track("generate_lead", {
@@ -208,6 +282,7 @@
             .catch(function () {
                 document.getElementById("mailFallback").href = mailtoFallback(requestId);
                 errorBox.classList.add("show");
+                errorBox.focus();
                 track("form_error", { form_name: "service_request" });
                 setBusy(false);
             });

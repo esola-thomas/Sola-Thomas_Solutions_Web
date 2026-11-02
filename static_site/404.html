@@ -2,17 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com; connect-src 'self' https://formspree.io https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>Page Not Found | Sola-Thomas</title>
     <meta name="robots" content="noindex">
     <meta name="theme-color" content="#0b2545">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <!-- GitHub Pages serves this file for any missing path, so all asset URLs are root-absolute. -->
+
+
     <base href="/">
     <script>
         // Retired URLs from the previous IT-services site (static .html pages and the older
         // Django routes). The 404 status tells search engines to drop them; visitors land on
-        // the closest current page instead.
+        // the closest current page instead. Query strings are kept so campaign tags survive.
         (function () {
             var path = window.location.pathname.replace(/\/+$/, "").toLowerCase();
             var map = {
@@ -34,23 +37,27 @@
             var target = map[path];
             if (!target && path.indexOf("/portal/") === 0) { target = "/"; }
             if (!target && path.indexOf("/services/") === 0) { target = "/"; }
-            if (target) { window.location.replace(target); }
+            if (target) {
+                var hash = "";
+                var i = target.indexOf("#");
+                if (i !== -1) { hash = target.slice(i); target = target.slice(0, i); }
+                window.location.replace(target + window.location.search + hash);
+            }
         })();
     </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/site.css">
-    <script src="js/config.js"></script>
-    <script src="js/site.js"></script>
-</head>
-<body>
+    <link rel="preload" href="fonts/barlow-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="css/site.css?v=20261102">
 
-    <div class="topbar">24/7 emergency service: <a href="tel:+18027932871" data-cta="topbar">(802) 793-2871</a></div>
+    <script defer src="js/config.js?v=20261102"></script>
+    <script defer src="js/site.js?v=20261102"></script>
+</head>
+<body class="has-mobile-cta">
+    <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="site-header">
-        <div class="container">
-            <a class="brand" href="./" aria-label="Sola-Thomas home">
+        <div class="topbar">24/7 emergency service: <a href="tel:+18027932871" data-cta="topbar">(802) 793-2871</a></div>
+        <div class="container header-bar">
+            <a class="brand" href="./">
                 <img src="images/logo-mark.svg" alt="" width="44" height="44">
                 <span>
                     <span class="brand-name">SOLA-THOMAS</span>
@@ -72,8 +79,8 @@
     <main id="main" class="container notfound">
         <div>
             <h1>Page not found</h1>
-            <p class="muted">This page has moved or is no longer available. Sola-Thomas now focuses exclusively on Gilbarco Veeder-Root service.</p>
-            <p class="hero-actions" style="justify-content:center">
+            <p class="muted">This page has moved or is no longer available.</p>
+            <p class="hero-actions center-actions">
                 <a class="btn btn-navy" href="./">Go to homepage</a>
                 <a class="btn btn-red" href="service-request.html">Request Service</a>
             </p>
@@ -88,23 +95,24 @@
                         <img src="images/logo-mark.svg" alt="" width="44" height="44">
                         <span class="brand-name">SOLA-THOMAS</span>
                     </a>
-                    <p class="footer-slogan" style="margin-top:14px">Fueling Reliability. Delivering Performance.</p>
-                    <p>Gilbarco Veeder-Root Authorized Service Contractor serving New England and Central Florida.</p>
+                    <p class="footer-slogan">Fueling Reliability. Delivering Performance.</p>
+                    <p>Gilbarco Veeder-Root Authorized Service Contractor serving Vermont, New Hampshire, Northeast New York, and Central Florida.</p>
                 </div>
                 <div>
-                    <h4>Contact</h4>
+                    <h2 class="footer-title">Contact</h2>
                     <ul>
                         <li><a href="tel:+18027932871" data-cta="footer">(802) 793-2871</a></li>
                         <li><a href="mailto:service@solathomas.com">service@solathomas.com</a></li>
-                        <li>24/7 emergency availability</li>
                     </ul>
                 </div>
                 <div>
-                    <h4>Links</h4>
+                    <h2 class="footer-title">Links</h2>
                     <ul>
+                        <li><a href="./">Home</a></li>
                         <li><a href="service-request.html">Request Service</a></li>
                         <li><a href="./#services">Services</a></li>
                         <li><a href="./#coverage">Service Coverage</a></li>
+                        <li><a href="privacy.html">Privacy Notice</a></li>
                         <li><a href="#" data-team-login hidden rel="nofollow">Team Login</a></li>
                     </ul>
                 </div>
@@ -116,5 +124,9 @@
         </div>
     </footer>
 
-    </body>
+    <nav class="mobile-cta" aria-label="Quick contact">
+        <a class="btn btn-red" href="tel:+18027932871" data-cta="mobile-bar">Call Now</a>
+        <a class="btn btn-navy" href="service-request.html">Request Service</a>
+    </nav>
+</body>
 </html>

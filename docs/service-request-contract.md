@@ -17,7 +17,7 @@ swapped without touching the page.
 | `site_name` | no | station or site name |
 | `site_address` | yes | street address |
 | `site_city` | yes | |
-| `site_state` | yes | `CT` `MA` `ME` `NH` `RI` `VT` `FL` `Other` |
+| `site_state` | yes | `NH` `NY` `VT` `FL` `Other` (until Nov 2026 the form also offered `CT` `MA` `ME` `RI`; intake should accept any US state code) |
 | `site_zip` | no | `12345` or `12345-6789` |
 | `equipment_type` | no | `Fuel dispenser`, `Passport POS`, `Payment terminal`, `Veeder-Root tank monitoring`, `Fleet management system`, `Other / not sure` |
 | `equipment_model` | no | |

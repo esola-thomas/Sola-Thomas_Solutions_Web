@@ -1,7 +1,7 @@
 # solathomas.com (static site)
 
 Public website for Sola-Thomas, a Gilbarco Veeder-Root Authorized Service Contractor
-serving New England and Central Florida. Deployed to GitHub Pages from this folder on
+serving Vermont, New Hampshire, Northeast New York, and Central Florida. Deployed to GitHub Pages from this folder on
 every push to `main` (`.github/workflows/deploy-static-site.yml`).
 
 ## Pages
@@ -10,6 +10,7 @@ every push to `main` (`.github/workflows/deploy-static-site.yml`).
 |---|---|
 | `index.html` | Homepage: services, qualifications, coverage, 24/7 emergency, contact |
 | `service-request.html` | Customer service request form |
+| `privacy.html` | Privacy Notice: what the form and analytics collect |
 | `404.html` | Not-found page. Also redirects retired URLs (old IT-services pages and Django routes) to current pages. |
 | `robots.txt`, `sitemap.xml` | Search engine files. Update `sitemap.xml` when pages are added. |
 
@@ -26,7 +27,7 @@ every push to `main` (`.github/workflows/deploy-static-site.yml`).
 - `images/logo-mark.svg` and `favicon.svg`: interim mark. Replace with the official
   Sola-Thomas logo (navy with red fuel nozzle) when the source file is available, and
   re-render `images/og-image.png` (1200x630).
-- `images/Gilbarco_Veeder-Root.png`: use subject to Gilbarco brand guidelines.
+- `fonts/`: self-hosted Barlow 600/700 (latin). `images/Gilbarco_Veeder-Root.png`: 420px wide; use subject to Gilbarco brand guidelines.
 - `images/technicians-dispenser-*.webp` (hero) and `images/lead-technician-*.webp` (experience):
   owner-provided, 800w and 1600w WebP. Replace with real job-site photos as they become available.
 
