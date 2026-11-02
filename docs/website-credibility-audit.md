@@ -35,7 +35,7 @@ Status key: Fixed / Documented: owner decision / Deferred with reason. Severity 
 | CR-13 | Titles, OG | Title led with third-party brand and was 82 chars; no og:image:alt | index.html | SEO, brand | Low | P3 | "Sola-Thomas \| Gilbarco Service, New England & Central Florida"; og:image:alt/size | Cleaner SERP | S | check_site | Fixed |
 | CR-14 | Site | No About, company, team, or credential info | n/a | Buyers research who they hire | High | P1 | Owner supplies facts; nothing invented | Trust | M | n/a | Documented: owner decision |
 | CR-15 | Footers | No Privacy link | Footers | Discoverability | Medium | P2 | Link added on all pages | Disclosure | S | Render | Fixed |
-| CR-16 | Fallback routing | service@ mailbox monitoring unconfirmed; mailto fallback and photo note route there | Form | Lost requests | High | P1 | Confirm monitoring; phone stays primary | Reliability | S | n/a | Documented: owner decision |
+| CR-16 | Fallback routing | service@ mailbox monitoring unconfirmed; mailto fallback and photo note route there | Form | Lost requests | High | P1 | Confirm monitoring; phone stays primary | Reliability | S | n/a | Resolved: service@ is monitored and aliases office@ (owner, Nov 2, 2026) |
 | CR-17 | Confirmation | Contact channel not stated | js | Expectations | Medium | P2 | "by phone or email", no timing | Clarity | S | Form test | Fixed |
 | CR-18 | Photo hint | No privacy guidance | Form | Privacy | Low | P3 | "Avoid photos showing people or customer payment information." | Less PII | S | Render | Fixed |
 | CR-19 | Emergency band, contact h2 | "We answer 24/7" implied live answer; "Talk to a Technician" | index.html | Overclaim | Medium | P2 | "Call 24/7 for emergency service"; "Contact Sola-Thomas" | Accuracy | S | Copy review | Fixed (after-hours call handling wording: owner decision) |
@@ -79,7 +79,7 @@ Status key: Fixed / Documented: owner decision / Deferred with reason. Severity 
 | Gilbarco Veeder-Root ASC | Verified (owner) | Kept; trademark line kept; logo permission pending |
 | Slogan, 25+ years copy | Verified (owner) | Verbatim; 25+ attributed to lead technician |
 | Services list, 24/7 emergency availability, regions | Verified (owner) | Kept; "Florida" changed to "Central Florida" |
-| Phone and service@ email | Verified (owner) | Kept; mailbox monitoring to confirm |
+| Phone and service@ email | Verified (owner) | Kept; service@ is monitored and aliases office@ (Nov 2, 2026) |
 | Equipment list incl. fleet management, legacy equipment | Plausible-unverified | Kept; owner to confirm |
 | "Around-the-clock response", "reduce costly downtime", "One qualified team", "get fueling positions back in service" | Unsupported | Removed |
 | "Team notified right away", "email confirmation" | Unsupported (system not configured) | Removed |
@@ -211,7 +211,7 @@ Directory: `/tmp/claude-0/-home-user-Sola-Thomas-Solutions-Web/57f83ed1-bc47-588
 3. Official Sola-Thomas logo (favicon, JSON-LD, og-image).
 4. Confirm the supported equipment list (fleet management, legacy equipment, Encore).
 5. Confirm the state list and "Other" handling.
-6. Confirm service@solathomas.com is monitored (fallbacks route there).
+6. ~~Confirm service@solathomas.com is monitored~~ Done: monitored, alias of office@ (Nov 2, 2026).
 7. Formspree plan, notifications, autoresponse, SMS (#24). Update confirmation copy once an autoresponse is live.
 8. About, team, and credential content (owner-supplied facts only).
 9. Counsel review of the Privacy Notice.
