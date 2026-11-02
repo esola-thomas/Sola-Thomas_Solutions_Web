@@ -1,7 +1,7 @@
 # Sola-Thomas Website
 
 Public site for Sola-Thomas LLC, a Gilbarco Veeder-Root Authorized Service Contractor serving
-New England and Central Florida. Plain static HTML/CSS/JS in `static_site/`, deployed to GitHub
+Vermont, New Hampshire, Northeast New York, and Central Florida. Plain static HTML/CSS/JS in `static_site/`, deployed to GitHub
 Pages on every push to `main` (live at solathomas.com).
 
 @.claude/rules/website-standards.md

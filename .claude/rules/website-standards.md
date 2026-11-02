@@ -18,7 +18,9 @@ gets added here with its source before it ships.
   technician, never to the company's age.
 - Services: dispenser diagnostics and repairs, preventative maintenance, installations and upgrades,
   emergency repairs, Passport POS, Veeder-Root tank monitoring, supported equipment.
-- 24/7 emergency availability. Coverage: New England and Central Florida only.
+- 24/7 emergency availability. Coverage (from Nov 2, 2026, until more technicians are hired):
+  Vermont, New Hampshire, Northeast New York, and Central Florida. Do not list CT, MA, ME, or RI
+  as served areas. Requests from elsewhere are accepted as "Other" with a call-to-confirm note.
 - Phone (802) 793-2871 (service and emergencies). Email service@solathomas.com (monitored, confirmed by Ernesto, Nov 2, 2026).
 - Gilbarco certified; use of the Gilbarco Veeder-Root logo is permitted (confirmed by Ernesto, Nov 2, 2026).
   Wording containing "certified" still needs the exact phrase added to `APPROVED_CLAIM_PHRASES` in
